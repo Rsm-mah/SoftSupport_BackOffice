@@ -1,0 +1,23 @@
+bin/
+obj/
+.vs/
+*.user
+
+# Nx
+.nx/
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Node modules
+node_modules/
+dist/
+.angular/
+
+# Local / environment-specific API settings (never commit secrets)
+appsettings.*.local.json
+
+# Sorties de publish.ps1
+publish/

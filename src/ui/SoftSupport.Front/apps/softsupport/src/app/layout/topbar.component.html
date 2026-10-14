@@ -1,0 +1,134 @@
+<header class="soft-topbar">
+  <div class="soft-topbar-shell">
+    <button
+      type="button"
+      class="topbar-icon-button topbar-logout-button lg:!hidden"
+      (click)="menuToggle.emit()"
+      [attr.aria-label]="'common.actions.openMenu' | translate"
+    >
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="4" y1="6" x2="20" y2="6" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="18" x2="20" y2="18" />
+      </svg>
+    </button>
+
+    <div class="topbar-active-project">
+      <span class="topbar-active-project-icon" aria-hidden="true">
+        <soft-icon name="books" size="md"></soft-icon>
+      </span>
+      <span class="topbar-active-project-copy">
+        <span class="topbar-active-project-label">{{ 'softsupport.topbar.space' | translate }}</span>
+        <span class="topbar-active-project-name">
+          {{ profile().departement || ('softsupport.app.name' | translate) }}
+          @if (profile().role) {
+            <span class="topbar-active-project-structure">({{ profile().role }})</span>
+          }
+        </span>
+      </span>
+    </div>
+
+    <div class="flex-1"></div>
+
+    <div class="topbar-actions">
+      <!-- Articles en attente de validation (validateurs uniquement) -->
+      @if (isValidator()) {
+        <div class="relative">
+          <button
+            type="button"
+            (click)="openValidation()"
+            class="topbar-icon-button topbar-notification-button"
+            [title]="'softsupport.topbar.pending' | translate: { count: pendingCount() }"
+            [attr.aria-label]="'softsupport.topbar.pending' | translate: { count: pendingCount() }"
+          >
+            <soft-icon name="notification" size="2xl"></soft-icon>
+            @if (pendingCount() > 0) {
+              <span class="ss-live absolute -right-1 -top-1 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-danger px-[3px] text-[9px] text-white">
+                {{ pendingCount() > 99 ? '99+' : pendingCount() }}
+              </span>
+            }
+          </button>
+        </div>
+      }
+
+      <!-- Profil + déconnexion -->
+      <div class="hidden items-center gap-1.5 md:!flex">
+        <div class="relative">
+          <div
+            class="topbar-profile-button"
+            (click)="toggleProfile(); $event.stopPropagation()"
+            (keydown.enter)="toggleProfile()"
+            tabindex="0"
+            role="button"
+          >
+            <div
+              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white"
+              style="background: linear-gradient(135deg, var(--color-brand-900), var(--color-brand-500))"
+            >
+              {{ profile().initials }}
+            </div>
+            <div class="leading-tight">
+              <div class="text-xs font-semibold" style="color: var(--color-text)">{{ profile().name }}</div>
+              <div class="text-[10.5px]" style="color: var(--color-text-muted)">{{ profile().email }}</div>
+            </div>
+            <soft-icon name="chevron-down" size="sm" class="text-slate-400"></soft-icon>
+          </div>
+
+          @if (profileOpen()) {
+            <div
+              class="ss-pop profile-dropdown absolute right-0 top-[64px] z-[999] w-[300px] overflow-hidden rounded-md shadow-xl"
+              (click)="$event.stopPropagation()"
+            >
+              <div class="flex items-center gap-3 px-4 py-4" style="border-bottom: 1px solid var(--color-border)">
+                <div
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+                  style="background: linear-gradient(135deg, var(--color-brand-900), var(--color-brand-500))"
+                >
+                  {{ profile().initials }}
+                </div>
+                <div class="min-w-0">
+                  <div class="truncate text-sm font-semibold text-slate-900">{{ profile().name }}</div>
+                  <div class="truncate text-xs text-slate-500">{{ profile().role }} · {{ profile().departement }}</div>
+                </div>
+              </div>
+              <button type="button" class="profile-dropdown-action flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm" (click)="goToProfile()">
+                <soft-icon name="user" size="sm" class="profile-dropdown-avatar-icon"></soft-icon>
+                {{ 'softsupport.topbar.myProfile' | translate }}
+              </button>
+              <button type="button" class="profile-dropdown-action flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm" (click)="requestLogout()">
+                <soft-icon name="logout" size="sm" class="profile-dropdown-avatar-icon"></soft-icon>
+                {{ 'common.actions.logout' | translate }}
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Hors du bloc profil : la déconnexion reste accessible sur mobile. -->
+      <button
+        type="button"
+        (click)="requestLogout()"
+        class="topbar-icon-button topbar-logout-button"
+        [title]="'common.actions.logout' | translate"
+        [attr.aria-label]="'common.actions.logout' | translate"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<app-confirmation-modal
+  #logoutModal
+  [title]="'softsupport.topbar.logoutTitle' | translate"
+  [message]="'softsupport.topbar.logoutMessage' | translate"
+  [cancelLabel]="'common.actions.cancel' | translate"
+  [confirmLabel]="'common.actions.logout' | translate"
+  headerClass="bg-blue-700"
+  confirmButtonClass="bg-blue-700 hover:bg-blue-800"
+  (confirmed)="logout()"
+/>

@@ -1,0 +1,172 @@
+{
+  "name": "softsupport",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "softsupport",
+  "sourceRoot": "apps/softsupport/src",
+  "tags": [
+    "scope:softsupport",
+    "type:app"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/softsupport",
+        "index": "apps/softsupport/src/index.html",
+        "browser": "apps/softsupport/src/main.ts",
+        "tsConfig": "apps/softsupport/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/softsupport/public"
+          }
+        ],
+        "styles": [
+          "apps/softsupport/src/styles.css",
+          "apps/softsupport/src/motion.css"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "900kb",
+              "maximumError": "1.5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "24kb",
+              "maximumError": "40kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/softsupport/public",
+              "ignore": [
+                "config.json"
+              ]
+            },
+            {
+              "glob": "config.json",
+              "input": "apps/softsupport/config/development",
+              "output": "/"
+            }
+          ]
+        },
+        "lan": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/softsupport/public",
+              "ignore": [
+                "config.json"
+              ]
+            },
+            {
+              "glob": "config.json",
+              "input": "apps/softsupport/config/lan",
+              "output": "/"
+            }
+          ]
+        },
+        "srv151": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "900kb",
+              "maximumError": "1.5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "24kb",
+              "maximumError": "40kb"
+            }
+          ],
+          "outputPath": "dist/apps/softsupport-srv151",
+          "outputHashing": "all",
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/softsupport/public",
+              "ignore": [
+                "config.json"
+              ]
+            },
+            {
+              "glob": "config.json",
+              "input": "apps/softsupport/config/srv151",
+              "output": "/"
+            }
+          ]
+        },
+        "srv141": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "900kb",
+              "maximumError": "1.5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "24kb",
+              "maximumError": "40kb"
+            }
+          ],
+          "outputPath": "dist/apps/softsupport-srv141",
+          "outputHashing": "all",
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/softsupport/public",
+              "ignore": [
+                "config.json"
+              ]
+            },
+            {
+              "glob": "config.json",
+              "input": "apps/softsupport/config/srv141",
+              "output": "/"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4230,
+        "host": "127.0.0.1"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "softsupport:build:production"
+        },
+        "development": {
+          "buildTarget": "softsupport:build:development"
+        },
+        "lan": {
+          "buildTarget": "softsupport:build:lan",
+          "host": "0.0.0.0"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  }
+}

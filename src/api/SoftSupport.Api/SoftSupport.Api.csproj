@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>softsupport-api-8d42e61a</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\SoftSupport.Application\SoftSupport.Application.csproj" />
+    <ProjectReference Include="..\..\infrastructure\SoftSupport.Infrastructure\SoftSupport.Infrastructure.csproj" />
+  </ItemGroup>
+  <!--
+    Configuration par serveur : `dotnet publish -p:SoftSupportServer=srv151` copie
+    config/appsettings.srv151.json sous le nom appsettings.Production.json, l'environnement
+    utilisé par défaut quand ASPNETCORE_ENVIRONMENT n'est pas défini sur le serveur.
+    Le fichier de développement ne part jamais en publication.
+  -->
+  <ItemGroup>
+    <Content Remove="config\**" />
+    <None Include="config\**" />
+    <Content Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Update="appsettings.Development.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(SoftSupportServer)' != ''">
+    <Content Include="config\appsettings.$(SoftSupportServer).json" Link="appsettings.Production.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+  <Target Name="SoftSupportCheckServer" BeforeTargets="Build" Condition="'$(SoftSupportServer)' != ''">
+    <Error Condition="!Exists('config\appsettings.$(SoftSupportServer).json')" Text="Serveur inconnu « $(SoftSupportServer) » : config\appsettings.$(SoftSupportServer).json est introuvable." />
+  </Target>
+</Project>

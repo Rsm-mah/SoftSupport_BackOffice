@@ -1,0 +1,158 @@
+<ng-template #brand let-compact="compact">
+  <div
+    class="sidebar-icon-wrap sidebar-brand-frame sidebar-brand-frame-logo flex h-[42px] w-[42px] shrink-0 items-center justify-center overflow-hidden rounded-[10px]"
+    [class.mb-2]="compact"
+  >
+    <img class="sidebar-brand-mark" src="assets/softsupport-logo.png" alt="SoftSupport" />
+  </div>
+</ng-template>
+
+<ng-template #navigation>
+  <nav class="relative flex-1 overflow-y-auto py-2" style="-webkit-overflow-scrolling: touch">
+    <div class="flex items-center gap-2 px-4 pb-1 pt-2.5">
+      <span class="sidebar-section-label">{{ 'softsupport.sidebar.section' | translate }}</span>
+      <div class="sidebar-section-divider h-px flex-1"></div>
+    </div>
+
+    @for (item of items(); track item.id) {
+      @if (item.children) {
+        <soft-button
+          variant="raw"
+          class="sidebar-parent-btn sidebar-item m-0 block h-9 w-full appearance-none border-0 p-0 text-left"
+          [class.sidebar-active]="isParentActive(item)"
+          [attr.aria-expanded]="isExpanded(item)"
+          (onClick)="toggleExpanded(item)"
+        >
+          <div class="flex h-9 w-full items-center gap-2.5 px-4 text-left">
+            <soft-icon [name]="item.icon" size="sm" class="shrink-0 opacity-75"></soft-icon>
+            <span class="flex-1 truncate whitespace-nowrap" style="line-height: 1.3; font-weight: 400">{{ item.translationKey | translate }}</span>
+            <svg
+              aria-hidden="true"
+              class="h-3 w-3 transition-transform duration-200"
+              [style.transform]="isExpanded(item) ? 'rotate(180deg)' : 'rotate(0deg)'"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </soft-button>
+        @if (isExpanded(item)) {
+          @for (child of item.children; track child.id) {
+            <a
+              [routerLink]="'/' + child.route"
+              [class.sidebar-active]="isLeafActive(child)"
+              (click)="closeMobile()"
+              class="sidebar-child-item flex w-full items-center py-[7px] pl-11 pr-4 text-left"
+            >
+              <span class="flex-1 whitespace-normal break-words" style="line-height: 1.3; font-weight: 400">{{ child.translationKey | translate }}</span>
+            </a>
+          }
+        }
+      } @else {
+        <a
+          [routerLink]="'/' + item.route"
+          [class.sidebar-active]="isLeafActive(item)"
+          (click)="closeMobile()"
+          class="sidebar-item block h-9 w-full text-left"
+        >
+          <div class="flex h-9 w-full items-center gap-2.5 px-4 text-left">
+            <soft-icon [name]="item.icon" size="sm" class="shrink-0 opacity-75"></soft-icon>
+            <span class="flex-1 truncate whitespace-nowrap" style="line-height: 1.3; font-weight: 400">{{ item.translationKey | translate }}</span>
+          </div>
+        </a>
+      }
+    }
+  </nav>
+</ng-template>
+
+<ng-template #header let-mobile="mobile">
+  <div class="flex shrink-0 items-center px-4 py-3.5" style="border-bottom: 1px solid var(--sidebar-border)">
+    <ng-container *ngTemplateOutlet="brand; context: { compact: false }"></ng-container>
+    <div class="ml-2.5 min-w-0 flex-1">
+      <div class="sidebar-app-name">SoftSupport</div>
+      <div class="sidebar-app-desc mt-0.5 truncate">{{ 'softsupport.app.description' | translate }}</div>
+      <div class="sidebar-app-editor mt-px italic">{{ 'common.bySoftwell' | translate }}</div>
+    </div>
+    @if (mobile) {
+      <soft-button
+        variant="raw"
+        class="sidebar-close-btn ml-1 flex h-8 w-8 items-center justify-center rounded-lg"
+        (onClick)="closeMobile()"
+        [aria-label]="'common.actions.closeMenu' | translate"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </soft-button>
+    }
+  </div>
+</ng-template>
+
+<!-- Bureau -->
+@if (collapsed()) {
+  <aside class="softsupport-sidebar-desktop sidebar-shell fixed left-0 top-0 z-40 h-screen w-[54px] shrink-0 flex-col items-center gap-1 overflow-y-auto pt-3">
+    <ng-container *ngTemplateOutlet="brand; context: { compact: true }"></ng-container>
+    @for (item of items(); track item.id) {
+      <soft-button
+        variant="raw"
+        class="sidebar-toggle-btn flex h-[34px] w-[34px] items-center justify-center rounded-lg transition-colors"
+        [class.sidebar-active]="item.children ? isParentActive(item) : isLeafActive(item)"
+        (onClick)="onMiniClick(item)"
+        [title]="item.translationKey | translate"
+        [aria-label]="item.translationKey | translate"
+      >
+        <soft-icon [name]="item.icon" size="md"></soft-icon>
+      </soft-button>
+    }
+    <div class="mb-3 mt-auto flex flex-col items-center gap-1">
+      <soft-button
+        variant="raw"
+        class="sidebar-toggle-btn flex h-[34px] w-[34px] items-center justify-center rounded-lg"
+        (onClick)="toggle()"
+        [aria-label]="'common.actions.expandSidebar' | translate"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+        </svg>
+      </soft-button>
+    </div>
+  </aside>
+} @else {
+  <aside class="softsupport-sidebar-desktop sidebar-shell fixed left-0 top-0 z-40 h-screen w-[236px] shrink-0 flex-col overflow-y-auto overflow-x-hidden">
+    <ng-container *ngTemplateOutlet="header; context: { mobile: false }"></ng-container>
+    <ng-container *ngTemplateOutlet="navigation"></ng-container>
+    <div class="flex shrink-0 justify-end px-3 py-2.5" style="border-top: 1px solid var(--sidebar-border)">
+      <soft-button
+        variant="raw"
+        class="sidebar-toggle-btn flex h-[30px] w-[30px] items-center justify-center rounded-lg"
+        (onClick)="toggle()"
+        [aria-label]="'common.actions.collapseSidebar' | translate"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7M19 19l-7-7 7-7" />
+        </svg>
+      </soft-button>
+    </div>
+  </aside>
+}
+
+<!-- Mobile -->
+@if (mobileOpen()) {
+  <div
+    class="softsupport-sidebar-backdrop fixed inset-0 z-30 transition-opacity duration-300"
+    style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px)"
+    (click)="closeMobile()"
+    (keydown.enter)="closeMobile()"
+    tabindex="0"
+    role="button"
+    [attr.aria-label]="'common.actions.closeMenu' | translate"
+  ></div>
+  <aside class="softsupport-sidebar-mobile sidebar-shell fixed left-0 top-0 z-40 flex h-screen w-[236px] shrink-0 flex-col overflow-y-auto overflow-x-hidden">
+    <ng-container *ngTemplateOutlet="header; context: { mobile: true }"></ng-container>
+    <ng-container *ngTemplateOutlet="navigation"></ng-container>
+  </aside>
+}

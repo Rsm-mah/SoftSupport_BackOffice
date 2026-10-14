@@ -1,0 +1,166 @@
+<div class="kb-login" [class.kb-login--intro]="playIntro" data-testid="login-page">
+  @if (playIntro) {
+    <!-- Ouverture : la couverture du « livre » de la base s'ouvre sur l'écran de connexion. -->
+    <div class="kb-cover" aria-hidden="true">
+      <span class="kb-cover__leaf kb-cover__leaf--left">
+        <span class="kb-cover__spine"></span>
+      </span>
+      <span class="kb-cover__leaf kb-cover__leaf--right"></span>
+      <span class="kb-cover__seal">
+        <img src="assets/softsupport-logo.png" alt="" />
+        <span class="kb-cover__title">SoftSupport</span>
+        <span class="kb-cover__subtitle">{{ 'softsupport.login.coverSubtitle' | translate }}</span>
+      </span>
+    </div>
+  }
+
+  <div class="kb-backdrop" aria-hidden="true">
+    <span class="kb-glow kb-glow--teal"></span>
+    <span class="kb-glow kb-glow--amber"></span>
+    <span class="kb-grid"></span>
+    <span class="kb-sweep"></span>
+  </div>
+
+  <div class="kb-layout">
+    <!-- Vitrine : la base de connaissances en action -->
+    <section class="kb-showcase" aria-label="SoftSupport">
+      <div class="kb-brand">
+        <img class="kb-brand__logo" src="assets/softsupport-logo.png" [attr.alt]="'softsupport.login.brand' | translate" />
+        <span class="kb-brand__divider" aria-hidden="true"></span>
+        <span class="kb-brand__name">Soft<strong>Support</strong></span>
+      </div>
+
+      <p class="kb-eyebrow">
+        <span class="kb-eyebrow__bar" aria-hidden="true"></span>
+        {{ 'softsupport.login.eyebrow' | translate }}
+      </p>
+
+      <h1 class="kb-title">
+        <span data-line style="--i: 0">{{ 'softsupport.login.titleLead' | translate }}</span>
+        <span class="kb-title__accent" data-line style="--i: 1">{{ 'softsupport.login.titleAccent' | translate }}</span>
+      </h1>
+      <p class="kb-subtitle">{{ 'softsupport.login.subtitle' | translate }}</p>
+
+      <div class="kb-search" aria-hidden="true">
+        <div class="kb-search__bar">
+          <svg class="kb-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <span class="kb-search__text">{{ typed() }}<span class="kb-search__caret"></span></span>
+          <span class="kb-search__kbd">↵</span>
+        </div>
+        <ul class="kb-results">
+          @for (article of results(); track article.code) {
+            <li class="kb-card" [style.--i]="$index">
+              <span class="kb-card__tab"></span>
+              <span class="kb-card__code">
+                <span class="kb-card__cat">{{ article.code.split('|')[0] }}</span>|{{ article.code.split('|')[1] }}
+              </span>
+              <span class="kb-card__title">{{ article.title }}</span>
+              <span class="kb-card__product">{{ article.product }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <ul class="kb-facts">
+        <li><strong>{{ 'softsupport.login.fact1Value' | translate }}</strong>{{ 'softsupport.login.fact1' | translate }}</li>
+        <li><strong>{{ 'softsupport.login.fact2Value' | translate }}</strong>{{ 'softsupport.login.fact2' | translate }}</li>
+        <li><strong>{{ 'softsupport.login.fact3Value' | translate }}</strong>{{ 'softsupport.login.fact3' | translate }}</li>
+      </ul>
+    </section>
+
+    <!-- Formulaire : fiche d'accès du back-office -->
+    <main class="kb-access">
+      <div class="kb-panel">
+        <div class="kb-panel__tab">
+          <soft-icon name="lock" size="sm"></soft-icon>
+          {{ 'softsupport.login.tab' | translate }}
+        </div>
+
+        <header class="kb-panel__head">
+          <h2 class="kb-panel__title">{{ 'softsupport.login.title' | translate }}</h2>
+          <p class="kb-panel__subtitle">{{ 'softsupport.login.formSubtitle' | translate }}</p>
+        </header>
+
+        <div class="kb-error-slot" aria-live="polite">
+          @if (errorMessage(); as message) {
+            <div class="kb-error" role="alert" data-testid="login-error">
+              <soft-icon name="exclamation-triangle" size="sm"></soft-icon>
+              <span>{{ message }}</span>
+            </div>
+          }
+        </div>
+
+        <form class="kb-form" data-testid="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="kb-field" style="--i: 0">
+            <label class="kb-label" for="email">{{ 'softsupport.login.emailLabel' | translate }}</label>
+            <div class="kb-input">
+              <span class="kb-input__icon" aria-hidden="true"><soft-icon name="mail" size="sm"></soft-icon></span>
+              <soft-input
+                inputId="email"
+                type="email"
+                name="email"
+                autocomplete="username"
+                formControlName="email"
+                [placeholder]="'softsupport.login.emailPlaceholder' | translate"
+                [inputStyle]="{ 'padding-left': '2.75rem' }"
+                [error]="fieldError('email')"
+              />
+            </div>
+          </div>
+
+          <div class="kb-field" style="--i: 1">
+            <label class="kb-label" for="password">{{ 'softsupport.login.passwordLabel' | translate }}</label>
+            <div class="kb-input">
+              <span class="kb-input__icon" aria-hidden="true"><soft-icon name="key" size="sm"></soft-icon></span>
+              <soft-input
+                inputId="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                name="password"
+                autocomplete="current-password"
+                formControlName="password"
+                [placeholder]="'softsupport.login.passwordPlaceholder' | translate"
+                [inputStyle]="{ 'padding-left': '2.75rem', 'padding-right': '2.75rem' }"
+                [error]="fieldError('password')"
+              />
+              <button
+                type="button"
+                class="kb-reveal"
+                [class.kb-reveal--on]="showPassword()"
+                [attr.aria-pressed]="showPassword()"
+                (click)="togglePassword()"
+                [attr.aria-label]="'softsupport.login.togglePassword' | translate"
+              >
+                <soft-icon [name]="showPassword() ? 'eye-off' : 'eye'" size="sm"></soft-icon>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="kb-submit" style="--i: 2" data-testid="login-submit" [disabled]="isLoading()">
+            @if (!isLoading()) {
+              <span>{{ 'softsupport.login.submit' | translate }}</span>
+              <svg class="kb-submit__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            } @else {
+              <span class="kb-submit__spinner" aria-hidden="true"></span>
+              <span>{{ 'softsupport.login.loading' | translate }}</span>
+            }
+          </button>
+        </form>
+
+        <footer class="kb-panel__foot" style="--i: 3">
+          <p>{{ 'softsupport.login.accountHint' | translate }}</p>
+          <a class="kb-link" [href]="helpContactUrl" target="_blank" rel="noopener noreferrer">
+            <soft-icon name="chat" size="sm" />
+            {{ 'softsupport.login.contact' | translate }}
+          </a>
+        </footer>
+      </div>
+      <p class="kb-copyright">{{ 'softsupport.login.copyright' | translate }}</p>
+    </main>
+  </div>
+</div>

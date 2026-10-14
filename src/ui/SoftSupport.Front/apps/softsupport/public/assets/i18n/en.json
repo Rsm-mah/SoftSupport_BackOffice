@@ -1,0 +1,520 @@
+{
+  "common": {
+    "bySoftwell": "by Softwell",
+    "loading": "Loading…",
+    "actions": {
+      "add": "Add",
+      "backHome": "Back to home",
+      "cancel": "Cancel",
+      "close": "Close",
+      "closeMenu": "Close menu",
+      "collapseSidebar": "Collapse sidebar",
+      "connect": "Sign in",
+      "create": "Create",
+      "delete": "Delete",
+      "edit": "Edit",
+      "expandSidebar": "Expand sidebar",
+      "logout": "Sign out",
+      "openMenu": "Open menu",
+      "reset": "Reset",
+      "save": "Save",
+      "update": "Update",
+      "validate": "Submit"
+    },
+    "errors": {
+      "generic": "Sorry, something went wrong."
+    },
+    "pagination": {
+      "navLabel": "Pagination",
+      "next": "Next page",
+      "pageSize": "Rows per page",
+      "previous": "Previous page",
+      "showing": "{{from}}–{{to}} of {{total}}"
+    },
+    "forbidden": {
+      "title": "Access denied",
+      "message": "Your role does not allow you to open this page."
+    },
+    "notFound": {
+      "title": "Page not found",
+      "message": "The requested page does not exist or has moved."
+    }
+  },
+  "softsupport": {
+    "app": {
+      "name": "SoftSupport",
+      "description": "Knowledge base",
+      "footer": "SoftSupport — knowledge base and customer contracts"
+    },
+    "sidebar": {
+      "section": "Navigation",
+      "articles": "Articles",
+      "articlesAll": "All articles",
+      "articlesRecent": "Recently added",
+      "articlesMine": "My articles",
+      "articlesPending": "Awaiting validation",
+      "articlesRefused": "Not validated",
+      "catalog": "Catalog",
+      "products": "Products",
+      "packs": "Packs",
+      "versions": "Versions",
+      "themes": "Themes",
+      "categories": "Categories",
+      "customers": "Customers",
+      "history": "History",
+      "users": "Users",
+      "administration": "Administration",
+      "profile": "My profile",
+      "dashboard": "Dashboard"
+    },
+    "topbar": {
+      "space": "Space",
+      "pending": "{{count}} article(s) awaiting validation",
+      "myProfile": "My profile",
+      "logoutTitle": "Sign out",
+      "logoutMessage": "Do you really want to sign out of SoftSupport?"
+    },
+    "login": {
+      "brand": "Softwell",
+      "coverSubtitle": "Knowledge base",
+      "eyebrow": "Softwell knowledge base",
+      "titleLead": "Every solution,",
+      "titleAccent": "found in an instant.",
+      "subtitle": "Write, validate and share answers to issues met on Sage, Tom² and our tools, then follow your customers' contracts.",
+      "fact1Value": "Internal",
+      "fact1": "& customers",
+      "fact2Value": "CRM",
+      "fact2": "synchronized",
+      "fact3Value": "Validation",
+      "fact3": "by department",
+      "tab": "Back-office access",
+      "title": "Sign in",
+      "formSubtitle": "Sign in with your SoftSupport account.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "firstname.lastname@softwell.mg",
+      "emailRequired": "The email address is required.",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Your password",
+      "passwordRequired": "The password is required.",
+      "togglePassword": "Show or hide the password",
+      "submit": "Sign in",
+      "loading": "Signing in…",
+      "networkError": "Unable to reach the SoftSupport server.",
+      "accountHint": "Your account is created by an administrator. Forgot your password? Contact them.",
+      "contact": "Contact IT",
+      "copyright": "© 2026 Softwell — SoftSupport"
+    },
+    "common": {
+      "all": "All",
+      "none": "None",
+      "search": "Search",
+      "filter": "Filter…",
+      "noResult": "No result",
+      "actions": "Actions",
+      "articles": "Articles",
+      "view": "View",
+      "back": "Back",
+      "copy": "Copy",
+      "copied": "Copied to the clipboard.",
+      "importCrm": "Import from the CRM",
+      "selected": "{{count}} selected",
+      "comment": "Comment",
+      "commentPlaceholder": "Your comment for the author of the article…",
+      "nameRequired": "The name is required.",
+      "emailInvalid": "Invalid email address.",
+      "deleteMessage": "Delete “{{name}}”?",
+      "deleteWithArticles": "{{count}} article(s) refer to it: they will lose this reference.",
+      "linkedArticles": "{{count}} linked article(s)",
+      "linkedArticlesAction": "Linked articles",
+      "noLinkedArticles": "No linked article."
+    },
+    "articles": {
+      "title": "All articles",
+      "subtitle": "The knowledge base: find a solution by product, version, theme or audience.",
+      "searchPlaceholder": "Identifier, title or designation…",
+      "empty": "No matching article.",
+      "kpi": {
+        "total": "Articles",
+        "validated": "Validated",
+        "pending": "Pending",
+        "client": "Visible to customers"
+      },
+      "columns": {
+        "code": "Identifier",
+        "title": "Title",
+        "diffusion": "Audience",
+        "createdAt": "Created",
+        "views": "Views",
+        "status": "Status"
+      },
+      "fields": {
+        "product": "Product",
+        "version": "Version",
+        "theme": "Theme",
+        "title": "Title",
+        "problem": "Problem",
+        "solution": "Solution",
+        "ticketNumber": "Ticket no.",
+        "requestNumber": "Request no."
+      },
+      "status": {
+        "validated": "Validated",
+        "pending": "Pending",
+        "refused": "Refused"
+      },
+      "options": {
+        "interne": "Internal",
+        "client": "Customers",
+        "hint": "An article open to customers is also published internally."
+      },
+      "detail": {
+        "title": "Article",
+        "author": "Author",
+        "lastUpdate": "Last update",
+        "sendBack": "Send back to validation"
+      },
+      "form": {
+        "createTitle": "New article",
+        "editTitle": "Edit the article",
+        "subtitle": "The article will be submitted to your department's validation.",
+        "productPlaceholder": "Choose a product",
+        "productRequired": "Choose a product.",
+        "titlePlaceholder": "Summary of the problem",
+        "titleRequired": "The title is required.",
+        "designation": "Designation: {{value}}",
+        "problemPlaceholder": "Describe the problem…",
+        "solutionPlaceholder": "Describe the applied solution…",
+        "incomplete": "Fill in the product, title, problem and solution.",
+        "refusedComment": "Reason for refusal",
+        "resubmit": "Fix and resubmit"
+      }
+    },
+    "recent": {
+      "title": "Recently added",
+      "subtitle": "The last 20 articles published in the base."
+    },
+    "mine": {
+      "title": "My articles",
+      "subtitle": "The articles you wrote, validated or pending.",
+      "add": "New article",
+      "empty": "You have not written any article yet.",
+      "delete": {
+        "title": "Delete the article",
+        "message": "Permanently delete article {{code}}?"
+      }
+    },
+    "refused": {
+      "title": "Not validated",
+      "subtitle": "Your refused articles: fix them to submit them again.",
+      "empty": "No refused article.",
+      "fix": "Fix",
+      "reason": "Reason for refusal",
+      "noReason": "No comment."
+    },
+    "validation": {
+      "title": "Awaiting validation",
+      "subtitle": "Articles written in the departments entrusted to you.",
+      "empty": "No article awaiting validation.",
+      "importCrm": "Import CRM articles",
+      "review": "Review",
+      "formTitle": "Article validation",
+      "deny": "Refuse",
+      "denyTitle": "Refuse the article",
+      "denyMessage": "The article goes back to its author, who receives this comment by email.",
+      "removeTitle": "Delete the article",
+      "removeMessage": "The article is permanently deleted; its author receives this comment by email."
+    },
+    "export": {
+      "button": "Export",
+      "title": "Article export",
+      "subtitle": "CSV file of the articles written by a department over a period.",
+      "from": "From",
+      "to": "To",
+      "departementPlaceholder": "Choose a department",
+      "download": "Download"
+    },
+    "products": {
+      "title": "Products",
+      "subtitle": "Product catalog: the category gives the prefix of article identifiers.",
+      "add": "New product",
+      "createTitle": "New product",
+      "editTitle": "Edit the product",
+      "searchPlaceholder": "Name or category code…",
+      "empty": "No product.",
+      "noCategory": "No category",
+      "categoryHint": "Without a category, the product's articles are numbered KB|…",
+      "local": "Local",
+      "crm": "CRM",
+      "hint": "“Import from the CRM” creates the new products of the case_prod1 list and updates labels and order.",
+      "fields": {
+        "name": "Name",
+        "category": "Category"
+      },
+      "columns": {
+        "origin": "Origin"
+      },
+      "delete": {
+        "title": "Delete the product",
+        "info": "Refused if the product is under contract or in a pack."
+      }
+    },
+    "packs": {
+      "title": "Packs",
+      "subtitle": "Products sold as a pack and the products they include.",
+      "add": "New pack",
+      "formTitle": "New pack",
+      "editTitle": "Edit the pack",
+      "searchPlaceholder": "Pack or included product…",
+      "empty": "No pack.",
+      "includedCount": "{{count}} included product(s)",
+      "product": "Pack product",
+      "productPlaceholder": "Choose the pack product",
+      "included": "Included products",
+      "delete": {
+        "title": "Delete the pack"
+      }
+    },
+    "versions": {
+      "title": "Versions",
+      "subtitle": "Software versions, aligned with the CRM case_version list.",
+      "add": "New version",
+      "createTitle": "New version",
+      "editTitle": "Edit the version",
+      "name": "Version",
+      "empty": "No version.",
+      "deleteTitle": "Delete the version",
+      "importHint": "The import aligns versions with the CRM: versions missing from the CRM are removed, as in BDC."
+    },
+    "themes": {
+      "title": "Themes",
+      "subtitle": "Themes used to classify articles.",
+      "add": "New theme",
+      "createTitle": "New theme",
+      "editTitle": "Edit the theme",
+      "name": "Theme",
+      "empty": "No theme.",
+      "deleteTitle": "Delete the theme"
+    },
+    "categories": {
+      "title": "Categories",
+      "subtitle": "The category code prefixes the identifiers of its products' articles.",
+      "add": "New category",
+      "createTitle": "New category",
+      "editTitle": "Edit the category",
+      "searchPlaceholder": "Code or name…",
+      "empty": "No category.",
+      "codeHint": "E.g. SAGCPT, in capitals",
+      "codeInvalid": "Code required, without “|”.",
+      "productsHint": "Only products without a category, or already in this one, are offered.",
+      "fields": {
+        "code": "Code",
+        "name": "Name"
+      },
+      "columns": {
+        "example": "First identifier",
+        "products": "Products"
+      },
+      "delete": {
+        "title": "Delete the category",
+        "info": "Its products go back to no category."
+      }
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Back-office accounts, roles and departments to validate.",
+      "add": "New user",
+      "createTitle": "New user",
+      "editTitle": "Edit the user",
+      "createHint": "The account gets the initial password set in the configuration.",
+      "searchPlaceholder": "Name, email or department…",
+      "empty": "No user.",
+      "validatorHint": "Articles written in these departments reach their validation queue.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email address",
+        "role": "Role",
+        "departement": "Department",
+        "validator": "Validates departments"
+      },
+      "columns": {
+        "name": "Name",
+        "createdAt": "Created"
+      },
+      "delete": {
+        "title": "Delete the user",
+        "info": "Refused if the user wrote articles."
+      }
+    },
+    "companies": {
+      "title": "Customers",
+      "subtitle": "Customer companies, portal users and contract due dates.",
+      "add": "New company",
+      "createTitle": "New company",
+      "createSubtitle": "Details, products under contract and customer administrator.",
+      "editTitle": "Edit the company",
+      "detailTitle": "Company",
+      "detailSubtitle": "Contracts and customer portal users.",
+      "searchPlaceholder": "Company, user or email…",
+      "empty": "No company.",
+      "usersCount": "{{count}} user(s)",
+      "showUsers": "Show users",
+      "nameHint": "Customer companies from the CRM are suggested while typing.",
+      "nameLocked": "A company name can no longer be changed.",
+      "shortNameRequired": "The short name is required.",
+      "onlySelected": "Products under contract only",
+      "existingContract": "(under contract)",
+      "contractsEditHint": "An existing contract's dates are changed or renewed from the company page. Unchecking a product deletes its contracts.",
+      "adminHint": "Enter the email to create the account: a password is generated and sent by email.",
+      "invalidDates": "Missing or inconsistent dates for “{{product}}”.",
+      "created": "created",
+      "activeContracts": "Running contracts",
+      "sections": {
+        "company": "Company",
+        "contracts": "Contracts",
+        "admin": "Customer administrator"
+      },
+      "fields": {
+        "name": "Company",
+        "shortName": "Short name",
+        "userNumber": "Planned users"
+      },
+      "columns": {
+        "contracts": "Contracts",
+        "nextEnd": "Next due date"
+      },
+      "delete": {
+        "title": "Delete the company",
+        "info": "Its contracts (traced in the history) and its portal users are deleted."
+      }
+    },
+    "contracts": {
+      "add": "Add a contract",
+      "addTitle": "New contract",
+      "addHint": "Minimum length: 3 months.",
+      "editTitle": "Edit the contract",
+      "editHint": "The period cannot overlap the product's other periods.",
+      "renewTitle": "Renew the contract",
+      "renewHint": "The new period must follow the current one.",
+      "renew": "Renew",
+      "history": "Product periods",
+      "empty": "No contract.",
+      "endAfterStart": "The end date must follow the start date.",
+      "fields": {
+        "start": "Start",
+        "end": "End"
+      },
+      "state": {
+        "active": "Running",
+        "expiring": "Due soon",
+        "expired": "Expired",
+        "future": "Upcoming"
+      },
+      "delete": {
+        "title": "Delete the contract",
+        "message": "Delete this period of the “{{product}}” contract?"
+      }
+    },
+    "customers": {
+      "title": "Portal users",
+      "add": "Add a user",
+      "createTitle": "New customer user",
+      "editTitle": "Edit the customer user",
+      "empty": "No user.",
+      "isAdminHint": "The administrator manages their company's access to the portal.",
+      "resetPassword": "Reset the password",
+      "resetPasswordHint": "A new temporary password is generated.",
+      "sendCredentials": "Send credentials by email",
+      "sendCredentialsHint": "Otherwise, pass them on yourself.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email address",
+        "function": "Position",
+        "isAdmin": "Administrator"
+      },
+      "credentials": {
+        "title": "Generated credentials",
+        "message": "This temporary password will not be shown again: copy it if you need to pass it on.",
+        "password": "Password"
+      },
+      "delete": {
+        "title": "Delete the user",
+        "info": "They will no longer be able to sign in to the customer portal."
+      }
+    },
+    "history": {
+      "title": "Contract history",
+      "subtitle": "Creations, changes, deletions and renewals of customer contracts.",
+      "searchPlaceholder": "Company name…",
+      "empty": "No event.",
+      "date": "Date",
+      "type": "Event",
+      "types": {
+        "Creation": "Creation",
+        "Modification": "Change",
+        "Suppression": "Deletion",
+        "Renouvellement": "Renewal"
+      }
+    },
+    "profile": {
+      "title": "My profile",
+      "subtitle": "Your account and your password.",
+      "security": "Password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "newPasswordHint": "At least 4 characters.",
+      "confirmPassword": "Confirmation",
+      "passwordTooShort": "At least 4 characters.",
+      "passwordMismatch": "The passwords do not match."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "The indicators that matter for your role.",
+      "articles": {
+        "title": "Articles",
+        "mostRead": "Most read",
+        "top": "Top {{count}}",
+        "worstRated": "Worst rated",
+        "worstHint": "Customer votes on the portal",
+        "noViews": "No article has been viewed yet.",
+        "noPoorlyRated": "No article has more negative than positive votes.",
+        "satisfaction": "{{percent}} % helpful",
+        "kpi": {
+          "published": "Validated articles",
+          "views": "Total views",
+          "votes": "Helpful / not helpful votes",
+          "poorlyRated": "Poorly rated articles"
+        }
+      },
+      "customers": {
+        "title": "Customers",
+        "expiring": "Contracts expiring this month",
+        "remaining": "Expiry",
+        "renewal": "Renewal",
+        "renewed": "Renewed",
+        "notRenewed": "To renew",
+        "days": "In {{count}} day(s)",
+        "today": "Today",
+        "expired": "Expired {{count}} day(s) ago",
+        "noExpiring": "No contract expires this month.",
+        "quotas": "Customer accounts per company",
+        "quotasHint": "Portal accounts compared with the number provided by the contract",
+        "accounts": "Accounts",
+        "usage": "Usage",
+        "noCompany": "No customer company.",
+        "status": {
+          "Available": "Available",
+          "Full": "Quota reached",
+          "Exceeded": "Quota exceeded"
+        },
+        "kpi": {
+          "expiring": "Expiring this month",
+          "toRenew": "To renew",
+          "full": "Quotas reached",
+          "exceeded": "Quotas exceeded"
+        }
+      }
+    }
+  }
+}

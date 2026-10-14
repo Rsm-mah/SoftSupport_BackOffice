@@ -1,0 +1,121 @@
+<section data-testid="softsupport-articles">
+  <softsupport-page-header
+    [heading]="'softsupport.articles.title' | translate"
+    [subtitle]="'softsupport.articles.subtitle' | translate"
+    [breadcrumb]="['softsupport.sidebar.articles' | translate, 'softsupport.sidebar.articlesAll' | translate]"
+  >
+    @if (isAdmin()) {
+      <soft-button variant="secondary" (onClick)="exportOpen.set(true)">
+        <soft-icon name="download" size="sm" class="mr-1.5" />
+        {{ 'softsupport.export.button' | translate }}
+      </soft-button>
+    }
+  </softsupport-page-header>
+
+  <soft-card-dashboard class="ss-reveal block" style="--delay: 0.12s" [cards]="cards()" [loading]="stats() === null" />
+
+  <div class="ss-reveal mt-6 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5" style="--delay: 0.2s">
+    <div class="md:col-span-2 xl:col-span-1">
+      <soft-input
+        [label]="'softsupport.common.search' | translate"
+        [placeholder]="'softsupport.articles.searchPlaceholder' | translate"
+        name="filter-search"
+        autocomplete="off"
+        [value]="filters().search"
+        (valueChange)="onSearch($event)"
+      />
+    </div>
+    <soft-select
+      [label]="'softsupport.articles.fields.product' | translate"
+      [placeholder]="'softsupport.common.all' | translate"
+      [options]="productOptions()"
+      [searchable]="true"
+      [value]="filters().productId"
+      (valueChange)="setFilter('productId', $event)"
+    />
+    <soft-select
+      [label]="'softsupport.articles.fields.version' | translate"
+      [placeholder]="'softsupport.common.all' | translate"
+      [options]="versionOptions()"
+      [searchable]="true"
+      [value]="filters().versionId"
+      (valueChange)="setFilter('versionId', $event)"
+    />
+    <soft-select
+      [label]="'softsupport.articles.fields.theme' | translate"
+      [placeholder]="'softsupport.common.all' | translate"
+      [options]="themeOptions()"
+      [searchable]="true"
+      [value]="filters().themeId"
+      (valueChange)="setFilter('themeId', $event)"
+    />
+    <soft-select
+      [label]="'softsupport.articles.columns.diffusion' | translate"
+      [placeholder]="'softsupport.common.all' | translate"
+      [options]="optionOptions()"
+      [value]="filters().option"
+      (valueChange)="setFilter('option', $event)"
+    />
+  </div>
+
+  <div class="ss-reveal mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white" style="--delay: 0.28s">
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-left text-sm">
+        <thead class="bg-blue-50 text-xs uppercase tracking-wide text-blue-700">
+          <tr>
+            <th class="px-4 py-3 font-semibold">{{ 'softsupport.articles.columns.code' | translate }}</th>
+            <th class="px-4 py-3 font-semibold">{{ 'softsupport.articles.columns.title' | translate }}</th>
+            <th class="px-4 py-3 font-semibold">{{ 'softsupport.articles.fields.product' | translate }}</th>
+            <th class="px-4 py-3 font-semibold">{{ 'softsupport.articles.columns.diffusion' | translate }}</th>
+            <th class="px-4 py-3 font-semibold">{{ 'softsupport.articles.columns.createdAt' | translate }}</th>
+            <th class="px-4 py-3 text-right font-semibold">{{ 'softsupport.articles.columns.views' | translate }}</th>
+            <th class="px-4 py-3 font-semibold">{{ 'softsupport.articles.columns.status' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          @if (loading() && rows().length === 0) {
+            <tr><td colspan="7" class="px-4 py-8 text-center text-slate-500">{{ 'common.loading' | translate }}</td></tr>
+          } @else if (error()) {
+            <tr><td colspan="7" class="px-4 py-8 text-center text-red-600">{{ error() }}</td></tr>
+          } @else if (rows().length === 0) {
+            <tr>
+              <td colspan="7" class="px-4 py-10">
+                <soft-data-table-empty-state
+                  [message]="'softsupport.articles.empty' | translate"
+                  [hasActiveFilters]="hasFilters()"
+                  (clearFilters)="clearFilters()"
+                />
+              </td>
+            </tr>
+          } @else {
+            @for (row of rows(); track row.articleId) {
+              <tr class="ss-row cursor-pointer hover:bg-slate-50" [class.opacity-60]="loading()" [style.--i]="$index" (click)="detailId.set(row.articleId)">
+                <td class="px-4 py-3"><softsupport-article-code [code]="row.code" /></td>
+                <td class="max-w-[28rem] px-4 py-3">
+                  <p class="truncate font-medium text-slate-900">{{ row.title }}</p>
+                </td>
+                <td class="max-w-[14rem] truncate px-4 py-3 text-slate-700">{{ row.productName || '—' }}</td>
+                <td class="px-4 py-3"><softsupport-article-options [options]="row.options" /></td>
+                <td class="whitespace-nowrap px-4 py-3 text-slate-700">{{ row.createdAt | date: 'dd/MM/yyyy' }}</td>
+                <td class="px-4 py-3 text-right text-slate-700">{{ row.viewNumber }}</td>
+                <td class="px-4 py-3"><softsupport-article-status [validated]="row.isValidated" /></td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+    @if (!error() && totalCount() > 0) {
+      <softsupport-list-pagination
+        [page]="page()"
+        [pageSize]="pageSize()"
+        [totalCount]="totalCount()"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+      />
+    }
+  </div>
+</section>
+
+<softsupport-article-detail-modal [articleId]="detailId()" (closed)="detailId.set(null)" (changed)="onChanged()" />
+<softsupport-export-modal [open]="exportOpen()" (closed)="exportOpen.set(false)" />
