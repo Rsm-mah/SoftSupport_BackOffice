@@ -2,7 +2,6 @@ using SoftSupport.Application.DTOs.Users;
 
 namespace SoftSupport.Application.DTOs.Catalog;
 
-/// <summary>Article rattaché à un élément du catalogue (détail d'un produit, d'un thème, d'une version).</summary>
 public sealed record ArticleRefDto(int ArticleId, string? Code, string Title);
 
 public sealed record ProductListItemDto(
@@ -16,7 +15,6 @@ public sealed record ProductListItemDto(
 
 public sealed record SaveProductRequest(string Name, int? CategoryId);
 
-/// <summary>Thème ou version : nom et nombre d'articles rattachés.</summary>
 public sealed record NamedItemDto(int Id, string Name, int ArticleCount);
 
 public sealed record NamedItemArticlesDto(int Id, string Name, IReadOnlyList<ArticleRefDto> Articles);
@@ -33,5 +31,4 @@ public sealed record CategoryDetailDto(int CategoryId, string Name, string Code,
 
 public sealed record SaveCategoryRequest(string Name, string Code, IReadOnlyList<int>? ProductIds);
 
-/// <summary>Résultat d'une synchronisation avec le CRM.</summary>
 public sealed record CrmSyncResultDto(int Added, int Updated, int Removed);

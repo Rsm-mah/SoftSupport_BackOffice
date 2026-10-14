@@ -1,6 +1,5 @@
 namespace SoftSupport.Infrastructure.Security;
 
-/// <summary>Paramètres des jetons d'accès (section <c>Jwt</c>).</summary>
 public sealed class JwtOptions
 {
     public const string SectionName = "Jwt";
@@ -9,11 +8,9 @@ public sealed class JwtOptions
     public string Issuer { get; set; } = "SoftSupport";
     public string Audience { get; set; } = "SoftSupport";
 
-    /// <summary>Durée de validité d'un jeton, en minutes.</summary>
     public int ExpirationMinutes { get; set; } = 720;
 }
 
-/// <summary>Noms des claims portées par le jeton SoftSupport, lues par le front et par l'API.</summary>
 public static class SoftSupportClaims
 {
     public const string FirstName = "first_name";

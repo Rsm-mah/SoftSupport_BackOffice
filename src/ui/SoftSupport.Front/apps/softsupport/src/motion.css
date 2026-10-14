@@ -11,8 +11,6 @@
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ========== KEYFRAMES ========== */
-
 @keyframes ss-title-in {
   from {
     opacity: 0;
@@ -104,7 +102,6 @@
   }
 }
 
-/* Défilement : léger flou et échelle qui se résorbent quand un bloc entre dans la vue. */
 @keyframes ss-scroll-in {
   from {
     scale: 0.985;
@@ -125,28 +122,20 @@
   }
 }
 
-/* ENTRÉES DE PAGE 
-
-/* Titre de page : sort du flou. */
 [data-line] {
   animation: ss-title-in var(--duration-title) cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
   animation-delay: calc(var(--intro-delay, 0s) + 0.05s + var(--i, 0) * 0.12s);
 }
 
-/* Bloc qui monte en fondu ; --delay règle l'échelonnement.
-   Remplissage « backwards » uniquement : une fois finie, l'animation ne laisse ni
-   translate ni filter, qui feraient de ces blocs le repère des éléments fixed (modales). */
 .ss-reveal {
   animation: ss-reveal-up var(--duration-reveal) var(--ease-expo) backwards;
   animation-delay: var(--delay, 0s);
 }
 
-/* Lignes de tableau : apparition échelonnée, plafonnée pour ne jamais faire attendre. */
 .ss-row {
   animation: ss-row-in 0.5s var(--ease-expo) backwards;
   animation-delay: min(calc(var(--i, 0) * 35ms), 350ms);
 }
-
 
 @supports (animation-timeline: view()) {
   .ss-reveal {
@@ -158,8 +147,6 @@
     animation-range: normal, entry 0% entry 60%;
   }
 }
-
-/* ========== TRANSITIONS DE PAGE (View Transitions API) ========== */
 
 .app-layout-main > :not(router-outlet) {
   view-transition-name: ss-page;
@@ -194,8 +181,6 @@
   }
 }
 
-/* ========== PROGRESSION DE DÉFILEMENT ========== */
-
 .ss-scroll-progress {
   display: none;
 }
@@ -214,9 +199,6 @@
   }
 }
 
-/* MICRO-INTERACTIONS 
-
-/* Balayage des boutons pleins : un voile clair traverse le bouton au survol. */
 .btn-primary,
 .btn-danger,
 .btn-success {
@@ -256,7 +238,6 @@
   transform: translateY(1px) scale(0.99);
 }
 
-/* Sidebar : l'icône glisse, la barre active se dessine. */
 .sidebar-item soft-icon,
 .sidebar-toggle-btn soft-icon {
   transition: transform var(--duration-hover) var(--ease-css);
@@ -290,7 +271,6 @@
   transform-origin: left;
 }
 
-/* Lignes de tableau cliquables : léger décalage au survol. */
 tbody tr.cursor-pointer {
   transition: background-color 0.2s var(--ease-css);
 }
@@ -303,7 +283,6 @@ tbody tr.cursor-pointer:hover > td:first-child {
   padding-left: 1.25rem;
 }
 
-/* Boutons d'action des tableaux : pressés au clic. */
 td button[title] soft-icon {
   transition: transform 0.2s var(--ease-css);
 }
@@ -312,7 +291,6 @@ td button[title]:hover soft-icon {
   transform: scale(1.12);
 }
 
-/* Cartes KPI : se soulèvent au survol. */
 soft-card-dashboard .border-l-4 {
   transition:
     transform var(--duration-hover) var(--ease-css),
@@ -323,7 +301,6 @@ soft-card-dashboard .border-l-4:hover {
   transform: translateY(-3px);
 }
 
-/* Point « en direct » : la pastille de notifications pulse avec une onde. */
 .ss-live {
   isolation: isolate;
 }
@@ -342,9 +319,6 @@ soft-card-dashboard .border-l-4:hover {
   animation: ss-phase-pulse 1.8s ease-in-out infinite;
 }
 
-/* ========== SURCOUCHES ========== */
-
-/* soft-modal : voile en fondu, boîte qui sort du flou. */
 soft-modal > div {
   animation: ss-fade-in 0.3s var(--ease-silk) both;
 }
@@ -353,7 +327,6 @@ soft-modal [role='dialog'] {
   animation: ss-dialog-in 0.5s var(--ease-expo) both;
 }
 
-/* Fenêtre de confirmation. */
 app-confirmation-modal > div {
   animation: ss-fade-in 0.25s var(--ease-silk) both;
 }
@@ -362,13 +335,10 @@ app-confirmation-modal > div > div {
   animation: ss-dialog-in 0.45s var(--ease-expo) both;
 }
 
-/* Menus déroulants de la topbar. */
 .ss-pop {
   transform-origin: top right;
   animation: ss-pop-in 0.35s var(--ease-expo) both;
 }
-
-/* MOUVEMENT RÉDUIT */
 
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -19,15 +19,10 @@ import { SoftSupportArticleCodeComponent } from './softsupport-badges.component'
 import { SoftSupportCommentModalComponent } from './comment-modal.component';
 import { SoftSupportRichEditorComponent } from './softsupport-rich-editor.component';
 
-/** `author` : création ou correction par le rédacteur ; `validation` : relecture par un validateur. */
 export type ArticleFormMode = 'author' | 'validation';
 
 type CommentAction = 'deny' | 'remove';
 
-/**
- * Formulaire d'article. Le rédacteur crée, corrige ou resoumet un article refusé ; le validateur
- * corrige, règle la diffusion puis valide, refuse ou supprime (avec un commentaire envoyé par e-mail).
- */
 @Component({
   selector: 'softsupport-article-form-modal',
   imports: [
@@ -231,7 +226,6 @@ export class SoftSupportArticleFormModalComponent {
         : 'softsupport.articles.form.createTitle',
   );
 
-  /** Le rédacteur ne choisit qu'un produit rattaché à une catégorie (préfixe de l'identifiant). */
   readonly productOptions = computed<SelectOption[]>(() => {
     const current = this.article()?.productId;
     return (this.references()?.products ?? [])
@@ -247,7 +241,6 @@ export class SoftSupportArticleFormModalComponent {
     (this.references()?.themes ?? []).map(item => ({ value: String(item.id), label: item.name })),
   );
 
-  /** Aperçu de la désignation recalculée par l'API : « Produit Version - Titre ». */
   readonly designation = computed(() => {
     const value = this.values();
     const references = this.references();

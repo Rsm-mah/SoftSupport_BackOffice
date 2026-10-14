@@ -21,7 +21,6 @@ export interface SaveProductPayload {
   categoryId: number | null;
 }
 
-/** Thème ou version. */
 export interface NamedItem {
   id: number;
   name: string;

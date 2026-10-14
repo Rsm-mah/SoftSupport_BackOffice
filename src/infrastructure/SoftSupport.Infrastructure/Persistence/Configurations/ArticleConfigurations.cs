@@ -49,12 +49,10 @@ public sealed class ArticleUpdateLogConfiguration : IEntityTypeConfiguration<Art
         builder.Property(log => log.UpdateDate).HasColumnName("UpdateDate");
         builder.Property(log => log.ArticleId).HasColumnName("ArticleId");
 
-        // Suppression en cascade côté SQL Server avec l'article.
         builder.HasOne<Article>().WithMany().HasForeignKey(log => log.ArticleId).OnDelete(DeleteBehavior.Cascade);
     }
 }
 
-/// <summary>Votes saisis sur le portail client ; le back-office les lit seulement.</summary>
 public sealed class ArticleVoteConfiguration : IEntityTypeConfiguration<ArticleVote>
 {
     public void Configure(EntityTypeBuilder<ArticleVote> builder)
@@ -66,7 +64,6 @@ public sealed class ArticleVoteConfiguration : IEntityTypeConfiguration<ArticleV
         builder.Property(vote => vote.ArticleId).HasColumnName("ArticleId");
         builder.Property(vote => vote.CustomerId).HasColumnName("CustomerId");
 
-        // Suppression en cascade côté SQL Server avec l'article et avec le client.
         builder.HasOne<Article>().WithMany().HasForeignKey(vote => vote.ArticleId).OnDelete(DeleteBehavior.Cascade);
         builder.HasOne<Customer>().WithMany().HasForeignKey(vote => vote.CustomerId).OnDelete(DeleteBehavior.Cascade);
     }

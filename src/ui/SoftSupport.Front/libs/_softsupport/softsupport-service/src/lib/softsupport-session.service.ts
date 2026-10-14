@@ -24,7 +24,6 @@ function readUser(): AuthUser | null {
   }
 }
 
-/** Date d'expiration (ms) lue dans la charge utile du JWT, sans vérifier la signature. */
 function tokenExpiry(token: string): number | null {
   try {
     const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))) as { exp?: number };
@@ -34,7 +33,6 @@ function tokenExpiry(token: string): number | null {
   }
 }
 
-/** Session de l'utilisateur connecté : jeton et profil, persistés dans le navigateur. */
 @Injectable({ providedIn: 'root' })
 export class SoftSupportSessionService {
   private readonly tokenState = signal<string | null>(readStorage(TOKEN_KEY));
@@ -73,7 +71,6 @@ export class SoftSupportSessionService {
     this.userState.set(result.user);
   }
 
-  /** Le droit de valider peut changer en cours de session : la topbar le rafraîchit. */
   updateValidator(isValidator: boolean): void {
     const user = this.userState();
     if (!user || user.isValidator === isValidator) {

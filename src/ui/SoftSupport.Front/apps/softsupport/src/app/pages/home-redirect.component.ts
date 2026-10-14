@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { homeRouteFor } from '@softsupport/models';
 import { SoftSupportSessionService } from '@softsupport/service';
 
-/** Racine de l'application : envoie chaque rôle sur sa page d'accueil. */
 @Component({
   selector: 'softsupport-home-redirect',
   changeDetection: ChangeDetectionStrategy.OnPush,

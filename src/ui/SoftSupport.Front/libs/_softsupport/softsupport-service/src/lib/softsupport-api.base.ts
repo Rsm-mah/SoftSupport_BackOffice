@@ -4,7 +4,6 @@ import { AppConfigService } from '@soft-mfe/shared-services';
 import { SoftSupportApiResponse } from '@softsupport/models';
 import { map, Observable } from 'rxjs';
 
-/** Socle des clients HTTP SoftSupport : URL de base et déballage de `ApiResponse<T>`. */
 export abstract class SoftSupportApiBase {
   protected readonly http = inject(HttpClient);
   private readonly config = inject(AppConfigService);
@@ -17,7 +16,6 @@ export abstract class SoftSupportApiBase {
     return this.http.get<SoftSupportApiResponse<T>>(this.url(path), { params }).pipe(map(response => response.data));
   }
 
-  /** Commande dont seul le message de confirmation intéresse l'écran. */
   protected sendMessage(method: 'POST' | 'PUT' | 'DELETE', path: string, body?: unknown): Observable<string> {
     return this.http
       .request<SoftSupportApiResponse<unknown>>(method, this.url(path), { body })
@@ -28,12 +26,10 @@ export abstract class SoftSupportApiBase {
     return this.http.request<SoftSupportApiResponse<T>>(method, this.url(path), { body });
   }
 
-  /** Fichier renvoyé tel quel par l'API (extraction CSV). */
   protected download(path: string, params?: HttpParams): Observable<Blob> {
     return this.http.get(this.url(path), { params, responseType: 'blob' });
   }
 
-  /** Construit des paramètres de requête en ignorant les valeurs vides. */
   protected params(values: Record<string, string | number | null | undefined>): HttpParams {
     let params = new HttpParams();
     for (const [key, value] of Object.entries(values)) {

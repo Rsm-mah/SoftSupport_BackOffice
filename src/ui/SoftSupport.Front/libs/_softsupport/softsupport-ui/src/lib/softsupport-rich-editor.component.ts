@@ -18,10 +18,6 @@ interface EditorCommand {
   value?: string;
 }
 
-/**
- * Éditeur de texte riche des articles (problème, solution), à la place de Summernote.
- * Le contenu reste du HTML, comme dans la base BDC : il est relu tel quel par le portail client.
- */
 @Component({
   selector: 'softsupport-rich-editor',
   changeDetection: ChangeDetectionStrategy.OnPush,

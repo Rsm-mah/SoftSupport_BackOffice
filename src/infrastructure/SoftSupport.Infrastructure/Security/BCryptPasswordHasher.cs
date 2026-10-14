@@ -5,23 +5,13 @@ using SoftSupport.Application.Abstractions;
 
 namespace SoftSupport.Infrastructure.Security;
 
-/// <summary>Stockage des mots de passe du back-office (section <c>Security</c>).</summary>
 public sealed class PasswordOptions
 {
     public const string SectionName = "Security";
 
-    /// <summary>
-    /// Faux (par défaut) : les mots de passe restent enregistrés en clair, comme dans BDC, pour que
-    /// l'ancien back-office continue de fonctionner. Vrai : tout nouveau mot de passe est haché
-    /// (BCrypt) et chaque mot de passe en clair l'est à la connexion suivante.
-    /// </summary>
     public bool HashPasswords { get; set; }
 }
 
-/// <summary>
-/// Accepte les mots de passe BCrypt et, pour compatibilité, les mots de passe BDC en clair
-/// (comparaison à temps constant).
-/// </summary>
 public sealed class BCryptPasswordHasher(IOptions<PasswordOptions> options) : IPasswordHasher
 {
     public string Hash(string password) =>

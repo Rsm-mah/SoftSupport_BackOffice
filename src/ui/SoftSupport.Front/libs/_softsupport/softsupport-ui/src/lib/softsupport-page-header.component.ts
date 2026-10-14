@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-/** Fil d'Ariane, titre et sous-titre de page, comme les écrans SoftFunds. */
 @Component({
   selector: 'softsupport-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,

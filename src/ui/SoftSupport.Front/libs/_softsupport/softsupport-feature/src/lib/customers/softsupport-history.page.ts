@@ -15,7 +15,6 @@ const TYPE_VARIANT: Record<ContractHistoryType, 'success' | 'info' | 'danger' | 
   Renouvellement: 'primary',
 };
 
-/** Historique des contrats clients : création, modification, suppression et renouvellement. */
 @Component({
   selector: 'softsupport-history-page',
   imports: [

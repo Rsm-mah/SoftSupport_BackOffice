@@ -1,4 +1,3 @@
-/** Enveloppe `ApiResponse<T>` renvoyée par toutes les routes de SoftSupport.Api. */
 export interface SoftSupportApiResponse<T> {
   success: boolean;
   message: string;

@@ -3,10 +3,8 @@ using System.Text;
 
 namespace SoftSupport.Domain.Rules;
 
-/// <summary>Règles de durée et d'enchaînement des lignes de contrat.</summary>
 public static class ContractRules
 {
-    /// <summary>Durée minimale d'un contrat ajouté à une société existante.</summary>
     public const int MinimumAddedContractDays = 90;
 
     public static void EnsureValidPeriod(DateTime startDate, DateTime endDate)
@@ -30,7 +28,6 @@ public static class ContractRules
         }
     }
 
-    /// <summary>Un renouvellement doit commencer et finir après la dernière ligne du produit.</summary>
     public static void EnsureRenewalAfter(DateTime lastStart, DateTime lastEnd, DateTime startDate, DateTime endDate)
     {
         EnsureValidPeriod(startDate, endDate);
@@ -40,7 +37,6 @@ public static class ContractRules
         }
     }
 
-    /// <summary>Une ligne modifiée ne peut pas empiéter sur la précédente ni sur la suivante du même produit.</summary>
     public static void EnsureFitsBetween(DateTime? previousEnd, DateTime? nextStart, DateTime startDate, DateTime endDate)
     {
         EnsureValidPeriod(startDate, endDate);
@@ -56,7 +52,6 @@ public static class ContractRules
     }
 }
 
-/// <summary>Alertes d'échéance envoyées aux clients.</summary>
 public static class ContractAlerts
 {
     public enum Kind
@@ -66,7 +61,6 @@ public static class ContractAlerts
         Soon,
     }
 
-    /// <summary>Trois mois avant l'échéance (± 1 jour), puis chaque lundi du dernier mois.</summary>
     public static Kind Evaluate(DateTime endDate, DateTime today)
     {
         var days = (endDate.Date - today.Date).TotalDays;
@@ -84,7 +78,6 @@ public static class ContractAlerts
     }
 }
 
-/// <summary>Mot de passe provisoire des comptes clients, tiré d'un générateur cryptographique.</summary>
 public static class TemporaryPassword
 {
     private const string Alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*";

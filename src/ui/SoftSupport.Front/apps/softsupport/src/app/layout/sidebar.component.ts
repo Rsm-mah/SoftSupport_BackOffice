@@ -8,7 +8,6 @@ import { SOFTSUPPORT_SIDEBAR, SoftSupportNavItem } from '@softsupport/models';
 import { SoftSupportSessionService } from '@softsupport/service';
 import { filter, map } from 'rxjs';
 
-/** Sidebar de la coque SoftAppli : rail réduit, menu déployé et tiroir mobile. */
 @Component({
   selector: 'softsupport-sidebar',
   imports: [NgTemplateOutlet, RouterLink, TranslatePipe, SoftButtonComponent, SoftIconComponent],
@@ -72,7 +71,6 @@ export class SidebarComponent {
     this.manuallyExpanded.update(state => ({ ...state, [item.id]: next }));
   }
 
-  /** En mode réduit, un parent ouvre sa première page ; une feuille ouvre sa route. */
   onMiniClick(item: SoftSupportNavItem): void {
     const target = item.route ?? item.children?.[0]?.route;
     if (target) {

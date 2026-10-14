@@ -19,7 +19,6 @@ export class SoftSupportProductService extends SoftSupportApiBase {
     return this.getData<ProductListItem[]>('products');
   }
 
-  /** Produits proposés dans les packs et les contrats. */
   getLookup(): Observable<LookupItem[]> {
     return this.getData<LookupItem[]>('products/lookup');
   }
@@ -57,7 +56,6 @@ export class SoftSupportProductService extends SoftSupportApiBase {
   }
 }
 
-/** Thèmes et versions partagent le même contrat : la ressource est passée à chaque appel. */
 export type NamedResource = 'themes' | 'versions';
 
 @Injectable({ providedIn: 'root' })
@@ -82,7 +80,6 @@ export class SoftSupportNamedItemService extends SoftSupportApiBase {
     return this.sendMessage('DELETE', `${resource}/${id}`);
   }
 
-  /** Synchronisation avec le CRM (versions uniquement). */
   importFromCrm(resource: NamedResource): Observable<string> {
     return this.sendMessage('POST', `${resource}/import-crm`);
   }

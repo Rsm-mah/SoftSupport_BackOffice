@@ -13,7 +13,6 @@ import {
   SoftSupportPageHeaderComponent,
 } from '@softsupport/ui';
 
-/** « Ajoutés récemment » : les 20 derniers articles de la base. */
 @Component({
   selector: 'softsupport-recent-articles-page',
   imports: [

@@ -8,3 +8,4 @@ export * from './lib/softsupport-roles';
 export * from './lib/softsupport-pagination';
 export * from './lib/softsupport-sidebar.config';
 export * from './lib/softsupport-dashboard.models';
+export * from './lib/softsupport-comment.models';

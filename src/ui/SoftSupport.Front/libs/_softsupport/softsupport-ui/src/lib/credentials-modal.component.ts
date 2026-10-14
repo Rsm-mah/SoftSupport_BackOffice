@@ -8,7 +8,6 @@ export interface Credentials {
   password: string;
 }
 
-/** Identifiants générés pour un utilisateur client : affichés une seule fois, à copier. */
 @Component({
   selector: 'softsupport-credentials-modal',
   imports: [TranslatePipe, SoftModalComponent, SoftButtonComponent, SoftIconComponent],

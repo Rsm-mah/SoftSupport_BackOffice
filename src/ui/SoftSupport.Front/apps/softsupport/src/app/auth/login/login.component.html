@@ -1,6 +1,5 @@
 <div class="kb-login" [class.kb-login--intro]="playIntro" data-testid="login-page">
   @if (playIntro) {
-    <!-- Ouverture : la couverture du « livre » de la base s'ouvre sur l'écran de connexion. -->
     <div class="kb-cover" aria-hidden="true">
       <span class="kb-cover__leaf kb-cover__leaf--left">
         <span class="kb-cover__spine"></span>
@@ -22,7 +21,6 @@
   </div>
 
   <div class="kb-layout">
-    <!-- Vitrine : la base de connaissances en action -->
     <section class="kb-showcase" aria-label="SoftSupport">
       <div class="kb-brand">
         <img class="kb-brand__logo" src="assets/softsupport-logo.png" [attr.alt]="'softsupport.login.brand' | translate" />
@@ -71,7 +69,6 @@
       </ul>
     </section>
 
-    <!-- Formulaire : fiche d'accès du back-office -->
     <main class="kb-access">
       <div class="kb-panel">
         <div class="kb-panel__tab">

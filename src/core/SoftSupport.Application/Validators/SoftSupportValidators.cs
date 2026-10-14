@@ -3,6 +3,7 @@ using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Articles;
 using SoftSupport.Application.DTOs.Auth;
 using SoftSupport.Application.DTOs.Catalog;
+using SoftSupport.Application.DTOs.Comments;
 using SoftSupport.Application.DTOs.Customers;
 using SoftSupport.Application.DTOs.Users;
 using SoftSupport.Domain.Rules;
@@ -216,5 +217,25 @@ public sealed class ContractHistoryQueryValidator : AbstractValidator<ContractHi
     {
         PagingRules.Apply(this);
         RuleFor(query => query.Search).MaximumLength(150);
+    }
+}
+
+public sealed class CommentsQueryValidator : AbstractValidator<CommentsQuery>
+{
+    public CommentsQueryValidator()
+    {
+        PagingRules.Apply(this);
+        RuleFor(query => query.Status).IsInEnum();
+        RuleFor(query => query.Search).MaximumLength(200);
+    }
+}
+
+public sealed class ReplyToCommentRequestValidator : AbstractValidator<ReplyToCommentRequest>
+{
+    public ReplyToCommentRequestValidator()
+    {
+        RuleFor(request => request.Message)
+            .NotEmpty().WithMessage("La réponse est obligatoire.")
+            .MaximumLength(CommentReplies.MaxMessageLength);
     }
 }

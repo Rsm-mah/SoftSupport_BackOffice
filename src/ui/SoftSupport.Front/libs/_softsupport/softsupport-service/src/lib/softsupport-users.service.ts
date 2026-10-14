@@ -9,7 +9,6 @@ export class SoftSupportUsersService extends SoftSupportApiBase {
     return this.getData<UserListItem[]>('users');
   }
 
-  /** Rôles et départements (formulaire utilisateur, extraction des articles). */
   getFormOptions(): Observable<UserFormOptions> {
     return this.getData<UserFormOptions>('users/form-options');
   }

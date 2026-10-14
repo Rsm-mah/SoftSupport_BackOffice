@@ -18,7 +18,6 @@ import { SoftSupportArticleService, SoftSupportCategoryService, SoftSupportProdu
 import { SoftSupportArticleRefsModalComponent, SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
 import { Observable } from 'rxjs';
 
-/** Référentiel des produits : catégorie (préfixe des identifiants), articles liés, import CRM. */
 @Component({
   selector: 'softsupport-products-page',
   imports: [

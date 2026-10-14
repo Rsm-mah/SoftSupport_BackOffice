@@ -4,13 +4,8 @@ using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Application.Services;
 
-/// <summary>
-/// Tableau de bord du back-office. Les droits sont appliqués par l'API : le bloc « Articles » est
-/// réservé à l'Administrateur, le bloc « Clients » au Commercial et au Responsable Commercial.
-/// </summary>
 public sealed class DashboardService(IDashboardRepository dashboard, TimeProvider clock) : IDashboardService
 {
-    /// <summary>Nombre d'articles par classement.</summary>
     public const int RankingSize = 10;
 
     public async Task<ArticleDashboardDto> GetArticlesAsync(CancellationToken cancellationToken)
@@ -64,7 +59,6 @@ public sealed class DashboardService(IDashboardRepository dashboard, TimeProvide
             .ThenBy(contract => contract.CompanyName)
             .ToList();
 
-        // Sociétés à surveiller d'abord : quota dépassé, puis atteint.
         var quotas = (await dashboard.GetCompanyAccountsAsync(cancellationToken))
             .Select(row => new CompanyQuotaDto(
                 row.CompanyId,

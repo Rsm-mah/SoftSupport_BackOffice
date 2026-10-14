@@ -4,7 +4,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Palette « encre et sarcelle » : la base de connaissances comme une bibliothèque de nuit. */
 .kb-login {
   --kb-ink: #04222b;
   --kb-ink-2: #0a3442;
@@ -31,7 +30,6 @@
   background: radial-gradient(120% 90% at 0% 0%, var(--kb-ink-2) 0%, var(--kb-ink) 55%, #021419 100%);
 }
 
-/* —— Décor —— */
 .kb-backdrop {
   position: fixed;
   inset: 0;
@@ -65,7 +63,6 @@
   animation-delay: -8s;
 }
 
-/* Quadrillage de fiches cartonnées, estompé vers les bords. */
 .kb-grid {
   position: absolute;
   inset: 0;
@@ -76,7 +73,6 @@
   mask-image: radial-gradient(ellipse 70% 60% at 35% 45%, #000 20%, transparent 75%);
 }
 
-/* Faisceau qui balaie lentement l'écran, comme une lampe sur les rayonnages. */
 .kb-sweep {
   position: absolute;
   top: -50%;
@@ -104,7 +100,6 @@
   }
 }
 
-/* —— Mise en page —— */
 .kb-layout {
   position: relative;
   z-index: 1;
@@ -116,7 +111,6 @@
   padding: clamp(1.5rem, 4vw, 4rem) clamp(1.25rem, 5vw, 5.5rem);
 }
 
-/* —— Vitrine —— */
 .kb-showcase {
   min-width: 0;
   display: flex;
@@ -199,7 +193,6 @@
   color: var(--kb-muted);
 }
 
-/* Barre de recherche qui tape toute seule. */
 .kb-search {
   margin-top: 2.2rem;
 }
@@ -254,7 +247,6 @@
   }
 }
 
-/* Fiches de résultats, empilées comme dans un tiroir de catalogue. */
 .kb-results {
   margin-top: 0.9rem;
   display: grid;
@@ -354,7 +346,6 @@
   color: var(--kb-text);
 }
 
-/* —— Formulaire —— */
 .kb-access {
   min-width: 0;
   display: flex;
@@ -377,7 +368,6 @@
     14px 14px 0 -6px rgba(14, 116, 144, 0.35);
 }
 
-/* Onglet d'intercalaire en haut de la fiche. */
 .kb-panel__tab {
   position: absolute;
   top: -30px;
@@ -486,7 +476,6 @@
 
 .kb-reveal {
   position: absolute;
-  /* Centré sur la hauteur du champ (le message d'erreur éventuel s'affiche dessous). */
   top: calc((var(--kb-field-height) - 28px) / 2);
   right: 0.55rem;
   display: inline-flex;
@@ -524,7 +513,6 @@
   transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.25s;
 }
 
-/* Reflet doré qui traverse le bouton au survol. */
 .kb-submit::after {
   content: '';
   position: absolute;
@@ -605,7 +593,6 @@
   }
 }
 
-/* —— Ouverture « couverture de livre » —— */
 .kb-cover {
   position: fixed;
   inset: 0;
@@ -722,7 +709,6 @@
   }
 }
 
-/* Pendant l'ouverture, le contenu attend derrière la couverture. */
 .kb-login--intro .kb-showcase {
   animation-delay: 1.6s;
 }
@@ -745,7 +731,6 @@
   --intro-delay: 1.5s;
 }
 
-/* —— Écrans étroits —— */
 @media (max-width: 1023px) {
   .kb-layout {
     grid-template-columns: minmax(0, 1fr);

@@ -2,7 +2,6 @@ using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Domain.Entities;
 
-/// <summary>Compte du back-office (table <c>Users</c>), identifié par un GUID texte.</summary>
 public sealed class User
 {
     public string Id { get; private set; } = string.Empty;
@@ -12,7 +11,7 @@ public sealed class User
     public string Password { get; private set; } = string.Empty;
     public DateTime DateCreated { get; private set; }
 
-    /// <summary>Départements dont l'utilisateur valide les articles, au format « 2,3, ».</summary>
+    // Départements dont l'utilisateur valide les articles, au format BDC « 2,3, ».
     public string? Validator { get; private set; }
 
     public int DepartementId { get; private set; }
@@ -69,14 +68,12 @@ public sealed class User
     public void ChangePassword(string password) => Password = password;
 }
 
-/// <summary>Rôle d'accès (table <c>Roles</c>).</summary>
 public sealed class Role
 {
     public int Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
 }
 
-/// <summary>Département d'un utilisateur (table <c>Departements</c>).</summary>
 public sealed class Departement
 {
     public int Id { get; private set; }

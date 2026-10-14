@@ -419,7 +419,6 @@ public sealed class ArticleReadRepository(SoftSupportDbContext db) : IArticleRea
 
     private static ArticleListItemDto WithCategory(ArticleListItemDto item) => item with { CategoryCode = CategoryOf(item.Code) };
 
-    /// <summary>Le code de catégorie est le préfixe de l'identifiant (« SAGCPT|00000042 »).</summary>
     private static string? CategoryOf(string? code)
     {
         var index = code?.IndexOf(ArticleCode.Separator, StringComparison.Ordinal) ?? -1;

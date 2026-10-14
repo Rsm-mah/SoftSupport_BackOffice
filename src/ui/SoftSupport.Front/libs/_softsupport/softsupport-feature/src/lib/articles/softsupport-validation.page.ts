@@ -7,7 +7,6 @@ import { PendingArticle } from '@softsupport/models';
 import { SoftSupportValidationService } from '@softsupport/service';
 import { SoftSupportArticleCodeComponent, SoftSupportArticleFormModalComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
 
-/** « En attente de validation » : articles des départements confiés au validateur, et import CRM. */
 @Component({
   selector: 'softsupport-validation-page',
   imports: [

@@ -2,10 +2,7 @@ using System.Globalization;
 
 namespace SoftSupport.Domain.Rules;
 
-/// <summary>
-/// Diffusion d'un article, stockée dans la colonne <c>option</c> : « 1 » = interne,
-/// « 2 » = clients. Un article ouvert aux clients l'est toujours aussi en interne.
-/// </summary>
+// Colonne `option` de BDC : « 1 » = interne, « 1,2 » = interne et clients.
 public static class ArticleOptions
 {
     public const string Interne = "1";
@@ -15,7 +12,6 @@ public static class ArticleOptions
 
     public static bool IsClient(string? options) => Parse(options).Contains(Client);
 
-    /// <summary>Forme enregistrée : « 1,2 », « 1 » ou <c>null</c> (non diffusé).</summary>
     public static string? Normalize(string? options)
     {
         var values = Parse(options);
@@ -36,10 +32,6 @@ public static class ArticleOptions
             .ToHashSet(StringComparer.Ordinal);
 }
 
-/// <summary>
-/// Identifiant d'article : code de la catégorie du produit, « | », puis un numéro sur
-/// 8 chiffres propre à la catégorie (ex. <c>SAGCPT|00000042</c>). Sans catégorie : <c>KB|</c>.
-/// </summary>
 public static class ArticleCode
 {
     public const string DefaultCategory = "KB";
@@ -49,7 +41,6 @@ public static class ArticleCode
     public static string PrefixFor(string? categoryCode) =>
         (string.IsNullOrWhiteSpace(categoryCode) ? DefaultCategory : categoryCode.Trim()).ToUpperInvariant() + Separator;
 
-    /// <summary>Code suivant le plus grand code déjà attribué pour ce préfixe.</summary>
     public static string Next(string prefix, string? lastCode)
     {
         var last = 0L;
@@ -63,7 +54,6 @@ public static class ArticleCode
         return prefix + (last + 1).ToString(CultureInfo.InvariantCulture).PadLeft(NumberLength, '0');
     }
 
-    /// <summary>Désignation affichée dans les listes : « Produit Version - Titre ».</summary>
     public static string Designation(string? productName, string? versionName, string title)
     {
         var head = string.Join(' ', new[] { productName, versionName }.Where(part => !string.IsNullOrWhiteSpace(part)));
@@ -71,7 +61,6 @@ public static class ArticleCode
     }
 }
 
-/// <summary>Départements confiés à un validateur, stockés au format « 2,3, » dans <c>Users.Validator</c>.</summary>
 public static class ValidatorDepartements
 {
     public static IReadOnlyList<int> Parse(string? value) =>

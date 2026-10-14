@@ -51,6 +51,7 @@ public static class DependencyInjection
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
         services.AddScoped<IDashboardRepository, DashboardRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ICrmGateway, CrmGateway>();
 
         services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();

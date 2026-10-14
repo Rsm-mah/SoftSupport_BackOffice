@@ -31,7 +31,26 @@
     <div class="flex-1"></div>
 
     <div class="topbar-actions">
-      <!-- Articles en attente de validation (validateurs uniquement) -->
+      @if (handlesComments()) {
+        <div class="relative">
+          <button
+            type="button"
+            (click)="openComments()"
+            class="topbar-icon-button topbar-notification-button"
+            data-testid="topbar-comments"
+            [title]="'softsupport.topbar.comments' | translate: { count: commentInbox.pending() }"
+            [attr.aria-label]="'softsupport.topbar.comments' | translate: { count: commentInbox.pending() }"
+          >
+            <soft-icon name="chat" size="2xl"></soft-icon>
+            @if (commentInbox.pending() > 0) {
+              <span class="ss-live absolute -right-1 -top-1 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-danger px-[3px] text-[9px] text-white">
+                {{ commentInbox.pending() > 99 ? '99+' : commentInbox.pending() }}
+              </span>
+            }
+          </button>
+        </div>
+      }
+
       @if (isValidator()) {
         <div class="relative">
           <button
@@ -51,7 +70,6 @@
         </div>
       }
 
-      <!-- Profil + déconnexion -->
       <div class="hidden items-center gap-1.5 md:!flex">
         <div class="relative">
           <div
@@ -104,7 +122,6 @@
         </div>
       </div>
 
-      <!-- Hors du bloc profil : la déconnexion reste accessible sur mobile. -->
       <button
         type="button"
         (click)="requestLogout()"

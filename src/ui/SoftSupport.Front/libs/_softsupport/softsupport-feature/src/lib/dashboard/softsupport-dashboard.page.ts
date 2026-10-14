@@ -24,11 +24,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
   Exceeded: 'danger',
 };
 
-/**
- * Tableau de bord. Bloc « Articles » (Administrateur) : articles les plus lus et les plus mal notés
- * par les clients. Bloc « Clients » (Commercial, Responsable Commercial) : contrats qui expirent ce
- * mois-ci et comptes clients par société au regard du nombre prévu au contrat.
- */
 @Component({
   selector: 'softsupport-dashboard-page',
   imports: [
@@ -103,7 +98,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
         [breadcrumb]="['softsupport.sidebar.dashboard' | translate]"
       />
 
-      <!-- ============ Bloc Articles (Administrateur) ============ -->
       @if (showArticles()) {
         <div class="ss-reveal mb-3 flex items-center gap-2" style="--delay: 0.1s">
           <soft-icon name="books" size="md" class="text-cyan-700" />
@@ -116,7 +110,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
           <soft-card-dashboard class="ss-reveal block" style="--delay: 0.15s" [cards]="articleCards()" [loading]="articles() === null" />
 
           <div class="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
-            <!-- Les plus lus -->
             <div class="ss-reveal overflow-hidden rounded-xl border border-slate-200 bg-white" style="--delay: 0.22s">
               <div class="flex items-center justify-between border-b border-slate-100 px-5 py-3.5">
                 <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-800">
@@ -150,7 +143,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
               }
             </div>
 
-            <!-- Les plus mal notés -->
             <div class="ss-reveal overflow-hidden rounded-xl border border-slate-200 bg-white" style="--delay: 0.28s">
               <div class="flex items-center justify-between border-b border-slate-100 px-5 py-3.5">
                 <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-800">
@@ -195,7 +187,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
         }
       }
 
-      <!-- ============ Bloc Clients (Commercial, Responsable Commercial) ============ -->
       @if (showCustomers()) {
         <div class="ss-reveal mb-3 flex items-center gap-2" [class.mt-8]="showArticles()" style="--delay: 0.1s">
           <soft-icon name="building-library" size="md" class="text-cyan-700" />
@@ -207,7 +198,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
         } @else {
           <soft-card-dashboard class="ss-reveal block" style="--delay: 0.15s" [cards]="customerCards()" [loading]="customers() === null" />
 
-          <!-- Contrats qui expirent ce mois-ci -->
           <div class="ss-reveal mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white" style="--delay: 0.22s">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3.5">
               <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-800">
@@ -261,7 +251,6 @@ const QUOTA_VARIANT: Record<QuotaStatus, 'success' | 'warning' | 'danger'> = {
             </div>
           </div>
 
-          <!-- Comptes clients par société -->
           <div class="ss-reveal mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white" style="--delay: 0.28s">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3.5">
               <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-800">
@@ -320,7 +309,6 @@ export class SoftSupportDashboardPage implements OnInit {
   private readonly session = inject(SoftSupportSessionService);
   private readonly translate = inject(TranslateService);
 
-  /** Chaque bloc ne s'affiche (et n'appelle l'API) que pour les rôles qui y ont droit. */
   readonly showArticles = computed(() => this.session.hasRole(DASHBOARD_ARTICLE_ROLES));
   readonly showCustomers = computed(() => this.session.hasRole(DASHBOARD_CUSTOMER_ROLES));
 

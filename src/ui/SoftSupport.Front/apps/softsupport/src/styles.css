@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 :root {
-  /* PRIMARY COLORS */
   --color-brand: #2563eb;
   --color-brand-50: #eff6ff;
   --color-brand-100: #dbeafe;
@@ -17,7 +16,6 @@
   --color-brand-900: #1e3a8a;
   --color-brand-950: #172554;
 
-  /* ACCENT COLORS */
   --color-accent: #f5a623;
   --color-accent-50: #fffbf0;
   --color-accent-100: #fef3e0;
@@ -31,7 +29,6 @@
   --color-accent-900: #924c1a;
   --color-accent-950: #4a2410;
 
-  /* SURFACE & NEUTRAL */
   --color-surface: #ffffff;
   --color-surface-light: #f9fafb;
   --color-surface-dark: #f3f4f6;
@@ -45,7 +42,6 @@
   --color-text-secondary: #6b7280;
   --color-text-muted: #9ca3af;
 
-  /* STATE COLORS */
   --color-success: #10b981;
   --color-success-light: #d1fae5;
   --color-success-bg: #f0fdf4;
@@ -59,16 +55,13 @@
   --color-info-light: #cffafe;
   --color-info-bg: #f0f9ff;
 
-  /* MODULE COLORS */
   --color-softdocs: #2563eb;
   --color-softlibrary: #0891b2;
   --color-softepaiement: #7c3aed;
 
-  /* SoftAppli common table header (SoftDocs charter) */
   --softappli-table-header-bg: #0C4A6E;
   --softappli-table-header-fg: #ffffff;
 
-  /* SIDEBAR */
   --sidebar-bg: rgb(26, 38, 52);
   --sidebar-border: rgba(255, 255, 255, 0.07);
   --sidebar-text: rgba(255, 255, 255, 0.80);
@@ -88,7 +81,6 @@
   --sidebar-width: 236px;
   --sidebar-mini-width: 54px;
 
-  /* SPACING */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 12px;
@@ -98,7 +90,6 @@
   --spacing-3xl: 48px;
   --spacing-4xl: 64px;
 
-  /* BORDER RADIUS */
   --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -107,7 +98,6 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* SHADOWS */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -117,7 +107,6 @@
   --shadow-elevate: 0 12px 24px rgba(0, 0, 0, 0.12);
   --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 
-  /* TYPOGRAPHY */
   --font-primary: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-secondary: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-monospace: 'Monaco', 'Courier New', monospace;
@@ -143,12 +132,10 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
 
-  /* TRANSITIONS */
   --transition-fast: 150ms ease-out;
   --transition-normal: 250ms ease-out;
   --transition-slow: 350ms ease-out;
 
-  /* Z-INDEX */
   --z-hide: -1;
   --z-base: 0;
   --z-dropdown: 10;
@@ -159,7 +146,6 @@
   --z-tooltip: 60;
   --z-notification: 70;
 
-  /* APP THEME TOKENS */
   --app-bg:
     radial-gradient(circle at 43% 39%, rgba(255, 255, 255, .92), transparent 22%),
     radial-gradient(circle at 74% 2%, rgba(99, 102, 241, .12), transparent 24%),
@@ -184,7 +170,6 @@
   --app-shadow-strong: 0 24px 60px rgba(20, 24, 72, .16);
   --app-glow: rgba(99, 102, 241, .16);
 
-  /* SOFTSIGN THEME TOKENS */
   --ss-background: #ffffff;
   --ss-foreground: #212529;
   --ss-card: #ffffff;
@@ -217,7 +202,6 @@
   --ss-panel-shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
 }
 
-/* ========== RESET & BASE ========== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -238,7 +222,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -251,9 +234,6 @@ body {
   border-radius: 3px;
 }
 
-/* ========== COMPOSANTS RÉUTILISABLES ========== */
-
-/* 🔘 BOUTONS */
 .btn {
   @apply px-4 py-2 rounded-lg font-semibold transition-all inline-flex items-center justify-center;
   outline: none;
@@ -413,7 +393,6 @@ body {
   @apply bg-red-100 text-red-600 hover:bg-red-200 border-none shadow-none;
 }
 
-/* 📝 INPUTS & FORMULAIRES */
 .form-group {
   @apply mb-4;
 }
@@ -487,7 +466,6 @@ body {
   margin-top: var(--spacing-xs);
 }
 
-/* 🎴 CARTES */
 .card {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -529,7 +507,6 @@ body {
   border: 2px solid var(--color-brand-200);
 }
 
-/* 📊 TABLEAUX */
 .table {
   @apply w-full border-collapse;
 }
@@ -564,13 +541,11 @@ body {
   color: var(--color-text-secondary);
 }
 
-/* SoftDocs rapport tables (MFE remote — styles must live in host shell) */
 table.rapport-table thead th {
   background-color: var(--softappli-table-header-bg) !important;
   color: var(--softappli-table-header-fg) !important;
 }
 
-/* 🏷️ BADGES & TAGS */
 .badge {
   @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold whitespace-nowrap;
 }
@@ -610,13 +585,11 @@ table.rapport-table thead th {
   color: var(--color-info);
 }
 
-/* Variante neutre utilisée par les écrans SoftFunds (statut inactif, valeur par défaut). */
 .badge-secondary {
   background-color: var(--color-surface-dark);
   color: var(--color-text-secondary);
 }
 
-/* 📍 ALERTS */
 .alert {
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
@@ -648,7 +621,6 @@ table.rapport-table thead th {
   color: var(--color-danger);
 }
 
-/* 🎯 HELPER UTILITIES */
 .text-primary {
   color: var(--color-brand);
 }
@@ -691,7 +663,6 @@ table.rapport-table thead th {
   overflow: hidden;
 }
 
-/* 🔲 DIVISEURS */
 .divider {
   border-top: 1px solid var(--color-border);
   margin: var(--spacing-lg) 0;
@@ -702,8 +673,6 @@ table.rapport-table thead th {
   margin: 0 var(--spacing-lg);
 }
 
-
-/* ========== SIDEBAR ========== */
 .sidebar-shell {
   background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
@@ -726,7 +695,6 @@ table.rapport-table thead th {
   background: var(--sidebar-hover);
 }
 
-/* Ensure soft-button parent items align exactly like anchor items in sidebar */
 soft-button.sidebar-parent-btn {
   display: block;
   width: 100%;
@@ -770,11 +738,6 @@ soft-button.sidebar-parent-btn {
   background: var(--sidebar-hover);
 }
 
-/*
- * Entrée « à venir » : l'écran est décrit par une maquette de refonte mais n'est pas encore
- * construit. L'entrée reste cliquable — sa route redirige vers l'écran réel le plus proche —
- * mais elle se lit tout de suite comme pas encore disponible.
- */
 .sidebar-item.sidebar-coming-soon,
 .sidebar-child-item.sidebar-coming-soon {
   opacity: 0.55;
@@ -870,9 +833,6 @@ soft-button.sidebar-parent-btn {
   color: var(--sidebar-admin-color);
 }
 
-
-/* ========== CONTENU DES ARTICLES ==========
-   Problème et solution sont du HTML saisi dans l'éditeur (ou repris de Summernote / du CRM). */
 .ss-article-content {
   color: #1e293b;
   font-size: 14px;

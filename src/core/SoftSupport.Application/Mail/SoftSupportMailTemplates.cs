@@ -3,7 +3,6 @@ using SoftSupport.Application.Abstractions;
 
 namespace SoftSupport.Application.Mail;
 
-/// <summary>Gabarits HTML des e-mails envoyés par SoftSupport. Toute valeur injectée est encodée.</summary>
 public static class SoftSupportMailTemplates
 {
     private const string Signature = "L'équipe Softwell — SoftSupport";
@@ -44,6 +43,24 @@ public static class SoftSupportMailTemplates
             Table(("Produit", productName ?? "—"), ("Échéance", endDate.ToString("dd/MM/yyyy"))),
             "Si vous avez des questions ou besoin de précisions, n'hésitez pas à nous contacter. "
             + "Ceci est un message automatique, merci de ne pas y répondre directement."));
+
+    public static EmailMessage CommentAnswered(
+        string to,
+        string subject,
+        string? firstName,
+        string? articleCode,
+        string articleTitle,
+        string comment,
+        string reply,
+        string portalUrl) =>
+        new(to, subject, Layout(
+            "Réponse à votre commentaire",
+            $"<p>Bonjour {Encode(firstName)},</p><p>Merci pour le commentaire que vous avez laissé sur la base de connaissances :</p>"
+            + Quote(comment)
+            + Table(("Article", articleCode ?? "—"), ("Titre", articleTitle))
+            + "<p style=\"margin-top: 15px;\">Voici notre réponse :</p>",
+            Quote(reply),
+            $"Vous retrouverez l'article sur SOFTSUPPORT : {portalUrl}"));
 
     private static string Layout(string title, string intro, string content, string? outro) =>
         $"""

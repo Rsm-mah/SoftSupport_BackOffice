@@ -13,10 +13,6 @@ import {
 
 type ArticleTab = 'problem' | 'solution';
 
-/**
- * Fiche d'un article : s'ouvre dès que `articleId` est renseigné (chaque ouverture compte une vue).
- * L'administrateur y règle la diffusion d'un article validé ou le renvoie en validation.
- */
 @Component({
   selector: 'softsupport-article-detail-modal',
   imports: [
@@ -197,7 +193,6 @@ export class SoftSupportArticleDetailModalComponent {
     this.interne.set(value || this.client());
   }
 
-  /** Un article ouvert aux clients l'est aussi en interne. */
   setClient(value: boolean): void {
     this.client.set(value);
     if (value) {

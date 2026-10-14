@@ -2,6 +2,7 @@ using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Articles;
 using SoftSupport.Application.DTOs.Auth;
 using SoftSupport.Application.DTOs.Catalog;
+using SoftSupport.Application.DTOs.Comments;
 using SoftSupport.Application.DTOs.Customers;
 using SoftSupport.Application.DTOs.Dashboard;
 using SoftSupport.Application.DTOs.Users;
@@ -33,7 +34,6 @@ public interface IUserAdminService
     Task<string> DeleteAsync(string userId, CancellationToken cancellationToken);
 }
 
-/// <summary>Consultation de la base de connaissances (tous les rôles).</summary>
 public interface IArticleQueryService
 {
     Task<PagedResult<ArticleListItemDto>> SearchAsync(ArticlesQuery query, CancellationToken cancellationToken);
@@ -42,13 +42,11 @@ public interface IArticleQueryService
 
     Task<IReadOnlyList<ArticleListItemDto>> GetRecentAsync(CancellationToken cancellationToken);
 
-    /// <summary>Détail d'un article ; chaque consultation incrémente son compteur de vues.</summary>
     Task<ArticleDetailDto> OpenAsync(int articleId, CancellationToken cancellationToken);
 
     Task<ArticleReferencesDto> GetReferencesAsync(CancellationToken cancellationToken);
 }
 
-/// <summary>Rédaction (« Mes articles », « Non validés ») et gestion de la diffusion.</summary>
 public interface IArticleAuthoringService
 {
     Task<IReadOnlyList<MyArticleDto>> GetMineAsync(CancellationToken cancellationToken);
@@ -70,7 +68,6 @@ public interface IArticleAuthoringService
     Task<ExportFile> ExportAsync(ArticleExportQuery query, CancellationToken cancellationToken);
 }
 
-/// <summary>File de validation des départements confiés à l'utilisateur connecté.</summary>
 public interface IArticleValidationService
 {
     Task<PendingCountDto> CountPendingAsync(CancellationToken cancellationToken);
@@ -154,7 +151,6 @@ public interface ICategoryService
     Task<string> DeleteAsync(int categoryId, CancellationToken cancellationToken);
 }
 
-/// <summary>Sociétés clientes, leurs contrats et leurs utilisateurs du portail.</summary>
 public interface ICompanyService
 {
     Task<IReadOnlyList<CompanyListItemDto>> GetListAsync(CancellationToken cancellationToken);
@@ -188,19 +184,25 @@ public interface ICompanyService
     Task<PagedResult<ContractHistoryItemDto>> SearchHistoryAsync(ContractHistoryQuery query, CancellationToken cancellationToken);
 }
 
-/// <summary>Alertes d'échéance de contrat, lancées chaque nuit par l'infrastructure.</summary>
 public interface IContractAlertService
 {
     Task<int> SendDueAlertsAsync(CancellationToken cancellationToken);
 }
 
-/// <summary>
-/// Tableau de bord, en deux blocs aux droits distincts : « Articles » pour l'Administrateur,
-/// « Clients » pour le Commercial et le Responsable Commercial.
-/// </summary>
 public interface IDashboardService
 {
     Task<ArticleDashboardDto> GetArticlesAsync(CancellationToken cancellationToken);
 
     Task<CustomerDashboardDto> GetCustomersAsync(CancellationToken cancellationToken);
+}
+
+public interface ICommentService
+{
+    Task<PagedResult<CommentListItemDto>> SearchAsync(CommentsQuery query, CancellationToken cancellationToken);
+
+    Task<CommentCountDto> CountPendingAsync(CancellationToken cancellationToken);
+
+    Task<string> ReplyAsync(int commentId, ReplyToCommentRequest request, CancellationToken cancellationToken);
+
+    Task<string> DeleteAsync(int commentId, CancellationToken cancellationToken);
 }

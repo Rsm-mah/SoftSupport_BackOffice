@@ -18,7 +18,6 @@ import {
 import { Observable, shareReplay } from 'rxjs';
 import { SoftSupportApiBase } from './softsupport-api.base';
 
-/** Consultation, rédaction et diffusion des articles. */
 @Injectable({ providedIn: 'root' })
 export class SoftSupportArticleService extends SoftSupportApiBase {
   private references$: Observable<ArticleReferences> | null = null;
@@ -46,7 +45,6 @@ export class SoftSupportArticleService extends SoftSupportApiBase {
     return this.getData<ArticleListItem[]>('articles/recent');
   }
 
-  /** Produits, versions et thèmes ; gardés en cache pour la session (`refresh` les recharge). */
   getReferences(refresh = false): Observable<ArticleReferences> {
     if (!this.references$ || refresh) {
       this.references$ = this.getData<ArticleReferences>('articles/references').pipe(shareReplay(1));
@@ -54,7 +52,6 @@ export class SoftSupportArticleService extends SoftSupportApiBase {
     return this.references$;
   }
 
-  /** Ouvre un article ; l'API compte une vue. */
   open(articleId: number): Observable<ArticleDetail> {
     return this.getData<ArticleDetail>(`articles/${articleId}`);
   }
@@ -96,7 +93,6 @@ export class SoftSupportArticleService extends SoftSupportApiBase {
   }
 }
 
-/** File de validation des départements confiés à l'utilisateur. */
 @Injectable({ providedIn: 'root' })
 export class SoftSupportValidationService extends SoftSupportApiBase {
   count(): Observable<PendingCount> {

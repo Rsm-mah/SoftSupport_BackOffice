@@ -68,7 +68,6 @@ public sealed class ProductService(
         return $"Le produit « {product.Name} » a été supprimé.";
     }
 
-    /// <summary>Aligne les produits sur la liste « case_prod1 » du CRM (création, libellés, ordre).</summary>
     public async Task<string> ImportFromCrmAsync(CancellationToken cancellationToken)
     {
         var captions = await crm.GetCaptionsAsync(ProductCatalog.CrmProductFamily, cancellationToken);
@@ -268,10 +267,6 @@ public sealed class VersionService(
         return $"La version « {version.Name} » a été supprimée.";
     }
 
-    /// <summary>
-    /// Aligne les versions sur la liste « case_version » du CRM. Comme dans BDC, les versions
-    /// absentes du CRM sont retirées.
-    /// </summary>
     public async Task<string> ImportFromCrmAsync(CancellationToken cancellationToken)
     {
         var captions = await crm.GetCaptionsAsync(ProductCatalog.CrmVersionFamily, cancellationToken);
@@ -355,7 +350,6 @@ public sealed class CategoryService(ICategoryRepository categories, ILogger<Cate
         return $"La catégorie « {category.Code} » a été modifiée.";
     }
 
-    /// <summary>Supprime la catégorie ; ses produits redeviennent sans catégorie.</summary>
     public async Task<string> DeleteAsync(int categoryId, CancellationToken cancellationToken)
     {
         var category = await RequireAsync(categoryId, cancellationToken);

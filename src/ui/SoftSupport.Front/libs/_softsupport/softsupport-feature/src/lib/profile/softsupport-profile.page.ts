@@ -14,7 +14,6 @@ function passwordsMatch(group: AbstractControl): ValidationErrors | null {
   return password && password !== confirmation ? { mismatch: true } : null;
 }
 
-/** Mon profil : informations du compte et changement du mot de passe. */
 @Component({
   selector: 'softsupport-profile-page',
   imports: [DatePipe, ReactiveFormsModule, TranslatePipe, SoftButtonComponent, SoftIconComponent, SoftInputComponent, SoftBadgeComponent, SoftSupportPageHeaderComponent],

@@ -7,10 +7,6 @@ using SoftSupport.Application.Interfaces;
 
 namespace SoftSupport.Infrastructure.Jobs;
 
-/// <summary>
-/// Vérifie chaque nuit à minuit les échéances de contrat (remplace la tâche Hangfire
-/// « contrat-verification » de BDC, sans nécessiter ses tables).
-/// </summary>
 public sealed class ContractAlertBackgroundService(
     IServiceScopeFactory scopeFactory,
     IOptions<SoftSupportOptions> options,

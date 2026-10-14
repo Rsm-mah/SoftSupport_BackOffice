@@ -3,7 +3,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SoftIconComponent } from '@soft-mfe/shared-components';
 import { LookupItem } from '@softsupport/models';
 
-/** Liste à cocher filtrable (produits d'un pack, d'une catégorie). */
 @Component({
   selector: 'softsupport-check-list',
   imports: [TranslatePipe, SoftIconComponent],
@@ -42,7 +41,6 @@ export class SoftSupportCheckListComponent {
 
   readonly term = signal('');
 
-  /** Les éléments cochés restent en tête de liste. */
   readonly visible = computed(() => {
     const term = this.term().trim().toLowerCase();
     const selected = new Set(this.selected());

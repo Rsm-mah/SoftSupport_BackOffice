@@ -13,13 +13,11 @@ interface ContractRow {
   productId: number;
   productName: string;
   selected: boolean;
-  /** Produit déjà sous contrat : ses dates se modifient depuis la fiche de la société. */
   existing: boolean;
   startDate: string;
   endDate: string;
 }
 
-/** Création ou modification d'une société : informations, produits sous contrat, administrateur client. */
 @Component({
   selector: 'softsupport-company-form-page',
   imports: [ReactiveFormsModule, TranslatePipe, SoftButtonComponent, SoftIconComponent, SoftInputComponent, SoftSupportPageHeaderComponent, SoftSupportCredentialsModalComponent],
@@ -167,7 +165,6 @@ export class SoftSupportCompanyFormPage {
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
 
-  /** Paramètre de route `:id` (absent en création). */
   readonly id = input<string | undefined>();
 
   readonly isEdit = computed(() => !!this.id());
@@ -313,7 +310,6 @@ export class SoftSupportCompanyFormPage {
     });
   }
 
-  /** Une ligne par produit ; un produit sous contrat reprend sa période la plus récente. */
   private buildRows(products: LookupItem[], company: CompanyDetail | null): ContractRow[] {
     const latest = new Map<number, { name: string; start: string; end: string }>();
     for (const contract of company?.contracts ?? []) {

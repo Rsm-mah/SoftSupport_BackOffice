@@ -16,7 +16,6 @@ import { SoftSupportProductService } from '@softsupport/service';
 import { SoftSupportPageHeaderComponent } from '@softsupport/ui';
 import { SoftSupportCheckListComponent } from './softsupport-check-list.component';
 
-/** Packs : un produit commercialisé qui en inclut d'autres. */
 @Component({
   selector: 'softsupport-packs-page',
   imports: [
@@ -150,7 +149,6 @@ export class SoftSupportPacksPage implements OnInit {
       : this.packs();
   });
 
-  /** Un produit déjà constitué en pack ne peut être choisi qu'en modification. */
   readonly productOptions = computed<SelectOption[]>(() => {
     const packIds = new Set(this.packs().map(pack => pack.productId));
     const editedId = this.edited()?.productId;

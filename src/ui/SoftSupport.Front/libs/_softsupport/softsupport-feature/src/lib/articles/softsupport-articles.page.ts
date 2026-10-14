@@ -41,7 +41,6 @@ interface ArticleFilters {
 
 const EMPTY_FILTERS: ArticleFilters = { search: '', productId: '', versionId: '', themeId: '', option: '' };
 
-/** « Tous les articles » : la base de connaissances publiée, filtrée et paginée côté serveur. */
 @Component({
   selector: 'softsupport-articles-page',
   imports: [

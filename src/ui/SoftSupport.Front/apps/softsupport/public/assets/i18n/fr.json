@@ -65,14 +65,16 @@
       "users": "Utilisateurs",
       "administration": "Administration",
       "profile": "Mon profil",
-      "dashboard": "Tableau de bord"
+      "dashboard": "Tableau de bord",
+      "comments": "Commentaires clients"
     },
     "topbar": {
       "space": "Espace",
       "pending": "{{count}} article(s) en attente de validation",
       "myProfile": "Mon profil",
       "logoutTitle": "Déconnexion",
-      "logoutMessage": "Voulez-vous vraiment vous déconnecter de SoftSupport ?"
+      "logoutMessage": "Voulez-vous vraiment vous déconnecter de SoftSupport ?",
+      "comments": "{{count}} commentaire(s) client(s) à traiter"
     },
     "login": {
       "brand": "Softwell",
@@ -514,6 +516,40 @@
           "full": "Quotas atteints",
           "exceeded": "Quotas dépassés"
         }
+      }
+    },
+    "comments": {
+      "title": "Commentaires clients",
+      "subtitle": "Commentaires laissés sur les articles du portail client. La réponse est envoyée par e-mail au client.",
+      "searchPlaceholder": "Commentaire, client, société ou article",
+      "tabs": {
+        "Pending": "À traiter",
+        "Answered": "Traités",
+        "all": "Tous"
+      },
+      "status": {
+        "Pending": "À traiter",
+        "Answered": "Traité"
+      },
+      "empty": {
+        "Pending": "Aucun commentaire en attente de réponse.",
+        "Answered": "Aucun commentaire n'a encore reçu de réponse.",
+        "all": "Aucun commentaire n'a été laissé par les clients."
+      },
+      "repliedBy": "Réponse de {{email}}",
+      "replyAgain": "Répondre à nouveau",
+      "reply": {
+        "action": "Répondre",
+        "title": "Répondre au commentaire",
+        "recipient": "La réponse sera envoyée par e-mail à {{email}}.",
+        "message": "Votre réponse",
+        "placeholder": "Rédigez la réponse au client…",
+        "send": "Envoyer la réponse"
+      },
+      "delete": {
+        "title": "Supprimer le commentaire",
+        "message": "Supprimer le commentaire de {{name}} ?",
+        "info": "Le client n'est pas prévenu. Les réponses déjà envoyées restent dans le journal des e-mails."
       }
     }
   }

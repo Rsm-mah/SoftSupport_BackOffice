@@ -1,6 +1,5 @@
 import { LookupItem } from './softsupport-user.models';
 
-/** Valeurs de la colonne `option` : « 1 » = interne, « 2 » = clients. */
 export const OPTION_INTERNE = '1';
 export const OPTION_CLIENT = '2';
 

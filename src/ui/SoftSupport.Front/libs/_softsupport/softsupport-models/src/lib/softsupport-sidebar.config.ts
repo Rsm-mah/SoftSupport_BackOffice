@@ -1,3 +1,4 @@
+import { COMMENT_ROLES } from './softsupport-comment.models';
 import { DASHBOARD_ROLES } from './softsupport-dashboard.models';
 import { ADMIN_ROLES, ALL_ROLES, COMMERCIAL_ROLES, REDACTION_ROLES } from './softsupport-roles';
 
@@ -7,12 +8,10 @@ export interface SoftSupportNavItem {
   icon: string;
   route?: string;
   roles: readonly string[];
-  /** Réservé aux utilisateurs à qui des départements sont confiés pour la validation. */
   requiresValidator?: boolean;
   children?: SoftSupportNavItem[];
 }
 
-/** Menu latéral de SoftSupport, identique au menu du back-office BDC. */
 export const SOFTSUPPORT_SIDEBAR: readonly SoftSupportNavItem[] = [
   { id: 'dashboard', translationKey: 'softsupport.sidebar.dashboard', icon: 'dashboard', route: 'tableau-de-bord', roles: DASHBOARD_ROLES },
   {
@@ -35,6 +34,7 @@ export const SOFTSUPPORT_SIDEBAR: readonly SoftSupportNavItem[] = [
       { id: 'articles-refused', translationKey: 'softsupport.sidebar.articlesRefused', icon: 'x-circle', route: 'non-valides', roles: REDACTION_ROLES },
     ],
   },
+  { id: 'comments', translationKey: 'softsupport.sidebar.comments', icon: 'chat', route: 'commentaires', roles: COMMENT_ROLES },
   {
     id: 'catalog',
     translationKey: 'softsupport.sidebar.catalog',

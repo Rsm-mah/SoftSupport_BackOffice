@@ -5,10 +5,6 @@ using SoftSupport.Application.Interfaces;
 
 namespace SoftSupport.Api.Controllers;
 
-/// <summary>
-/// File de validation. L'accès dépend des départements confiés à l'utilisateur
-/// (colonne <c>Validator</c>), vérifiés en base par le service à chaque appel.
-/// </summary>
 [Route("api/softsupport/validation")]
 public sealed class ValidationController(IArticleValidationService service) : SoftSupportControllerBase
 {

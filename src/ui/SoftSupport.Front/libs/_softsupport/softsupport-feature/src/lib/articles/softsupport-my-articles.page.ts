@@ -21,7 +21,6 @@ import {
   SoftSupportPageHeaderComponent,
 } from '@softsupport/ui';
 
-/** « Mes articles » : rédaction, modification et suppression des articles de l'utilisateur. */
 @Component({
   selector: 'softsupport-my-articles-page',
   imports: [

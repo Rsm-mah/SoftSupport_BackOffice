@@ -7,3 +7,4 @@ export * from './lib/article-detail-modal.component';
 export * from './lib/article-form-modal.component';
 export * from './lib/article-refs-modal.component';
 export * from './lib/credentials-modal.component';
+export * from './lib/comment-reply-modal.component';

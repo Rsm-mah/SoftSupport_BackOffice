@@ -2,16 +2,13 @@ using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Domain.Entities;
 
-/// <summary>Société cliente (table <c>Companies</c>).</summary>
 public sealed class Company
 {
     public int Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
 
-    /// <summary>Nom abrégé, affiché entre crochets devant le nom.</summary>
     public string ShortName { get; private set; } = string.Empty;
 
-    /// <summary>Nombre d'utilisateurs prévu au contrat.</summary>
     public int UserNumber { get; private set; }
 
     public static Company Create(string name, string shortName, int userNumber)
@@ -43,7 +40,6 @@ public sealed class Company
     }
 }
 
-/// <summary>Ligne de contrat : un produit souscrit sur une période (table <c>CompanyProducts</c>).</summary>
 public sealed class ContractLine
 {
     public int Id { get; private set; }
@@ -75,17 +71,13 @@ public sealed class ContractLine
     }
 }
 
-/// <summary>Utilisateur d'une société cliente (table <c>Customers</c>), qui se connecte au portail client.</summary>
-/// <remarks>
-/// Le mot de passe reste stocké tel quel : le portail client (FrontOffice BDC) le compare
-/// directement, la base devant rester compatible avec lui.
-/// </remarks>
 public sealed class Customer
 {
     public int Id { get; private set; }
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
+    // En clair : le portail client le compare tel quel.
     public string Password { get; private set; } = string.Empty;
     public int CompanyId { get; private set; }
     public bool IsAdmin { get; private set; }
@@ -123,7 +115,6 @@ public sealed class Customer
     public void ResetPassword(string password) => Password = password;
 }
 
-/// <summary>Nature d'un évènement de l'historique des contrats (colonne <c>CHistoriques.Type</c>).</summary>
 public enum ContractHistoryType
 {
     Creation = 0,
@@ -132,7 +123,6 @@ public enum ContractHistoryType
     Renouvellement = 3,
 }
 
-/// <summary>Trace d'un évènement sur un contrat (table <c>CHistoriques</c>).</summary>
 public sealed class ContractHistory
 {
     public int Id { get; private set; }

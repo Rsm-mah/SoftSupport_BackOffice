@@ -7,7 +7,6 @@ import { CustomerItem } from '@softsupport/models';
 import { SoftSupportCompanyService } from '@softsupport/service';
 import { Credentials } from '@softsupport/ui';
 
-/** Utilisateur du portail client : création (mot de passe généré) ou modification (réinitialisation possible). */
 @Component({
   selector: 'softsupport-customer-modal',
   imports: [ReactiveFormsModule, TranslatePipe, SoftModalComponent, SoftButtonComponent, SoftIconComponent, SoftInputComponent, SoftToggleComponent],
@@ -78,7 +77,6 @@ export class SoftSupportCustomerModalComponent {
   readonly companyId = input.required<number>();
   readonly customer = input<CustomerItem | null>(null);
   readonly closed = output<void>();
-  /** Émis après enregistrement ; porte les identifiants quand un mot de passe vient d'être généré. */
   readonly saved = output<Credentials | null>();
 
   readonly saving = signal(false);

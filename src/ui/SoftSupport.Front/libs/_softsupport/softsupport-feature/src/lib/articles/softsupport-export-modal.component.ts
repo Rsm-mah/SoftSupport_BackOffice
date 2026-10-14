@@ -7,7 +7,6 @@ import { getApiErrorMessage, mapBlobHttpError, ToastService } from '@soft-mfe/sh
 import { LookupItem } from '@softsupport/models';
 import { SoftSupportArticleService, SoftSupportUsersService } from '@softsupport/service';
 
-/** Extraction CSV des articles rédigés par un département sur une période (administrateur). */
 @Component({
   selector: 'softsupport-export-modal',
   imports: [ReactiveFormsModule, TranslatePipe, SoftModalComponent, SoftButtonComponent, SoftIconComponent, SoftInputComponent, SoftSelectComponent],
@@ -59,7 +58,6 @@ export class SoftSupportExportModalComponent {
   readonly departements = signal<LookupItem[]>([]);
   readonly busy = signal(false);
 
-  /** Le département « Non assigné » (le premier) n'est pas proposé, comme dans BDC. */
   readonly departementOptions = computed<SelectOption[]>(() =>
     this.departements().slice(1).map(item => ({ value: String(item.id), label: item.name })),
   );

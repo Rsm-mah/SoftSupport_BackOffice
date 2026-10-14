@@ -92,7 +92,6 @@
   </div>
 </ng-template>
 
-<!-- Bureau -->
 @if (collapsed()) {
   <aside class="softsupport-sidebar-desktop sidebar-shell fixed left-0 top-0 z-40 h-screen w-[54px] shrink-0 flex-col items-center gap-1 overflow-y-auto pt-3">
     <ng-container *ngTemplateOutlet="brand; context: { compact: true }"></ng-container>
@@ -140,7 +139,6 @@
   </aside>
 }
 
-<!-- Mobile -->
 @if (mobileOpen()) {
   <div
     class="softsupport-sidebar-backdrop fixed inset-0 z-30 transition-opacity duration-300"

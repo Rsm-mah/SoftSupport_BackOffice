@@ -15,7 +15,6 @@ public sealed record ArticleListItemDto(
     int ViewNumber,
     DateTime CreatedAt);
 
-/// <summary>Filtres de la liste « Tous les articles » ; <c>Option</c> vaut « 1 » (interne) ou « 2 » (clients).</summary>
 public sealed class ArticlesQuery : PagedQuery
 {
     public string? Search { get; init; }
@@ -81,7 +80,6 @@ public sealed record PendingArticleDto(
     string? RequestNumber,
     bool InCrm);
 
-/// <summary>Article chargé pour modification (rédacteur) ou validation (validateur).</summary>
 public sealed record EditableArticleDto(
     int ArticleId,
     string? Code,
@@ -101,7 +99,6 @@ public sealed record EditableArticleDto(
 
 public sealed record ProductLookupDto(int Id, string Name, string? CategoryCode);
 
-/// <summary>Listes de choix des filtres et des formulaires d'article.</summary>
 public sealed record ArticleReferencesDto(
     IReadOnlyList<ProductLookupDto> Products,
     IReadOnlyList<LookupDto> Versions,
@@ -131,12 +128,10 @@ public sealed record ValidateArticleRequest(
 
 public sealed record ArticleOptionsRequest(bool Interne, bool Client);
 
-/// <summary>Commentaire transmis au rédacteur lors d'un refus ou d'une suppression.</summary>
 public sealed record ArticleCommentRequest(string Comment);
 
 public sealed record PendingCountDto(bool IsValidator, int Count);
 
-/// <summary>Extraction CSV des articles d'un département sur une période.</summary>
 public sealed record ArticleExportQuery(DateTime From, DateTime To, int DepartementId);
 
 public sealed record ExportFile(string FileName, string ContentType, byte[] Content);

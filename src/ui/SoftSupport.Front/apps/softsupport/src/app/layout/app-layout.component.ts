@@ -4,7 +4,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SidebarComponent } from './sidebar.component';
 import { TopbarComponent } from './topbar.component';
 
-/** Coque applicative : sidebar SoftAppli, topbar, zone de contenu et pied de page. */
 @Component({
   selector: 'softsupport-app-layout',
   imports: [RouterOutlet, SidebarComponent, TopbarComponent, TranslatePipe],
@@ -20,7 +19,6 @@ import { TopbarComponent } from './topbar.component';
 
       <div class="flex min-w-0 flex-1 flex-col transition-all duration-300 softsupport-content" [class.is-collapsed]="collapsed()">
         <softsupport-topbar (menuToggle)="mobileOpen.set(!mobileOpen())" />
-        <!-- Progression de lecture, pilotée par le défilement de <main> (animation-timeline). -->
         <div class="ss-scroll-progress" aria-hidden="true"></div>
         <main class="app-layout-main min-h-0 flex-1 overflow-y-auto p-6">
           <router-outlet />
@@ -50,7 +48,6 @@ import { TopbarComponent } from './topbar.component';
 
       .softsupport-content {
         margin-left: var(--sidebar-width);
-        /* La timeline nommée de <main> devient visible pour sa sœur .ss-scroll-progress. */
         timeline-scope: --ss-page;
       }
 

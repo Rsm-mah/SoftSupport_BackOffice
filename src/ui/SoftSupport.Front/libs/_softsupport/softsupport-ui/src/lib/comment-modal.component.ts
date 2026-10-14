@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SoftButtonComponent, SoftIconComponent, SoftModalComponent } from '@soft-mfe/shared-components';
 
-/** Demande un commentaire obligatoire avant une action (refus ou suppression d'un article). */
 @Component({
   selector: 'softsupport-comment-modal',
   imports: [FormsModule, TranslatePipe, SoftModalComponent, SoftButtonComponent, SoftIconComponent],

@@ -2,9 +2,6 @@ using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Application.DTOs.Dashboard;
 
-// ---- Bloc « Articles » (Administrateur) -------------------------------------------------------
-
-/// <summary>Article du classement, avec ses vues et les votes des clients.</summary>
 public sealed record TopArticleDto(
     int ArticleId,
     string? Code,
@@ -24,7 +21,6 @@ public sealed record ArticleDashboardDto(
     IReadOnlyList<TopArticleDto> MostRead,
     IReadOnlyList<TopArticleDto> WorstRated);
 
-/// <summary>Ligne lue en base, avant application des règles de classement.</summary>
 public sealed record ArticleVoteStats(
     int ArticleId,
     string? Code,
@@ -34,9 +30,6 @@ public sealed record ArticleVoteStats(
     int Likes,
     int Dislikes);
 
-// ---- Bloc « Clients » (Commercial, Responsable Commercial) --------------------------------------
-
-/// <summary>Contrat qui arrive à échéance ; <c>Renewed</c> : une période suivante existe déjà pour ce produit.</summary>
 public sealed record ExpiringContractItemDto(
     int ContractId,
     int CompanyId,
@@ -64,7 +57,6 @@ public sealed record CustomerDashboardDto(
     int FullCount,
     int ExceededCount);
 
-/// <summary>Ligne de contrat lue en base pour la période demandée.</summary>
 public sealed record ContractEndingRow(
     int ContractId,
     int CompanyId,
@@ -74,5 +66,4 @@ public sealed record ContractEndingRow(
     DateTime EndDate,
     bool Renewed);
 
-/// <summary>Société et nombre de comptes clients, lus en base.</summary>
 public sealed record CompanyAccountsRow(int CompanyId, string CompanyName, string ShortName, int UserNumber, int AccountCount);

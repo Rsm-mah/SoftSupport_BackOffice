@@ -8,3 +8,5 @@ export * from './lib/softsupport-article.service';
 export * from './lib/softsupport-catalog.service';
 export * from './lib/softsupport-company.service';
 export * from './lib/softsupport-dashboard.service';
+export * from './lib/softsupport-comment.service';
+export * from './lib/softsupport-comment-inbox.store';

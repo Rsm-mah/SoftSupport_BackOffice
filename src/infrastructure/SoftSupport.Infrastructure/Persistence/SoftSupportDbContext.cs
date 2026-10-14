@@ -4,12 +4,7 @@ using SoftSupport.Infrastructure.Persistence.Configurations;
 
 namespace SoftSupport.Infrastructure.Persistence;
 
-/// <summary>
-/// Contexte EF Core de SoftSupport. Il se branche sur la base BDC existante sans la modifier :
-/// chaque configuration reprend exactement les tables et colonnes en place. Aucune migration
-/// n'est générée depuis ce contexte, et les tables Hangfire de l'ancienne application ne sont
-/// pas touchées.
-/// </summary>
+// Mappé sur la base BDC existante : aucune migration ne doit être générée depuis ce contexte.
 public sealed class SoftSupportDbContext(DbContextOptions<SoftSupportDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users => Set<User>();
@@ -27,6 +22,8 @@ public sealed class SoftSupportDbContext(DbContextOptions<SoftSupportDbContext> 
     public DbSet<ContractLine> ContractLines => Set<ContractLine>();
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<ContractHistory> ContractHistories => Set<ContractHistory>();
+    public DbSet<Comment> Comments => Set<Comment>();
+    public DbSet<CommentReply> CommentReplies => Set<CommentReply>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -25,7 +25,6 @@ public sealed class CompanyService(
     public async Task<CompanyDetailDto> GetDetailAsync(int companyId, CancellationToken cancellationToken) =>
         await companies.GetDetailAsync(companyId, cancellationToken) ?? throw new KeyNotFoundException("Société introuvable.");
 
-    /// <summary>Sociétés clientes du CRM, proposées à la saisie d'une nouvelle société.</summary>
     public async Task<IReadOnlyList<string>> GetCrmCompanyNamesAsync(CancellationToken cancellationToken)
     {
         try
@@ -179,7 +178,6 @@ public sealed class CompanyService(
         return $"La société « {company.Name} » a été modifiée.";
     }
 
-    /// <summary>Supprime la société, ses contrats (tracés dans l'historique) et ses utilisateurs.</summary>
     public async Task<string> DeleteAsync(int companyId, CancellationToken cancellationToken)
     {
         var company = await RequireAsync(companyId, cancellationToken);
@@ -237,7 +235,6 @@ public sealed class CompanyService(
         var company = await RequireAsync(line.CompanyId, cancellationToken);
         await EnsureProductsExistAsync([request.ProductId], cancellationToken);
 
-        // Les autres périodes du même produit encadrent la période modifiée.
         var siblings = (await companies.GetContractLinesAsync(line.CompanyId, cancellationToken))
             .Where(other => other.Id != line.Id && other.ProductId == request.ProductId)
             .ToList();
@@ -386,7 +383,6 @@ public sealed class CompanyService(
     private static bool HasEmail(AdminCustomerInput? admin) => !string.IsNullOrWhiteSpace(admin?.Email);
 }
 
-/// <summary>Trois mois avant l'échéance, puis chaque lundi du dernier mois, les clients sont prévenus.</summary>
 public sealed class ContractAlertService(
     ICompanyRepository companies,
     IEmailQueue emailQueue,

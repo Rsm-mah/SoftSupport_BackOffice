@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { SoftSupportArticleCodeComponent } from './softsupport-badges.component';
 import { SoftSupportArticleDetailModalComponent } from './article-detail-modal.component';
 
-/** Articles rattachés à un produit, un thème ou une version ; un clic ouvre l'article. */
 @Component({
   selector: 'softsupport-article-refs-modal',
   imports: [
@@ -66,7 +65,6 @@ import { SoftSupportArticleDetailModalComponent } from './article-detail-modal.c
   `,
 })
 export class SoftSupportArticleRefsModalComponent {
-  /** Requête des articles à afficher ; `null` ferme la fenêtre. */
   readonly source = input<Observable<ArticleRef[]> | null>(null);
   readonly heading = input('');
   readonly closed = output<void>();

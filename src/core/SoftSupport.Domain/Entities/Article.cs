@@ -2,7 +2,6 @@ using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Domain.Entities;
 
-/// <summary>Contenu modifiable d'un article : saisi par le rédacteur ou ajusté par le validateur.</summary>
 public sealed record ArticleContent(
     string Title,
     string Problem,
@@ -14,12 +13,10 @@ public sealed record ArticleContent(
     string? TicketNumber,
     string? RequestNumber);
 
-/// <summary>Article de la base de connaissances (table <c>Articles</c>).</summary>
 public sealed class Article
 {
     public int Id { get; private set; }
 
-    /// <summary>Numéro du cas CRM d'origine pour un article importé.</summary>
     public int? TicketId { get; private set; }
 
     public string Reference { get; private set; } = string.Empty;
@@ -28,7 +25,6 @@ public sealed class Article
     public string Problem { get; private set; } = string.Empty;
     public string Solution { get; private set; } = string.Empty;
 
-    /// <summary>Motif du dernier refus, communiqué au rédacteur.</summary>
     public string? Comment { get; private set; }
 
     public int ViewNumber { get; private set; }
@@ -37,13 +33,11 @@ public sealed class Article
     public bool IsAffected { get; private set; }
     public bool IsValidated { get; private set; }
 
-    /// <summary>Faux pour un article refusé : il quitte la base et revient à son rédacteur.</summary>
     public bool IsEnabled { get; private set; }
 
     public string? UserId { get; private set; }
     public int? CrmAssignedUser { get; private set; }
 
-    /// <summary>Diffusion : « 1 » interne, « 1,2 » interne et clients (voir <see cref="ArticleOptions"/>).</summary>
     public string? Options { get; private set; }
 
     public int? ProductId { get; private set; }
@@ -69,7 +63,6 @@ public sealed class Article
         return article;
     }
 
-    /// <summary>Article créé à partir d'un cas CRM marqué « base de connaissances ».</summary>
     public static Article ImportFromCrm(
         string code,
         int caseId,
@@ -97,14 +90,12 @@ public sealed class Article
             CreatedAt = now,
         };
 
-    /// <summary>Modification par le rédacteur : un article refusé repart en validation.</summary>
     public void UpdateByAuthor(ArticleContent content)
     {
         Apply(content);
         IsEnabled = true;
     }
 
-    /// <summary>Le validateur publie l'article, éventuellement corrigé, avec sa diffusion.</summary>
     public void Validate(ArticleContent? correctedContent, string? options)
     {
         if (!IsEnabled)
@@ -135,7 +126,6 @@ public sealed class Article
 
     public void ChangeOptions(string? options) => Options = ArticleOptions.Normalize(options);
 
-    /// <summary>Retire la publication : l'article retourne dans la file de validation.</summary>
     public void SendBackToValidation()
     {
         IsValidated = false;
@@ -144,7 +134,6 @@ public sealed class Article
 
     public void RegisterView() => ViewNumber++;
 
-    /// <summary>Vrai si le contenu proposé diffère du contenu enregistré.</summary>
     public bool DiffersFrom(ArticleContent content) =>
         Title != content.Title
         || Problem != content.Problem
@@ -174,10 +163,6 @@ public sealed class Article
     }
 }
 
-/// <summary>
-/// Vote d'un utilisateur client sur un article (table <c>ArticleVotes</c>), saisi depuis le
-/// portail client : vrai = utile, faux = pas utile. Le back-office ne fait que le lire.
-/// </summary>
 public sealed class ArticleVote
 {
     public int Id { get; private set; }
@@ -186,7 +171,6 @@ public sealed class ArticleVote
     public int CustomerId { get; private set; }
 }
 
-/// <summary>Date de modification d'un article (table <c>ArticleUpdateLogs</c>).</summary>
 public sealed class ArticleUpdateLog
 {
     public int Id { get; private set; }

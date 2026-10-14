@@ -18,7 +18,6 @@ import { ROLE_ADMINISTRATEUR, SOFTSUPPORT_DEFAULT_PAGE_SIZE, UserFormOptions, Us
 import { SoftSupportSessionService, SoftSupportUsersService } from '@softsupport/service';
 import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
 
-/** Comptes du back-office : rôle, département et départements dont l'utilisateur valide les articles. */
 @Component({
   selector: 'softsupport-users-page',
   imports: [

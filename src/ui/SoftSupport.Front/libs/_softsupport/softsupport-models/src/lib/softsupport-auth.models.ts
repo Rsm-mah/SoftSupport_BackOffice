@@ -5,7 +5,6 @@ export interface AuthUser {
   email: string;
   roleName: string | null;
   departementName: string | null;
-  /** Vrai si des départements lui sont confiés pour la validation des articles. */
   isValidator: boolean;
 }
 

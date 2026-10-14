@@ -17,7 +17,6 @@ import {
 import { Observable } from 'rxjs';
 import { SoftSupportApiBase } from './softsupport-api.base';
 
-/** Sociétés clientes, contrats, utilisateurs du portail et historique. */
 @Injectable({ providedIn: 'root' })
 export class SoftSupportCompanyService extends SoftSupportApiBase {
   getAll(): Observable<CompanyListItem[]> {

@@ -1,6 +1,5 @@
 namespace SoftSupport.Application.Common;
 
-/// <summary>Enveloppe unique de toutes les réponses de l'API SoftSupport.</summary>
 public class ApiResponse<T>
 {
     public bool Success { get; set; }

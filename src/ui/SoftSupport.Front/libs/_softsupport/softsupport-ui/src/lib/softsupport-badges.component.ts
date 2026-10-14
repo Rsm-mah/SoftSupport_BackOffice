@@ -3,7 +3,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SoftBadgeComponent, SoftIconComponent } from '@soft-mfe/shared-components';
 import { isClient, isInterne } from '@softsupport/models';
 
-/** Statut d'un article : validé, en attente ou refusé. */
 @Component({
   selector: 'softsupport-article-status',
   imports: [SoftBadgeComponent, TranslatePipe],
@@ -24,7 +23,6 @@ export class SoftSupportArticleStatusComponent {
   );
 }
 
-/** Diffusion d'un article : interne et/ou clients. */
 @Component({
   selector: 'softsupport-article-options',
   imports: [SoftIconComponent, TranslatePipe],
@@ -54,7 +52,6 @@ export class SoftSupportArticleOptionsComponent {
   readonly client = computed(() => isClient(this.options()));
 }
 
-/** Identifiant d'article « CATEGORIE|00000001 » rendu en deux tons. */
 @Component({
   selector: 'softsupport-article-code',
   changeDetection: ChangeDetectionStrategy.OnPush,

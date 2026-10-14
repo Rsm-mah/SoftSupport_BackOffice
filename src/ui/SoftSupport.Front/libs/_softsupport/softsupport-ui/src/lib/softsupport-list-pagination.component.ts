@@ -4,7 +4,6 @@ import { SoftIconComponent } from '@soft-mfe/shared-components';
 import { PAGE_SIZES, PageSize } from '@soft-mfe/shared-models';
 import { paginationPageNumbers, paginationRange, paginationTotalPages } from '@softsupport/models';
 
-/** Pied de tableau paginé, identique à celui des listes SoftFunds. */
 @Component({
   selector: 'softsupport-list-pagination',
   imports: [TranslatePipe, SoftIconComponent],

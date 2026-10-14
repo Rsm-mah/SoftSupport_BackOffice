@@ -17,7 +17,6 @@ import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } fr
 import { forkJoin, of } from 'rxjs';
 import { SoftSupportCheckListComponent } from './softsupport-check-list.component';
 
-/** Catégories : leur code préfixe les identifiants d'articles des produits rattachés. */
 @Component({
   selector: 'softsupport-categories-page',
   imports: [

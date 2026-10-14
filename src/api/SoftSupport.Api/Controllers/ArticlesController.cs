@@ -7,7 +7,6 @@ using SoftSupport.Application.Interfaces;
 
 namespace SoftSupport.Api.Controllers;
 
-/// <summary>Base de connaissances : consultation, rédaction et diffusion des articles.</summary>
 [Route("api/softsupport/articles")]
 public sealed class ArticlesController(
     IArticleQueryService queries,
@@ -35,7 +34,6 @@ public sealed class ArticlesController(
     public async Task<ActionResult<ApiResponse<ArticleReferencesDto>>> GetReferences(CancellationToken cancellationToken) =>
         Ok(ApiResponse<ArticleReferencesDto>.Ok(await queries.GetReferencesAsync(cancellationToken)));
 
-    /// <summary>Ouvre un article : chaque appel compte une vue.</summary>
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(ApiResponse<ArticleDetailDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<ArticleDetailDto>>> Open(int id, CancellationToken cancellationToken) =>
@@ -97,7 +95,6 @@ public sealed class ArticlesController(
     public async Task<ActionResult<ApiResponse<object?>>> SendBackToValidation(int id, CancellationToken cancellationToken) =>
         Ok(ApiResponse.Ok(message: await authoring.SendBackToValidationAsync(id, cancellationToken)));
 
-    /// <summary>Extraction CSV des articles d'un département sur une période.</summary>
     [HttpGet("export")]
     [Authorize(Policy = SoftSupportAuthorizationPolicies.Administration)]
     [Produces("text/csv", "application/json")]

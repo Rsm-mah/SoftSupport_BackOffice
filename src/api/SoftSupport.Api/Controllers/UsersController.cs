@@ -16,7 +16,6 @@ public sealed class UsersController(IUserAdminService service) : SoftSupportCont
     public async Task<ActionResult<ApiResponse<IReadOnlyList<UserListItemDto>>>> GetAll(CancellationToken cancellationToken) =>
         Ok(ApiResponse<IReadOnlyList<UserListItemDto>>.Ok(await service.GetAllAsync(cancellationToken)));
 
-    /// <summary>Rôles et départements proposés dans le formulaire (et l'extraction des articles).</summary>
     [HttpGet("form-options")]
     [ProducesResponseType(typeof(ApiResponse<UserFormOptionsDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<UserFormOptionsDto>>> GetFormOptions(CancellationToken cancellationToken) =>

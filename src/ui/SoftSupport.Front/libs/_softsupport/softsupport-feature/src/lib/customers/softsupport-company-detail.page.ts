@@ -24,7 +24,6 @@ const STATE_VARIANT: Record<ContractState, 'success' | 'warning' | 'danger' | 'i
   future: 'info',
 };
 
-/** Fiche d'une société : périodes de contrat par produit et utilisateurs du portail client. */
 @Component({
   selector: 'softsupport-company-detail-page',
   imports: [
@@ -232,7 +231,6 @@ export class SoftSupportCompanyDetailPage {
   private readonly deleteContractModal = viewChild<ConfirmationModalComponent>('deleteContractModal');
   private readonly deleteCustomerModal = viewChild<ConfirmationModalComponent>('deleteCustomerModal');
 
-  /** Paramètre de route `:id`. */
   readonly id = input.required<string>();
 
   readonly company = signal<CompanyDetail | null>(null);

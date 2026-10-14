@@ -7,7 +7,6 @@ using SoftSupport.Application.Interfaces;
 
 namespace SoftSupport.Api.Controllers;
 
-/// <summary>Sociétés clientes et leurs contrats.</summary>
 [Route("api/softsupport/companies")]
 [Authorize(Policy = SoftSupportAuthorizationPolicies.Commercial)]
 public sealed class CompaniesController(ICompanyService service) : SoftSupportControllerBase
@@ -17,7 +16,6 @@ public sealed class CompaniesController(ICompanyService service) : SoftSupportCo
     public async Task<ActionResult<ApiResponse<IReadOnlyList<CompanyListItemDto>>>> GetAll(CancellationToken cancellationToken) =>
         Ok(ApiResponse<IReadOnlyList<CompanyListItemDto>>.Ok(await service.GetListAsync(cancellationToken)));
 
-    /// <summary>Sociétés clientes du CRM, suggérées à la création.</summary>
     [HttpGet("crm-names")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<string>>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<IReadOnlyList<string>>>> GetCrmNames(CancellationToken cancellationToken) =>
@@ -48,7 +46,6 @@ public sealed class CompaniesController(ICompanyService service) : SoftSupportCo
     public async Task<ActionResult<ApiResponse<object?>>> Delete(int id, CancellationToken cancellationToken) =>
         Ok(ApiResponse.Ok(message: await service.DeleteAsync(id, cancellationToken)));
 
-    /// <summary>Périodes successives d'un produit pour la société.</summary>
     [HttpGet("{id:int}/products/{productId:int}/contracts")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ContractLineDto>>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<IReadOnlyList<ContractLineDto>>>> GetProductContracts(
@@ -99,7 +96,6 @@ public sealed class ContractsController(ICompanyService service) : SoftSupportCo
     public async Task<ActionResult<ApiResponse<object?>>> Delete(int id, CancellationToken cancellationToken) =>
         Ok(ApiResponse.Ok(message: await service.DeleteContractAsync(id, cancellationToken)));
 
-    /// <summary>Historique des évènements sur les contrats (création, modification, suppression, renouvellement).</summary>
     [HttpGet("history")]
     [ProducesResponseType(typeof(ApiResponse<PagedResult<ContractHistoryItemDto>>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<PagedResult<ContractHistoryItemDto>>>> GetHistory(

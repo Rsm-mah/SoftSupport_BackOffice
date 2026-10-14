@@ -65,14 +65,16 @@
       "users": "Users",
       "administration": "Administration",
       "profile": "My profile",
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "comments": "Customer comments"
     },
     "topbar": {
       "space": "Space",
       "pending": "{{count}} article(s) awaiting validation",
       "myProfile": "My profile",
       "logoutTitle": "Sign out",
-      "logoutMessage": "Do you really want to sign out of SoftSupport?"
+      "logoutMessage": "Do you really want to sign out of SoftSupport?",
+      "comments": "{{count}} customer comment(s) to handle"
     },
     "login": {
       "brand": "Softwell",
@@ -514,6 +516,40 @@
           "full": "Quotas reached",
           "exceeded": "Quotas exceeded"
         }
+      }
+    },
+    "comments": {
+      "title": "Customer comments",
+      "subtitle": "Comments left on articles of the customer portal. The reply is emailed to the customer.",
+      "searchPlaceholder": "Comment, customer, company or article",
+      "tabs": {
+        "Pending": "To handle",
+        "Answered": "Handled",
+        "all": "All"
+      },
+      "status": {
+        "Pending": "To handle",
+        "Answered": "Handled"
+      },
+      "empty": {
+        "Pending": "No comment is waiting for a reply.",
+        "Answered": "No comment has been answered yet.",
+        "all": "Customers have not left any comment."
+      },
+      "repliedBy": "Reply from {{email}}",
+      "replyAgain": "Reply again",
+      "reply": {
+        "action": "Reply",
+        "title": "Reply to the comment",
+        "recipient": "The reply will be emailed to {{email}}.",
+        "message": "Your reply",
+        "placeholder": "Write your reply to the customer…",
+        "send": "Send reply"
+      },
+      "delete": {
+        "title": "Delete comment",
+        "message": "Delete the comment from {{name}}?",
+        "info": "The customer is not notified. Replies already sent stay in the email log."
       }
     }
   }

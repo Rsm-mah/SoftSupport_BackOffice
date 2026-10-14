@@ -1,6 +1,7 @@
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Articles;
 using SoftSupport.Application.DTOs.Catalog;
+using SoftSupport.Application.DTOs.Comments;
 using SoftSupport.Application.DTOs.Customers;
 using SoftSupport.Application.DTOs.Dashboard;
 using SoftSupport.Application.DTOs.Users;
@@ -10,7 +11,6 @@ namespace SoftSupport.Application.Interfaces;
 
 public interface IUserRepository
 {
-    /// <summary>Compte chargé avec son rôle et son département (connexion).</summary>
     Task<User?> FindByEmailWithAccessAsync(string email, CancellationToken cancellationToken);
 
     Task<User?> FindAsync(string userId, CancellationToken cancellationToken);
@@ -41,23 +41,19 @@ public interface IReferentielRepository
     Task<bool> DepartementExistsAsync(int departementId, CancellationToken cancellationToken);
 }
 
-/// <summary>Écritures sur les articles.</summary>
 public interface IArticleRepository
 {
     Task<Article?> FindAsync(int articleId, CancellationToken cancellationToken);
 
-    /// <summary>Plus grand identifiant d'article commençant par le préfixe (ex. <c>SAGCPT|</c>).</summary>
     Task<string?> GetLastCodeAsync(string prefix, CancellationToken cancellationToken);
 
     Task<string?> GetCategoryCodeOfProductAsync(int? productId, CancellationToken cancellationToken);
 
-    /// <summary>Noms du produit et de la version, pour composer la désignation.</summary>
     Task<(string? ProductName, string? VersionName)> GetDesignationPartsAsync(
         int? productId,
         int? versionId,
         CancellationToken cancellationToken);
 
-    /// <summary>Codes CRM du produit et de la version, reportés sur le cas d'origine.</summary>
     Task<(string? ProductCode, string? VersionCode)> GetCrmCodesAsync(
         int? productId,
         int? versionId,
@@ -65,7 +61,6 @@ public interface IArticleRepository
 
     Task<HashSet<int>> GetImportedCaseIdsAsync(CancellationToken cancellationToken);
 
-    /// <summary>Correspondances nécessaires à l'import CRM : code produit → produit, nom de version → version, e-mail → compte.</summary>
     Task<CrmImportLookups> GetCrmImportLookupsAsync(CancellationToken cancellationToken);
 
     Task<string?> GetAuthorEmailAsync(string? userId, CancellationToken cancellationToken);
@@ -84,7 +79,6 @@ public sealed record CrmImportLookups(
     IReadOnlyDictionary<string, int> VersionsByName,
     IReadOnlyDictionary<string, string> UserIdsByEmail);
 
-/// <summary>Article chargé pour modification, avec ce qu'il faut pour contrôler les droits.</summary>
 public sealed record EditableArticleRow(EditableArticleDto Article, string? AuthorId, int? AuthorDepartementId);
 
 public sealed record ArticleExportRow(
@@ -96,7 +90,6 @@ public sealed record ArticleExportRow(
     bool IsValidated,
     string? Author);
 
-/// <summary>Lectures des articles, projetées directement en DTO.</summary>
 public interface IArticleReadRepository
 {
     Task<PagedResult<ArticleListItemDto>> SearchAsync(ArticlesQuery query, CancellationToken cancellationToken);
@@ -132,7 +125,6 @@ public interface IProductRepository
 {
     Task<IReadOnlyList<ProductListItemDto>> GetListAsync(CancellationToken cancellationToken);
 
-    /// <summary>Tous les produits par ordre alphabétique (contrats, packs).</summary>
     Task<IReadOnlyList<LookupDto>> GetLookupAsync(CancellationToken cancellationToken);
 
     Task<Product?> FindAsync(int productId, CancellationToken cancellationToken);
@@ -149,7 +141,6 @@ public interface IProductRepository
 
     Task<int> CountExistingAsync(IReadOnlyCollection<int> productIds, CancellationToken cancellationToken);
 
-    /// <summary>Produits issus du CRM, suivis pour la synchronisation.</summary>
     Task<List<Product>> GetCrmProductsAsync(CancellationToken cancellationToken);
 
     Task<IReadOnlyList<PackDto>> GetPacksAsync(CancellationToken cancellationToken);
@@ -215,10 +206,8 @@ public interface ICategoryRepository
 
     Task<bool> CodeExistsAsync(string code, int? excludedId, CancellationToken cancellationToken);
 
-    /// <summary>Produits sans catégorie, plus ceux de la catégorie indiquée.</summary>
     Task<IReadOnlyList<LookupDto>> GetAssignableProductsAsync(int? categoryId, CancellationToken cancellationToken);
 
-    /// <summary>Rattache exactement ces produits à la catégorie et détache les autres.</summary>
     Task SetProductsAsync(int categoryId, IReadOnlyCollection<int> productIds, CancellationToken cancellationToken);
 
     Task AddAsync(Category category, CancellationToken cancellationToken);
@@ -259,7 +248,6 @@ public interface ICompanyRepository
         ContractHistoryQuery query,
         CancellationToken cancellationToken);
 
-    /// <summary>Lignes de contrat encore en cours, avec les e-mails des utilisateurs de la société.</summary>
     Task<IReadOnlyList<ExpiringContract>> GetRunningContractsAsync(DateTime today, CancellationToken cancellationToken);
 
     Task AddAsync(Company company, CancellationToken cancellationToken);
@@ -278,7 +266,6 @@ public interface ICompanyRepository
 
     Task SaveChangesAsync(CancellationToken cancellationToken);
 
-    /// <summary>Exécute un traitement en plusieurs enregistrements dans une seule transaction.</summary>
     Task<T> InTransactionAsync<T>(Func<Task<T>> work, CancellationToken cancellationToken);
 }
 
@@ -289,10 +276,8 @@ public sealed record ExpiringContract(
     DateTime EndDate,
     IReadOnlyList<string> CustomerEmails);
 
-/// <summary>Accès au CRM Softwell (base CRMSOFTWELL).</summary>
 public interface ICrmGateway
 {
-    /// <summary>Cas proposés pour la base de connaissances, non refusés et rattachés à un produit.</summary>
     Task<IReadOnlyList<CrmCase>> GetKnowledgeBaseCasesAsync(CancellationToken cancellationToken);
 
     Task<IReadOnlyDictionary<int, string?>> GetUserEmailsAsync(CancellationToken cancellationToken);
@@ -303,7 +288,6 @@ public interface ICrmGateway
 
     Task<IReadOnlyList<string>> GetCustomerCompanyNamesAsync(CancellationToken cancellationToken);
 
-    /// <summary>Reporte sur le cas d'origine les corrections d'un article validé ou modifié.</summary>
     Task UpdateCaseAsync(
         int caseId,
         string title,
@@ -314,15 +298,33 @@ public interface ICrmGateway
         CancellationToken cancellationToken);
 }
 
-/// <summary>Lectures agrégées du tableau de bord.</summary>
 public interface IDashboardRepository
 {
-    /// <summary>Articles actifs et validés, avec leurs vues et les votes des clients.</summary>
     Task<IReadOnlyList<ArticleVoteStats>> GetArticleStatsAsync(CancellationToken cancellationToken);
 
-    /// <summary>Lignes de contrat dont l'échéance tombe entre <paramref name="from"/> et <paramref name="to"/> inclus.</summary>
     Task<IReadOnlyList<ContractEndingRow>> GetContractsEndingAsync(DateTime from, DateTime to, CancellationToken cancellationToken);
 
-    /// <summary>Sociétés clientes et nombre de comptes du portail de chacune.</summary>
     Task<IReadOnlyList<CompanyAccountsRow>> GetCompanyAccountsAsync(CancellationToken cancellationToken);
+}
+
+public interface ICommentRepository
+{
+    Task<IReadOnlyList<CommentReply>> GetRepliesAsync(CancellationToken cancellationToken);
+
+    Task<PagedResult<CommentRow>> SearchAsync(
+        CommentsQuery query,
+        IReadOnlyCollection<int> answeredIds,
+        CancellationToken cancellationToken);
+
+    Task<int> CountExceptAsync(IReadOnlyCollection<int> excludedIds, CancellationToken cancellationToken);
+
+    Task<CommentRow?> GetRowAsync(int commentId, CancellationToken cancellationToken);
+
+    Task<Comment?> FindAsync(int commentId, CancellationToken cancellationToken);
+
+    void AddReply(CommentReply reply);
+
+    void Remove(Comment comment);
+
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

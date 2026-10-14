@@ -7,10 +7,6 @@ using SoftSupport.Application.Abstractions;
 
 namespace SoftSupport.Infrastructure.Mail;
 
-/// <summary>
-/// Envoie les e-mails déposés dans la file. Un échec SMTP est journalisé et n'interrompt ni
-/// la file ni la requête qui a déposé le message.
-/// </summary>
 public sealed class EmailDispatcherBackgroundService(
     ChannelEmailQueue queue,
     IOptions<SmtpOptions> options,

@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ADMIN_ROLES, COMMERCIAL_ROLES, DASHBOARD_ROLES, REDACTION_ROLES } from '@softsupport/models';
+import { ADMIN_ROLES, COMMENT_ROLES, COMMERCIAL_ROLES, DASHBOARD_ROLES, REDACTION_ROLES } from '@softsupport/models';
 import {
   softSupportAuthGuard,
   softSupportGuestGuard,
@@ -96,6 +96,13 @@ export const appRoutes: Route[] = [
         canActivate: [softSupportRoleGuard],
         data: { roles: ADMIN_ROLES },
         loadComponent: () => feature().then(m => m.SoftSupportCategoriesPage),
+      },
+      {
+        path: 'commentaires',
+        title: 'SoftSupport — Commentaires clients',
+        canActivate: [softSupportRoleGuard],
+        data: { roles: COMMENT_ROLES },
+        loadComponent: () => feature().then(m => m.SoftSupportCommentsPage),
       },
       {
         path: 'clients',

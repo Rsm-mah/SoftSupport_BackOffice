@@ -7,7 +7,6 @@ import { RefusedArticle } from '@softsupport/models';
 import { SoftSupportArticleService } from '@softsupport/service';
 import { SoftSupportArticleCodeComponent, SoftSupportArticleFormModalComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
 
-/** « Non validés » : articles refusés de l'utilisateur, avec le motif, à corriger et resoumettre. */
 @Component({
   selector: 'softsupport-refused-articles-page',
   imports: [

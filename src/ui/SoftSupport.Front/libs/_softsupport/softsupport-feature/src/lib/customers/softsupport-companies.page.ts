@@ -14,7 +14,6 @@ import { CompanyListItem } from '@softsupport/models';
 import { SoftSupportCompanyService } from '@softsupport/service';
 import { SoftSupportPageHeaderComponent } from '@softsupport/ui';
 
-/** Clients : sociétés, leurs utilisateurs du portail et la prochaine échéance de contrat. */
 @Component({
   selector: 'softsupport-companies-page',
   imports: [

@@ -9,7 +9,6 @@ public class PagedResult<T>
     public int TotalPages => PageSize <= 0 ? 0 : (int)Math.Ceiling(TotalCount / (double)PageSize);
 }
 
-/// <summary>Pagination commune aux listes : page à partir de 1.</summary>
 public abstract class PagedQuery
 {
     public const int DefaultPageSize = 10;

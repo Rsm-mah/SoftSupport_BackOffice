@@ -12,7 +12,6 @@ using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Application.Services;
 
-/// <summary>Construction du contenu d'un article : la désignation est recalculée côté serveur.</summary>
 internal static class ArticleContentBuilder
 {
     public static async Task<ArticleContent> BuildAsync(
@@ -338,7 +337,6 @@ public sealed class ArticleValidationService(
         return "L'article a été supprimé et son rédacteur a été prévenu par e-mail.";
     }
 
-    /// <summary>Crée un article non validé pour chaque cas CRM proposé à la base de connaissances.</summary>
     public async Task<string> ImportFromCrmAsync(CancellationToken cancellationToken)
     {
         await RequireMyDepartementsAsync(cancellationToken);
@@ -430,7 +428,6 @@ public sealed class ArticleValidationService(
             : throw new UnauthorizedAccessException("Aucun département ne vous a été confié pour la validation.");
     }
 
-    /// <summary>L'article doit être en attente et rédigé dans un département confié à l'utilisateur.</summary>
     private async Task<EditableArticleRow> RequireValidatableAsync(int articleId, CancellationToken cancellationToken)
     {
         var departements = await RequireMyDepartementsAsync(cancellationToken);

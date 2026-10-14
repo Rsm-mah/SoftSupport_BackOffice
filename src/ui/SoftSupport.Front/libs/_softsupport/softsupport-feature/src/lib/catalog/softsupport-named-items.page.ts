@@ -16,10 +16,6 @@ import { NamedResource, SoftSupportArticleService, SoftSupportNamedItemService }
 import { SoftSupportArticleRefsModalComponent, SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
 import { Observable } from 'rxjs';
 
-/**
- * Versions et thèmes : même écran, la ressource vient de la route (`data.resource`).
- * Seules les versions se synchronisent avec le CRM.
- */
 @Component({
   selector: 'softsupport-named-items-page',
   imports: [
@@ -145,7 +141,6 @@ export class SoftSupportNamedItemsPage {
   private readonly translate = inject(TranslateService);
   private readonly deleteModal = viewChild<ConfirmationModalComponent>('deleteModal');
 
-  /** Lu dans `data.resource` de la route grâce à `withComponentInputBinding`. */
   readonly resource = input<NamedResource>('themes');
 
   readonly rows = signal<NamedItem[]>([]);

@@ -31,7 +31,6 @@ public sealed record CompanyDetailDto(
 
 public sealed record ContractInput(int ProductId, DateTime StartDate, DateTime EndDate);
 
-/// <summary>Administrateur côté client, créé avec la société et destinataire des identifiants.</summary>
 public sealed record AdminCustomerInput(string FirstName, string LastName, string Email, string? Function);
 
 public sealed record CreateCompanyRequest(
@@ -41,18 +40,12 @@ public sealed record CreateCompanyRequest(
     IReadOnlyList<ContractInput>? Contracts,
     AdminCustomerInput? Admin);
 
-/// <summary>
-/// Modification d'une société : <c>Contracts</c> liste les produits souscrits. Un produit absent
-/// perd ses contrats, un nouveau produit en reçoit un, un produit existant voit sa dernière
-/// période ajustée si les dates changent.
-/// </summary>
 public sealed record UpdateCompanyRequest(
     string ShortName,
     int UserNumber,
     IReadOnlyList<ContractInput>? Contracts,
     AdminCustomerInput? Admin);
 
-/// <summary>Identifiants générés pour l'administrateur client, à transmettre une seule fois.</summary>
 public sealed record CompanySavedDto(int CompanyId, string? AdminEmail, string? AdminPassword);
 
 public sealed record SaveContractRequest(int ProductId, DateTime StartDate, DateTime EndDate);
@@ -66,7 +59,6 @@ public sealed record SaveCustomerRequest(
     bool ResetPassword,
     bool SendCredentials);
 
-/// <summary>Mot de passe en clair renvoyé quand il vient d'être généré, pour être copié.</summary>
 public sealed record CustomerSavedDto(int CustomerId, string? Password);
 
 public sealed record ContractHistoryItemDto(

@@ -1,6 +1,5 @@
 namespace SoftSupport.Domain.Entities;
 
-/// <summary>Produit du catalogue (table <c>Products</c>), importé du CRM ou créé localement.</summary>
 public sealed class Product
 {
     public int Id { get; private set; }
@@ -10,7 +9,6 @@ public sealed class Product
     public bool IsChecked { get; private set; }
     public int CompanyId { get; private set; }
 
-    /// <summary>Code de la liste « case_prod1 » du CRM.</summary>
     public int? CrmCode { get; private set; }
 
     public int ParentId { get; private set; }
@@ -30,7 +28,6 @@ public sealed class Product
 
     public void AssignCategory(int? categoryId) => CategoryId = categoryId;
 
-    /// <summary>Aligne le produit sur la légende CRM ; <paramref name="present"/> vaut faux s'il a disparu du CRM.</summary>
     public void SyncWithCrm(bool present, string? name = null, int? order = null)
     {
         IsChecked = present;
@@ -47,7 +44,6 @@ public sealed class Product
             : name.Trim();
 }
 
-/// <summary>Thème d'article (table <c>Themes</c>).</summary>
 public sealed class Theme
 {
     public int Id { get; private set; }
@@ -67,7 +63,6 @@ public sealed class Theme
             : name.Trim();
 }
 
-/// <summary>Version logicielle (table <c>Versions</c>), alignée sur la liste « case_version » du CRM.</summary>
 public sealed class SoftwareVersion
 {
     public int Id { get; private set; }
@@ -100,7 +95,6 @@ public sealed class SoftwareVersion
             : name.Trim();
 }
 
-/// <summary>Catégorie de produits (table <c>Categories</c>) : son code préfixe les identifiants d'articles.</summary>
 public sealed class Category
 {
     public int Id { get; private set; }
@@ -126,7 +120,6 @@ public sealed class Category
             : name.Trim();
 }
 
-/// <summary>Produit inclus dans un pack (table <c>ProductsPack</c>).</summary>
 public sealed class ProductPack
 {
     public int ProductId { get; private set; }

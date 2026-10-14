@@ -101,7 +101,6 @@ export interface ContractHistoryQuery {
   type?: string | null;
 }
 
-/** État d'une période de contrat à la date du jour. */
 export type ContractState = 'active' | 'expiring' | 'expired' | 'future';
 
 export function contractState(startDate: string, endDate: string, today = new Date()): ContractState {
@@ -117,7 +116,6 @@ export function contractState(startDate: string, endDate: string, today = new Da
   return end - day <= 90 * 86_400_000 ? 'expiring' : 'active';
 }
 
-/** Date au format attendu par un champ `<input type="date">`. */
 export function toDateInput(value: string | null | undefined): string {
   return value ? value.substring(0, 10) : '';
 }

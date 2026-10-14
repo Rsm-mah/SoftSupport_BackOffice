@@ -5,7 +5,6 @@ import { AppConfigService } from '@soft-mfe/shared-services';
 import { catchError, throwError } from 'rxjs';
 import { SoftSupportSessionService } from './softsupport-session.service';
 
-/** Ajoute le jeton aux seuls appels vers l'API SoftSupport. */
 export const softSupportJwtInterceptor: HttpInterceptorFn = (request, next) => {
   const session = inject(SoftSupportSessionService);
   const config = inject(AppConfigService);
@@ -18,7 +17,6 @@ export const softSupportJwtInterceptor: HttpInterceptorFn = (request, next) => {
   return next(request.clone({ setHeaders: { Authorization: `Bearer ${token}` } }));
 };
 
-/** Un 401 sur une route protégée ferme la session et renvoie à l'écran de connexion. */
 export const softSupportUnauthorizedInterceptor: HttpInterceptorFn = (request, next) => {
   const session = inject(SoftSupportSessionService);
   const router = inject(Router);

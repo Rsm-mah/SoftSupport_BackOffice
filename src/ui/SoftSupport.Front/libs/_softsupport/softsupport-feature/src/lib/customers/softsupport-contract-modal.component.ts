@@ -8,7 +8,6 @@ import { ContractLine, LookupItem, toDateInput } from '@softsupport/models';
 import { SoftSupportCompanyService } from '@softsupport/service';
 import { Observable } from 'rxjs';
 
-/** `add` : nouveau contrat (3 mois minimum) ; `edit` : correction d'une période ; `renew` : période suivante. */
 export type ContractModalMode = 'add' | 'edit' | 'renew';
 
 export interface ContractModalRequest {

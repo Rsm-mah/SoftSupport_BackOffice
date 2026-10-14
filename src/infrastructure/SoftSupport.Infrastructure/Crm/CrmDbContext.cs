@@ -3,10 +3,6 @@ using SoftSupport.Domain.Entities;
 
 namespace SoftSupport.Infrastructure.Crm;
 
-/// <summary>
-/// Accès au CRM Softwell (base CRMSOFTWELL). Seules les colonnes utilisées par la base de
-/// connaissances sont mappées ; la seule écriture est le report des corrections sur un cas.
-/// </summary>
 public sealed class CrmDbContext(DbContextOptions<CrmDbContext> options) : DbContext(options)
 {
     public DbSet<CrmCase> Cases => Set<CrmCase>();

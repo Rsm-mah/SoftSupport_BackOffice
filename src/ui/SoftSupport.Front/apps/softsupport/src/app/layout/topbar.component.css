@@ -121,7 +121,6 @@ soft-app-switcher {
   margin-left: 24px;
 }
 
-/* Contexte de module affiché à la place de la recherche (SoftShop). */
 .topbar-module-context {
   flex: 1 1 auto;
   min-width: 0;
@@ -129,7 +128,6 @@ soft-app-switcher {
   margin-right: 8px;
 }
 
-/* Recherche SoftShop dans la topbar-actions (à droite avec la langue). */
 .topbar-search--softshop-right {
   flex: 0 1 240px;
   min-width: 180px;

@@ -5,7 +5,6 @@ using SoftSupport.Application.Interfaces;
 
 namespace SoftSupport.Api.Controllers;
 
-/// <summary>Compte de l'utilisateur connecté.</summary>
 [Route("api/softsupport/account")]
 public sealed class AccountController(IAccountService service) : SoftSupportControllerBase
 {

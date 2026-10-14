@@ -14,3 +14,4 @@ export * from './lib/customers/softsupport-company-detail.page';
 export * from './lib/customers/softsupport-history.page';
 export * from './lib/profile/softsupport-profile.page';
 export * from './lib/dashboard/softsupport-dashboard.page';
+export * from './lib/comments/softsupport-comments.page';

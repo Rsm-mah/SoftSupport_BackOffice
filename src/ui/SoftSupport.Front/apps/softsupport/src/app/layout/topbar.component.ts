@@ -3,7 +3,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ConfirmationModalComponent, SoftIconComponent } from '@soft-mfe/shared-components';
-import { SoftSupportSessionService, SoftSupportValidationService } from '@softsupport/service';
+import { COMMENT_ROLES } from '@softsupport/models';
+import { SoftSupportCommentInboxStore, SoftSupportSessionService, SoftSupportValidationService } from '@softsupport/service';
 import { filter } from 'rxjs';
 
 @Component({
@@ -18,16 +19,17 @@ export class TopbarComponent {
   private readonly router = inject(Router);
   private readonly validationApi = inject(SoftSupportValidationService);
   readonly session = inject(SoftSupportSessionService);
+  readonly commentInbox = inject(SoftSupportCommentInboxStore);
 
   readonly menuToggle = output<void>();
 
   private readonly logoutModal = viewChild<ConfirmationModalComponent>('logoutModal');
 
   readonly profileOpen = signal(false);
-  /** Articles en attente dans les départements confiés à l'utilisateur. */
   readonly pendingCount = signal(0);
 
   readonly isValidator = computed(() => !!this.session.user()?.isValidator);
+  readonly handlesComments = computed(() => !!this.session.user() && this.session.hasRole(COMMENT_ROLES));
 
   readonly profile = computed(() => {
     const user = this.session.user();
@@ -62,6 +64,10 @@ export class TopbarComponent {
     }
   }
 
+  openComments(): void {
+    void this.router.navigate(['/commentaires']);
+  }
+
   openValidation(): void {
     void this.router.navigate(['/validation']);
   }
@@ -89,6 +95,7 @@ export class TopbarComponent {
     if (!this.session.isAuthenticated()) {
       return;
     }
+    this.commentInbox.refresh();
     this.validationApi.count().subscribe({
       next: result => {
         this.session.updateValidator(result.isValidator);

@@ -5,7 +5,6 @@ using SoftSupport.Application.Common;
 
 namespace SoftSupport.Api;
 
-/// <summary>Valide chaque argument d'action pour lequel un validateur FluentValidation existe.</summary>
 public sealed class SoftSupportValidationFilter(IServiceProvider services) : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)

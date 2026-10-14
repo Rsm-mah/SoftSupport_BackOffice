@@ -11,14 +11,11 @@ interface DemoArticle {
   code: string;
   title: string;
   product: string;
-  /** Mots qui font remonter la fiche quand la requête les contient. */
   keywords: string[];
 }
 
-/** Requêtes tapées en boucle dans la barre de recherche de la vitrine. */
 const QUERIES = ['incohérence stock', 'accès base comptable', 'connexion Sage CRM', 'lenteur Tom', 'impression documents'];
 
-/** Articles validés de la base BDC, repris tels quels pour la vitrine. */
 const ARTICLES: readonly DemoArticle[] = [
   { code: 'SAGGES|00000002', title: 'Incohérence quantité stock', product: 'Sage Gestion Commerciale', keywords: ['incohérence', 'stock', 'quantité'] },
   { code: 'SAGCPT|00000003', title: "Problème d'accès à la base comptable - 50C", product: 'Sage Comptabilité', keywords: ['accès', 'base', 'comptable'] },
@@ -58,10 +55,8 @@ export class LoginComponent {
   readonly showPassword = signal(false);
   readonly errorMessage = signal<string | null>(null);
 
-  /** Texte affiché dans la barre de recherche de démonstration. */
   readonly typed = signal(this.reducedMotion ? QUERIES[0] : '');
 
-  /** Fiches qui correspondent à la requête en cours de frappe. */
   readonly results = computed(() => {
     const query = this.typed().trim().toLowerCase();
     if (query.length < 3) {
@@ -131,7 +126,6 @@ export class LoginComponent {
     });
   }
 
-  /** Frappe, pause, effacement, requête suivante — comme l'animation Typed.js de l'ancien écran BDC. */
   private startTyping(): void {
     let query = 0;
     let length = 0;

@@ -1,6 +1,5 @@
 namespace SoftSupport.Infrastructure.Mail;
 
-/// <summary>Serveur d'envoi (section <c>Smtp</c>).</summary>
 public sealed class SmtpOptions
 {
     public const string SectionName = "Smtp";

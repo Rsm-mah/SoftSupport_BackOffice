@@ -7,7 +7,6 @@ using SoftSupport.Domain;
 
 namespace SoftSupport.Api;
 
-/// <summary>Traduit les exceptions en réponses <see cref="ApiResponse{T}"/> avec le bon statut HTTP.</summary>
 public sealed class SoftSupportExceptionHandler(ILogger<SoftSupportExceptionHandler> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(

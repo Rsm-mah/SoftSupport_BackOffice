@@ -43,7 +43,6 @@ public sealed class ProductsController(IProductService service) : SoftSupportCon
         Ok(ApiResponse.Ok(message: await service.ImportFromCrmAsync(cancellationToken)));
 }
 
-/// <summary>Produits proposés dans les packs (administrateur) et les contrats clients (commerciaux).</summary>
 [Route("api/softsupport/products/lookup")]
 [Authorize(Policy = SoftSupportAuthorizationPolicies.CatalogLookup)]
 public sealed class ProductLookupController(IProductService service) : SoftSupportControllerBase
@@ -153,7 +152,6 @@ public sealed class CategoriesController(ICategoryService service) : SoftSupport
     public async Task<ActionResult<ApiResponse<CategoryDetailDto>>> Get(int id, CancellationToken cancellationToken) =>
         Ok(ApiResponse<CategoryDetailDto>.Ok(await service.GetDetailAsync(id, cancellationToken)));
 
-    /// <summary>Produits sans catégorie, plus ceux de la catégorie indiquée.</summary>
     [HttpGet("assignable-products")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<LookupDto>>), StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse<IReadOnlyList<LookupDto>>>> GetAssignableProducts(
