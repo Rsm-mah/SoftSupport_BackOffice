@@ -69,10 +69,10 @@ public sealed class CompanyRepository(SoftSupportDbContext db, TimeProvider cloc
     public Task<bool> NameExistsAsync(string name, CancellationToken cancellationToken) =>
         db.Companies.AnyAsync(company => company.Name == name, cancellationToken);
 
-    public Task<List<ContractLine>> GetContractLinesAsync(int companyId, CancellationToken cancellationToken) =>
+    public Task<List<CompanyProduct>> GetContractLinesAsync(int companyId, CancellationToken cancellationToken) =>
         db.ContractLines.Where(line => line.CompanyId == companyId).ToListAsync(cancellationToken);
 
-    public Task<ContractLine?> FindContractLineAsync(int contractLineId, CancellationToken cancellationToken) =>
+    public Task<CompanyProduct?> FindContractLineAsync(int contractLineId, CancellationToken cancellationToken) =>
         db.ContractLines.FirstOrDefaultAsync(line => line.Id == contractLineId, cancellationToken);
 
     public async Task<IReadOnlyList<ContractLineDto>> GetProductContractsAsync(
@@ -185,9 +185,9 @@ public sealed class CompanyRepository(SoftSupportDbContext db, TimeProvider cloc
 
     public void Remove(Company company) => db.Companies.Remove(company);
 
-    public void AddContractLine(ContractLine line) => db.ContractLines.Add(line);
+    public void AddContractLine(CompanyProduct line) => db.ContractLines.Add(line);
 
-    public void RemoveContractLine(ContractLine line) => db.ContractLines.Remove(line);
+    public void RemoveContractLine(CompanyProduct line) => db.ContractLines.Remove(line);
 
     public void AddCustomer(Customer customer) => db.Customers.Add(customer);
 
@@ -209,7 +209,7 @@ public sealed class CompanyRepository(SoftSupportDbContext db, TimeProvider cloc
         });
     }
 
-    private IQueryable<ContractLineDto> ContractRows(IQueryable<ContractLine> lines) =>
+    private IQueryable<ContractLineDto> ContractRows(IQueryable<CompanyProduct> lines) =>
         lines.Select(line => new ContractLineDto(
             line.Id,
             line.ProductId,

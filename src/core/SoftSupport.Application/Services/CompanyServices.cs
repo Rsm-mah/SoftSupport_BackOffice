@@ -66,7 +66,7 @@ public sealed class CompanyService(
 
             foreach (var contract in contracts)
             {
-                var line = ContractLine.Create(company.Id, contract.ProductId, contract.StartDate, contract.EndDate);
+                var line = CompanyProduct.Create(company.Id, contract.ProductId, contract.StartDate, contract.EndDate);
                 companies.AddContractLine(line);
                 companies.AddHistory(ContractHistory.Record(ContractHistoryType.Creation, company, line, now));
             }
@@ -135,7 +135,7 @@ public sealed class CompanyService(
 
                 if (latest is null)
                 {
-                    var line = ContractLine.Create(companyId, contract.ProductId, contract.StartDate, contract.EndDate);
+                    var line = CompanyProduct.Create(companyId, contract.ProductId, contract.StartDate, contract.EndDate);
                     companies.AddContractLine(line);
                     companies.AddHistory(ContractHistory.Record(ContractHistoryType.Creation, company, line, now));
                 }
@@ -221,7 +221,7 @@ public sealed class CompanyService(
         ContractRules.EnsureValidPeriod(request.StartDate, request.EndDate);
         ContractRules.EnsureMinimumDuration(request.StartDate, request.EndDate);
 
-        var line = ContractLine.Create(companyId, request.ProductId, request.StartDate, request.EndDate);
+        var line = CompanyProduct.Create(companyId, request.ProductId, request.StartDate, request.EndDate);
         companies.AddContractLine(line);
         companies.AddHistory(ContractHistory.Record(ContractHistoryType.Creation, company, line, clock.GetLocalNow().DateTime));
         await companies.SaveChangesAsync(cancellationToken);
@@ -262,7 +262,7 @@ public sealed class CompanyService(
             ?? throw new SoftSupportDomainException("Aucun contrat à renouveler pour ce produit.");
 
         ContractRules.EnsureRenewalAfter(last.StartDate, last.EndDate, request.StartDate, request.EndDate);
-        var line = ContractLine.Create(companyId, request.ProductId, request.StartDate, request.EndDate);
+        var line = CompanyProduct.Create(companyId, request.ProductId, request.StartDate, request.EndDate);
         companies.AddContractLine(line);
         companies.AddHistory(ContractHistory.Record(ContractHistoryType.Renouvellement, company, line, clock.GetLocalNow().DateTime));
         await companies.SaveChangesAsync(cancellationToken);

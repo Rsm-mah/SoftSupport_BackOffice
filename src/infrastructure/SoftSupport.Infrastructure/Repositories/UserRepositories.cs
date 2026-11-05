@@ -33,7 +33,7 @@ public sealed class UserRepository(SoftSupportDbContext db) : IUserRepository
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                user.DateCreated,
+                user.CreatedAt,
                 Role = user.Role!.Name,
                 Departement = user.Departement!.Name,
                 user.Validator,
@@ -53,7 +53,7 @@ public sealed class UserRepository(SoftSupportDbContext db) : IUserRepository
                 .Select(departement => departement.Name)
                 .ToListAsync(cancellationToken);
 
-        return new UserProfileDto(row.Id, row.FirstName, row.LastName, row.Email, row.DateCreated, row.Role, row.Departement, validated);
+        return new UserProfileDto(row.Id, row.FirstName, row.LastName, row.Email, row.CreatedAt, row.Role, row.Departement, validated);
     }
 
     public async Task<IReadOnlyList<UserListItemDto>> GetAllAsync(CancellationToken cancellationToken)
@@ -67,7 +67,7 @@ public sealed class UserRepository(SoftSupportDbContext db) : IUserRepository
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                user.DateCreated,
+                user.CreatedAt,
                 user.RoleId,
                 Role = user.Role!.Name,
                 user.DepartementId,
@@ -82,7 +82,7 @@ public sealed class UserRepository(SoftSupportDbContext db) : IUserRepository
                 row.FirstName,
                 row.LastName,
                 row.Email,
-                row.DateCreated,
+                row.CreatedAt,
                 row.RoleId,
                 row.Role,
                 row.DepartementId,

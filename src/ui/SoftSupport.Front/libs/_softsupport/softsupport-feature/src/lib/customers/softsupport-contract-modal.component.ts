@@ -4,7 +4,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SoftButtonComponent, SoftIconComponent, SoftInputComponent, SoftModalComponent, SoftSelectComponent } from '@soft-mfe/shared-components';
 import { SelectOption } from '@soft-mfe/shared-models';
 import { getApiErrorMessage, ToastService } from '@soft-mfe/shared-services';
-import { ContractLine, LookupItem, toDateInput } from '@softsupport/models';
+import { CompanyProduct, LookupItem, toDateInput } from '@softsupport/models';
 import { SoftSupportCompanyService } from '@softsupport/service';
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ export type ContractModalMode = 'add' | 'edit' | 'renew';
 
 export interface ContractModalRequest {
   mode: ContractModalMode;
-  contract: ContractLine | null;
+  contract: CompanyProduct | null;
 }
 
 @Component({

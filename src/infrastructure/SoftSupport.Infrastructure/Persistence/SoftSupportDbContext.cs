@@ -19,7 +19,7 @@ public sealed class SoftSupportDbContext(DbContextOptions<SoftSupportDbContext> 
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<ProductPack> ProductPacks => Set<ProductPack>();
     public DbSet<Company> Companies => Set<Company>();
-    public DbSet<ContractLine> ContractLines => Set<ContractLine>();
+    public DbSet<CompanyProduct> ContractLines => Set<CompanyProduct>();
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<ContractHistory> ContractHistories => Set<ContractHistory>();
     public DbSet<Comment> Comments => Set<Comment>();

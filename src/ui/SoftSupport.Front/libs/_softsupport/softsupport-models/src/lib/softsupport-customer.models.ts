@@ -17,7 +17,7 @@ export interface CompanyListItem {
   customers: CustomerItem[];
 }
 
-export interface ContractLine {
+export interface CompanyProduct {
   contractId: number;
   productId: number;
   productName: string;
@@ -30,7 +30,7 @@ export interface CompanyDetail {
   name: string;
   shortName: string;
   userNumber: number;
-  contracts: ContractLine[];
+  contracts: CompanyProduct[];
   customers: CustomerItem[];
 }
 
