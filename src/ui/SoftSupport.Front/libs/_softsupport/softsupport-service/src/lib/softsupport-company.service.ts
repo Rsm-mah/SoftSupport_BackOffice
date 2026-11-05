@@ -5,7 +5,7 @@ import {
   CompanySaved,
   ContractHistoryItem,
   ContractHistoryQuery,
-  ContractLine,
+  CompanyProduct,
   CustomerSaved,
   SaveCompanyPayload,
   SaveContractPayload,
@@ -43,8 +43,8 @@ export class SoftSupportCompanyService extends SoftSupportApiBase {
     return this.sendMessage('DELETE', `companies/${companyId}`);
   }
 
-  getProductContracts(companyId: number, productId: number): Observable<ContractLine[]> {
-    return this.getData<ContractLine[]>(`companies/${companyId}/products/${productId}/contracts`);
+  getProductContracts(companyId: number, productId: number): Observable<CompanyProduct[]> {
+    return this.getData<CompanyProduct[]>(`companies/${companyId}/products/${productId}/contracts`);
   }
 
   addContract(companyId: number, payload: SaveContractPayload): Observable<string> {

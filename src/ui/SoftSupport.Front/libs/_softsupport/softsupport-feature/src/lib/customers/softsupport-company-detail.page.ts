@@ -11,7 +11,7 @@ import {
   SoftModalComponent,
 } from '@soft-mfe/shared-components';
 import { getApiErrorMessage, ToastService } from '@soft-mfe/shared-services';
-import { CompanyDetail, ContractLine, contractState, ContractState, CustomerItem, LookupItem } from '@softsupport/models';
+import { CompanyDetail, CompanyProduct, contractState, ContractState, CustomerItem, LookupItem } from '@softsupport/models';
 import { SoftSupportCompanyService, SoftSupportProductService } from '@softsupport/service';
 import { Credentials, SoftSupportCredentialsModalComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
 import { ContractModalRequest, SoftSupportContractModalComponent } from './softsupport-contract-modal.component';
@@ -238,12 +238,12 @@ export class SoftSupportCompanyDetailPage {
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly contractRequest = signal<ContractModalRequest | null>(null);
-  readonly historyOf = signal<ContractLine | null>(null);
-  readonly history = signal<ContractLine[]>([]);
+  readonly historyOf = signal<CompanyProduct | null>(null);
+  readonly history = signal<CompanyProduct[]>([]);
   readonly customerOpen = signal(false);
   readonly editedCustomer = signal<CustomerItem | null>(null);
   readonly credentials = signal<Credentials | null>(null);
-  readonly contractToDelete = signal<ContractLine | null>(null);
+  readonly contractToDelete = signal<CompanyProduct | null>(null);
   readonly customerToDelete = signal<CustomerItem | null>(null);
 
   readonly activeCount = computed(() => (this.company()?.contracts ?? []).filter(line => ['active', 'expiring'].includes(this.state(line))).length);
@@ -256,19 +256,19 @@ export class SoftSupportCompanyDetailPage {
     });
   }
 
-  state(line: ContractLine): ContractState {
+  state(line: CompanyProduct): ContractState {
     return contractState(line.startDate, line.endDate);
   }
 
-  variant(line: ContractLine): 'success' | 'warning' | 'danger' | 'info' {
+  variant(line: CompanyProduct): 'success' | 'warning' | 'danger' | 'info' {
     return STATE_VARIANT[this.state(line)];
   }
 
-  dotColor(line: ContractLine): string {
+  dotColor(line: CompanyProduct): string {
     return { active: '#10b981', expiring: '#fbbf24', expired: '#f87171', future: '#38bdf8' }[this.state(line)];
   }
 
-  showHistory(line: ContractLine): void {
+  showHistory(line: CompanyProduct): void {
     this.historyOf.set(line);
     this.history.set([]);
     this.companiesApi.getProductContracts(Number(this.id()), line.productId).subscribe({ next: lines => this.history.set(lines) });
@@ -290,7 +290,7 @@ export class SoftSupportCompanyDetailPage {
     this.load();
   }
 
-  askDeleteContract(line: ContractLine): void {
+  askDeleteContract(line: CompanyProduct): void {
     this.contractToDelete.set(line);
     this.deleteContractModal()?.open();
   }

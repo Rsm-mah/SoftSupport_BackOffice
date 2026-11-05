@@ -14,12 +14,15 @@ public sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(company => company.Name).HasColumnName("CompanyName").IsRequired();
         builder.Property(company => company.ShortName).HasColumnName("CNomAbrege").IsRequired();
         builder.Property(company => company.UserNumber).HasColumnName("UserNumber");
+        builder.Property(ticket => ticket.CreatedAt).HasColumnName("created_at");
+        builder.Property(ticket => ticket.UpdatedAt).HasColumnName("updated_at");
+        builder.Property(ticket => ticket.IsDeleted).HasColumnName("isDeleted");
     }
 }
 
-public sealed class ContractLineConfiguration : IEntityTypeConfiguration<ContractLine>
+public sealed class ContractLineConfiguration : IEntityTypeConfiguration<CompanyProduct>
 {
-    public void Configure(EntityTypeBuilder<ContractLine> builder)
+    public void Configure(EntityTypeBuilder<CompanyProduct> builder)
     {
         builder.ToTable("CompanyProducts");
         builder.HasKey(line => line.Id);
@@ -48,6 +51,10 @@ public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.Property(customer => customer.IsAdmin).HasColumnName("isAdmin");
         builder.Property(customer => customer.Function).HasColumnName("Function");
         builder.Property(customer => customer.Token).HasColumnName("token");
+        builder.Property(ticket => ticket.CreatedAt).HasColumnName("created_at");
+        builder.Property(ticket => ticket.UpdatedAt).HasColumnName("updated_at");
+        builder.Property(ticket => ticket.IsDeleted).HasColumnName("isDeleted");
+
         builder.HasOne<Company>().WithMany().HasForeignKey(customer => customer.CompanyId);
     }
 }

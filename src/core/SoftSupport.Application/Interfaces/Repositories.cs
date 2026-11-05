@@ -227,9 +227,9 @@ public interface ICompanyRepository
 
     Task<bool> NameExistsAsync(string name, CancellationToken cancellationToken);
 
-    Task<List<ContractLine>> GetContractLinesAsync(int companyId, CancellationToken cancellationToken);
+    Task<List<CompanyProduct>> GetContractLinesAsync(int companyId, CancellationToken cancellationToken);
 
-    Task<ContractLine?> FindContractLineAsync(int contractLineId, CancellationToken cancellationToken);
+    Task<CompanyProduct?> FindContractLineAsync(int contractLineId, CancellationToken cancellationToken);
 
     Task<IReadOnlyList<ContractLineDto>> GetProductContractsAsync(
         int companyId,
@@ -254,9 +254,9 @@ public interface ICompanyRepository
 
     void Remove(Company company);
 
-    void AddContractLine(ContractLine line);
+    void AddContractLine(CompanyProduct line);
 
-    void RemoveContractLine(ContractLine line);
+    void RemoveContractLine(CompanyProduct line);
 
     void AddCustomer(Customer customer);
 

@@ -15,10 +15,12 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.LastName).HasColumnName("LastName");
         builder.Property(user => user.Email).HasColumnName("Email").IsRequired();
         builder.Property(user => user.Password).HasColumnName("Password").IsRequired();
-        builder.Property(user => user.DateCreated).HasColumnName("DateCreated");
         builder.Property(user => user.Validator).HasColumnName("Validator");
         builder.Property(user => user.DepartementId).HasColumnName("DepartementId");
         builder.Property(user => user.RoleId).HasColumnName("RoleId");
+        builder.Property(ticket => ticket.CreatedAt).HasColumnName("created_at");
+        builder.Property(ticket => ticket.UpdatedAt).HasColumnName("updated_at");
+        builder.Property(ticket => ticket.IsDeleted).HasColumnName("isDeleted");
         builder.Ignore(user => user.IsValidator);
         builder.Ignore(user => user.DisplayName);
 
@@ -35,6 +37,9 @@ public sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder.HasKey(role => role.Id);
         builder.Property(role => role.Id).HasColumnName("RoleId").UseIdentityColumn();
         builder.Property(role => role.Name).HasColumnName("RoleName").IsRequired();
+        builder.Property(ticket => ticket.CreatedAt).HasColumnName("created_at");
+        builder.Property(ticket => ticket.UpdatedAt).HasColumnName("updated_at");
+        builder.Property(ticket => ticket.IsDeleted).HasColumnName("isDeleted");
     }
 }
 
@@ -46,5 +51,8 @@ public sealed class DepartementConfiguration : IEntityTypeConfiguration<Departem
         builder.HasKey(departement => departement.Id);
         builder.Property(departement => departement.Id).HasColumnName("DepartementId").UseIdentityColumn();
         builder.Property(departement => departement.Name).HasColumnName("DepartementName").IsRequired();
+        builder.Property(ticket => ticket.CreatedAt).HasColumnName("created_at");
+        builder.Property(ticket => ticket.UpdatedAt).HasColumnName("updated_at");
+        builder.Property(ticket => ticket.IsDeleted).HasColumnName("isDeleted");
     }
 }
