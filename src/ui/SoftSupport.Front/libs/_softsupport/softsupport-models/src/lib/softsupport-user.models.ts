@@ -3,6 +3,13 @@ export interface LookupItem {
   name: string;
 }
 
+export interface UsersQuery {
+  page?: number;
+  pageSize?: number;
+  roleId?: number | null;
+  search?: string;
+}
+
 export interface UserListItem {
   userId: string;
   firstName: string | null;

@@ -1,9 +1,10 @@
 # SoftSupport — back-office de la base de connaissances
 
 Refonte du **back-office BDC** (ASP.NET MVC + AdminLTE) sur l'architecture et la charte graphique
-de SOFTAPPLICATION / SoftHelp. Les fonctionnalités sont celles de BDC et la **base de données est
-inchangée** : le nouveau backend se branche sur les tables existantes (base `BDC`) et sur le CRM
-(`CRMSOFTWELL`) sans migration. Le portail client (FrontOffice BDC) n'est pas concerné.
+de SOFTAPPLICATION / SoftHelp. Les fonctionnalités sont celles de BDC : le nouveau backend se
+branche sur les tables existantes (base `BDC`) et sur le CRM (`CRMSOFTWELL`). Les évolutions du
+schéma BDC passent par les migrations EF Core (voir « Migrations »). Le portail client (FrontOffice
+BDC) n'est pas concerné.
 
 ## Structure
 
@@ -130,6 +131,33 @@ npm start              # ou npm run serve:lan pour l'ouvrir depuis le réseau
 # Contrôles
 dotnet test src/tests/SoftSupport.Domain.Tests
 ```
+
+## Migrations
+
+Les migrations sont dans `src/infrastructure/SoftSupport.Infrastructure/Persistence/Migrations`.
+`Baseline` représente le schéma BDC d'origine et ne fait rien : elle est seulement inscrite dans
+`__EFMigrationsHistory`, à côté des anciennes migrations de BDC qui y restent.
+Si un `dotnet run` est en cours, ajouter `--configuration Release` (le dossier `bin/Debug` est verrouillé).
+
+```bash
+cd src
+# Après une modification d'entité ou de configuration
+dotnet ef migrations add <Nom> --context SoftSupportDbContext \
+  --project infrastructure/SoftSupport.Infrastructure --startup-project api/SoftSupport.Api \
+  -o Persistence/Migrations
+
+# Appliquer sur la base locale
+dotnet ef database update --context SoftSupportDbContext \
+  --project infrastructure/SoftSupport.Infrastructure --startup-project api/SoftSupport.Api
+
+# Script SQL idempotent pour les serveurs 141 / 151
+dotnet ef migrations script --idempotent --context SoftSupportDbContext \
+  --project infrastructure/SoftSupport.Infrastructure --startup-project api/SoftSupport.Api \
+  -o migrations.sql
+```
+
+Relire chaque migration générée : EF confond parfois un renommage de colonne avec une
+suppression suivie d'un ajout, et remplit les nouvelles colonnes de dates avec 0001-01-01.
 
 ## Écarts assumés avec BDC
 

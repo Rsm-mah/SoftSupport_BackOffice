@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Comments;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain.Entities;
 using SoftSupport.Domain.Rules;
 using SoftSupport.Infrastructure.Persistence;

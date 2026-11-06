@@ -1,6 +1,6 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Services;
 using SoftSupport.Application.Services;
 
 namespace SoftSupport.Application;

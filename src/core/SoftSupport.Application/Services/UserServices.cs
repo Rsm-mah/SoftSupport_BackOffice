@@ -1,8 +1,10 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoftSupport.Application.Abstractions;
+using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Users;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
+using SoftSupport.Application.Interfaces.Services;
 using SoftSupport.Domain;
 using SoftSupport.Domain.Entities;
 
@@ -44,16 +46,15 @@ public sealed class UserAdminService(
     TimeProvider clock,
     ILogger<UserAdminService> logger) : IUserAdminService
 {
-    public Task<IReadOnlyList<UserListItemDto>> GetAllAsync(CancellationToken cancellationToken) =>
-        users.GetAllAsync(cancellationToken);
+    public Task<PagedResult<UserListItemDto>> GetAllAsync(UsersQuery query, CancellationToken cancellationToken) =>
+        users.GetAllAsync(query, cancellationToken);
 
     public async Task<UserFormOptionsDto> GetFormOptionsAsync(CancellationToken cancellationToken) =>
         new(await referentiels.GetRolesAsync(cancellationToken), await referentiels.GetDepartementsAsync(cancellationToken));
 
     public async Task<string> CreateAsync(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var email = request.Email.Trim();
-        if (await users.EmailExistsAsync(email, null, cancellationToken))
+        if (await users.EmailExistsAsync(request.Email, null, cancellationToken))
         {
             throw new SoftSupportConflictException("Un utilisateur utilise déjà cette adresse e-mail.");
         }
@@ -64,21 +65,17 @@ public sealed class UserAdminService(
         var user = User.Create(
             request.FirstName,
             request.LastName,
-            email,
+            request.Email,
             passwordHasher.Hash(defaultPassword),
             request.DepartementId,
             request.RoleId,
             clock.GetLocalNow().DateTime);
-        user.UpdateAccess(
-            request.FirstName,
-            request.LastName,
-            request.RoleId,
-            request.DepartementId,
-            request.ValidatorDepartementIds ?? []);
 
         await users.AddAsync(user, cancellationToken);
         await users.SaveChangesAsync(cancellationToken);
+
         logger.LogInformation("Compte {UserId} créé", user.Id);
+        
         return $"Utilisateur créé. Mot de passe initial : {defaultPassword}";
     }
 

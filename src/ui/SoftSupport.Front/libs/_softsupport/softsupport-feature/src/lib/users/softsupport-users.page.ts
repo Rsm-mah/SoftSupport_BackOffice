@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
@@ -17,6 +17,7 @@ import { getApiErrorMessage, ToastService } from '@soft-mfe/shared-services';
 import { ROLE_ADMINISTRATEUR, SOFTSUPPORT_DEFAULT_PAGE_SIZE, UserFormOptions, UserListItem } from '@softsupport/models';
 import { SoftSupportSessionService, SoftSupportUsersService } from '@softsupport/service';
 import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } from '@softsupport/ui';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'softsupport-users-page',
@@ -49,8 +50,8 @@ import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } fr
       </softsupport-page-header>
 
       <div class="ss-reveal grid w-full max-w-3xl grid-cols-1 gap-3 md:grid-cols-2" style="--delay: 0.15s">
-        <soft-input [label]="'softsupport.common.search' | translate" [placeholder]="'softsupport.users.searchPlaceholder' | translate" name="filter-user" autocomplete="off" [value]="search()" (valueChange)="search.set($event); page.set(1)" />
-        <soft-select [label]="'softsupport.users.fields.role' | translate" [placeholder]="'softsupport.common.all' | translate" [options]="roleFilterOptions()" [value]="roleFilter()" (valueChange)="roleFilter.set($event); page.set(1)" />
+        <soft-input [label]="'softsupport.common.search' | translate" [placeholder]="'softsupport.users.searchPlaceholder' | translate" name="filter-user" autocomplete="off" [value]="search()" (valueChange)="onSearch($event)" />
+        <soft-select [label]="'softsupport.users.fields.role' | translate" [placeholder]="'softsupport.common.all' | translate" [options]="roleFilterOptions()" [value]="roleFilter()" (valueChange)="roleFilter.set($event); reload()" />
       </div>
 
       <div class="ss-reveal mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white" style="--delay: 0.25s">
@@ -72,11 +73,11 @@ import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } fr
                 <tr><td colspan="7" class="px-4 py-8 text-center text-slate-500">{{ 'common.loading' | translate }}</td></tr>
               } @else if (error()) {
                 <tr><td colspan="7" class="px-4 py-8 text-center text-red-600">{{ error() }}</td></tr>
-              } @else if (visible().length === 0) {
-                <tr><td colspan="7" class="px-4 py-10"><soft-data-table-empty-state [message]="'softsupport.users.empty' | translate" [hasActiveFilters]="search().trim() !== '' || roleFilter() !== ''" (clearFilters)="search.set(''); roleFilter.set('')" /></td></tr>
+              } @else if (rows().length === 0) {
+                <tr><td colspan="7" class="px-4 py-10"><soft-data-table-empty-state [message]="'softsupport.users.empty' | translate" [hasActiveFilters]="search().trim() !== '' || roleFilter() !== ''" (clearFilters)="clearFilters()" /></td></tr>
               } @else {
-                @for (row of visible(); track row.userId) {
-                  <tr class="ss-row cursor-pointer hover:bg-slate-50" [style.--i]="$index" (click)="openForm(row)">
+                @for (row of rows(); track row.userId) {
+                  <tr class="ss-row cursor-pointer hover:bg-slate-50" [class.opacity-60]="loading()" [style.--i]="$index" (click)="openForm(row)">
                     <td class="px-4 py-3 font-medium text-slate-900">{{ fullName(row) || '—' }}</td>
                     <td class="px-4 py-3 text-slate-700">{{ row.email }}</td>
                     <td class="px-4 py-3"><soft-badge [variant]="row.role === admin ? 'primary' : 'secondary'">{{ row.role || '—' }}</soft-badge></td>
@@ -109,8 +110,8 @@ import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } fr
             </tbody>
           </table>
         </div>
-        @if (!error() && filtered().length > 0) {
-          <softsupport-list-pagination [page]="page()" [pageSize]="pageSize()" [totalCount]="filtered().length" (pageChange)="page.set($event)" (pageSizeChange)="pageSize.set($event); page.set(1)" />
+        @if (!error() && totalCount() > 0) {
+          <softsupport-list-pagination [page]="page()" [pageSize]="pageSize()" [totalCount]="totalCount()" (pageChange)="page.set($event); load()" (pageSizeChange)="pageSize.set($event); reload()" />
         }
       </div>
     </section>
@@ -179,17 +180,20 @@ import { SoftSupportListPaginationComponent, SoftSupportPageHeaderComponent } fr
     />
   `,
 })
-export class SoftSupportUsersPage implements OnInit {
+export class SoftSupportUsersPage implements OnInit, OnDestroy {
   private readonly usersApi = inject(SoftSupportUsersService);
   private readonly session = inject(SoftSupportSessionService);
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
   private readonly deleteModal = viewChild<ConfirmationModalComponent>('deleteModal');
+  private searchTimer: ReturnType<typeof setTimeout> | null = null;
+  private loadSubscription: Subscription | null = null;
 
   readonly admin = ROLE_ADMINISTRATEUR;
   readonly currentUserId = computed(() => this.session.user()?.userId);
 
   readonly rows = signal<UserListItem[]>([]);
+  readonly totalCount = signal(0);
   readonly options = signal<UserFormOptions | null>(null);
   readonly loading = signal(true);
   readonly saving = signal(false);
@@ -217,24 +221,37 @@ export class SoftSupportUsersPage implements OnInit {
   );
   readonly roleFilterOptions = computed<SelectOption[]>(() => [
     { value: '', label: this.translate.instant('softsupport.common.all') },
-    ...(this.options()?.roles ?? []).map(role => ({ value: role.name, label: role.name })),
+    ...(this.options()?.roles ?? []).map(role => ({ value: String(role.id), label: role.name })),
   ]);
-
-  readonly filtered = computed(() => {
-    const term = this.search().trim().toLowerCase();
-    const role = this.roleFilter();
-    return this.rows().filter(
-      row => (!term || `${this.fullName(row)} ${row.email} ${row.departement ?? ''}`.toLowerCase().includes(term)) && (!role || row.role === role),
-    );
-  });
-
-  readonly visible = computed(() => {
-    const start = (this.page() - 1) * this.pageSize();
-    return this.filtered().slice(start, start + this.pageSize());
-  });
 
   ngOnInit(): void {
     this.usersApi.getFormOptions().subscribe({ next: options => this.options.set(options) });
+    this.load();
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
+    }
+    this.loadSubscription?.unsubscribe();
+  }
+
+  onSearch(value: string): void {
+    this.search.set(value);
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
+    }
+    this.searchTimer = setTimeout(() => this.reload(), 350);
+  }
+
+  clearFilters(): void {
+    this.search.set('');
+    this.roleFilter.set('');
+    this.reload();
+  }
+
+  reload(): void {
+    this.page.set(1);
     this.load();
   }
 
@@ -321,15 +338,26 @@ export class SoftSupportUsersPage implements OnInit {
   load(): void {
     this.loading.set(true);
     this.error.set(null);
-    this.usersApi.getAll().subscribe({
-      next: rows => {
-        this.rows.set(rows);
-        this.loading.set(false);
-      },
-      error: error => {
-        this.loading.set(false);
-        this.error.set(getApiErrorMessage(error) ?? this.translate.instant('common.errors.generic'));
-      },
-    });
+    const role = this.roleFilter();
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.usersApi
+      .getAll({ page: this.page(), pageSize: this.pageSize(), roleId: role ? Number(role) : null, search: this.search() })
+      .subscribe({
+        next: result => {
+          // Après une suppression, la dernière page peut être vide : on revient à la précédente.
+          if (result.items.length === 0 && this.page() > 1) {
+            this.page.update(page => page - 1);
+            this.load();
+            return;
+          }
+          this.rows.set(result.items);
+          this.totalCount.set(result.totalCount);
+          this.loading.set(false);
+        },
+        error: error => {
+          this.loading.set(false);
+          this.error.set(getApiErrorMessage(error) ?? this.translate.instant('common.errors.generic'));
+        },
+      });
   }
 }

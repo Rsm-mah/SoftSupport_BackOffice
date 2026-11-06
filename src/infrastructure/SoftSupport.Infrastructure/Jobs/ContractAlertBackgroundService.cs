@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoftSupport.Application;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Infrastructure.Jobs;
 

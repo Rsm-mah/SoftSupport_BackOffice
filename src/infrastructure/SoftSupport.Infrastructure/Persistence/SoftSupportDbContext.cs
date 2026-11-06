@@ -4,7 +4,7 @@ using SoftSupport.Infrastructure.Persistence.Configurations;
 
 namespace SoftSupport.Infrastructure.Persistence;
 
-// Mappé sur la base BDC existante : aucune migration ne doit être générée depuis ce contexte.
+// Mappé sur la base BDC existante : la migration Baseline est vide, seules les suivantes modifient le schéma.
 public sealed class SoftSupportDbContext(DbContextOptions<SoftSupportDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users => Set<User>();

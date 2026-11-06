@@ -135,3 +135,19 @@ public sealed record PendingCountDto(bool IsValidator, int Count);
 public sealed record ArticleExportQuery(DateTime From, DateTime To, int DepartementId);
 
 public sealed record ExportFile(string FileName, string ContentType, byte[] Content);
+
+public sealed record CrmImportLookups(
+    IReadOnlyDictionary<string, (int ProductId, string? CategoryCode)> ProductsByCrmCode,
+    IReadOnlyDictionary<string, int> VersionsByName,
+    IReadOnlyDictionary<string, string> UserIdsByEmail);
+
+public sealed record EditableArticleRow(EditableArticleDto Article, string? AuthorId, int? AuthorDepartementId);
+
+public sealed record ArticleExportRow(
+    string? Code,
+    string? TicketNumber,
+    string? RequestNumber,
+    string Designation,
+    DateTime CreatedAt,
+    bool IsValidated,
+    string? Author);

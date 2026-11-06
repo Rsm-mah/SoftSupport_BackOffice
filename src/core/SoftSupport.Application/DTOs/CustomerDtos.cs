@@ -75,3 +75,10 @@ public sealed class ContractHistoryQuery : PagedQuery
     public string? Search { get; init; }
     public string? Type { get; init; }
 }
+
+public sealed record ExpiringContract(
+    int ContractId,
+    string CompanyName,
+    string? ProductName,
+    DateTime EndDate,
+    IReadOnlyList<string> CustomerEmails);

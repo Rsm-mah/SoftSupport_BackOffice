@@ -1,6 +1,7 @@
 using SoftSupport.Application.DTOs.Dashboard;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain.Rules;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Application.Services;
 

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SoftSupport.Application;
 using SoftSupport.Application.Abstractions;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Infrastructure.Crm;
 using SoftSupport.Infrastructure.Jobs;
 using SoftSupport.Infrastructure.Mail;

@@ -1,10 +1,11 @@
 using Microsoft.Extensions.Logging;
 using SoftSupport.Application.DTOs.Catalog;
 using SoftSupport.Application.DTOs.Users;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain;
 using SoftSupport.Domain.Entities;
 using SoftSupport.Domain.Rules;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Application.Services;
 
