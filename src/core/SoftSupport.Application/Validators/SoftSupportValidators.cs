@@ -41,6 +41,16 @@ public sealed class ChangePasswordRequestValidator : AbstractValidator<ChangePas
     }
 }
 
+public sealed class UsersQueryValidator : AbstractValidator<UsersQuery>
+{
+    public UsersQueryValidator()
+    {
+        PagingRules.Apply(this);
+        RuleFor(query => query.RoleId).GreaterThan(0).When(query => query.RoleId.HasValue);
+        RuleFor(query => query.Search).MaximumLength(200);
+    }
+}
+
 public sealed class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
 {
     public CreateUserRequestValidator()

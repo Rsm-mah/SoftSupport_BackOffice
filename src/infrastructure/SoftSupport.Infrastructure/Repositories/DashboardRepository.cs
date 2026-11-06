@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SoftSupport.Application.DTOs.Dashboard;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Infrastructure.Persistence;
 
 namespace SoftSupport.Infrastructure.Repositories;

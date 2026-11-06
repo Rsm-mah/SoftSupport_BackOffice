@@ -3,11 +3,13 @@ using Microsoft.Extensions.Options;
 using SoftSupport.Application.Abstractions;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Customers;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Application.Mail;
 using SoftSupport.Domain;
 using SoftSupport.Domain.Entities;
 using SoftSupport.Domain.Rules;
+using SoftSupport.Domain.Enums;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Application.Services;
 
@@ -57,7 +59,7 @@ public sealed class CompanyService(
 
         var now = clock.GetLocalNow().DateTime;
         string? password = null;
-        var company = Company.Create(name, request.ShortName, request.UserNumber);
+        var company = Company.Create(name, request.ShortName, request.UserNumber, now);
 
         await companies.InTransactionAsync(async () =>
         {
@@ -74,7 +76,7 @@ public sealed class CompanyService(
             if (admin is not null)
             {
                 password = TemporaryPassword.Generate();
-                companies.AddCustomer(Customer.Create(company.Id, admin.FirstName, admin.LastName, admin.Email, admin.Function, true, password));
+                companies.AddCustomer(Customer.Create(company.Id, admin.FirstName, admin.LastName, admin.Email, admin.Function, true, password, now));
             }
 
             await companies.SaveChangesAsync(cancellationToken);
@@ -152,11 +154,11 @@ public sealed class CompanyService(
                 if (admin is null)
                 {
                     newAdminPassword = TemporaryPassword.Generate();
-                    companies.AddCustomer(Customer.Create(companyId, input.FirstName, input.LastName, input.Email, input.Function, true, newAdminPassword));
+                    companies.AddCustomer(Customer.Create(companyId, input.FirstName, input.LastName, input.Email, input.Function, true, newAdminPassword, now));
                 }
                 else
                 {
-                    admin.Update(input.FirstName, input.LastName, input.Email, input.Function, true);
+                    admin.Update(input.FirstName, input.LastName, input.Email, input.Function, true, now);
                 }
             }
 
@@ -289,7 +291,8 @@ public sealed class CompanyService(
         await EnsureCustomerEmailFreeAsync(request.Email, null, cancellationToken);
 
         var password = TemporaryPassword.Generate();
-        var customer = Customer.Create(companyId, request.FirstName, request.LastName, request.Email, request.Function, request.IsAdmin, password);
+        var now = clock.GetLocalNow().DateTime;
+        var customer = Customer.Create(companyId, request.FirstName, request.LastName, request.Email, request.Function, request.IsAdmin, password, now);
         companies.AddCustomer(customer);
         await companies.SaveChangesAsync(cancellationToken);
         logger.LogInformation("Utilisateur client {CustomerId} créé pour la société {CompanyId}", customer.Id, companyId);
@@ -309,7 +312,8 @@ public sealed class CompanyService(
             ?? throw new KeyNotFoundException("Utilisateur client introuvable.");
         await EnsureCustomerEmailFreeAsync(request.Email, customerId, cancellationToken);
 
-        customer.Update(request.FirstName, request.LastName, request.Email, request.Function, request.IsAdmin);
+        var now = clock.GetLocalNow().DateTime;
+        customer.Update(request.FirstName, request.LastName, request.Email, request.Function, request.IsAdmin, now);
         string? password = null;
         if (request.ResetPassword)
         {

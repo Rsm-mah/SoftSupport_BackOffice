@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Articles;
 using SoftSupport.Application.DTOs.Users;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain.Entities;
 using SoftSupport.Domain.Rules;
 using SoftSupport.Infrastructure.Persistence;

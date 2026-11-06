@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SoftSupport.Api.Security;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Dashboard;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Api.Controllers;
 

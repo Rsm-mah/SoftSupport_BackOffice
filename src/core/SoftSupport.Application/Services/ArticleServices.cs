@@ -4,11 +4,12 @@ using Microsoft.Extensions.Logging;
 using SoftSupport.Application.Abstractions;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Articles;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Application.Mail;
 using SoftSupport.Domain;
 using SoftSupport.Domain.Entities;
 using SoftSupport.Domain.Rules;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Application.Services;
 

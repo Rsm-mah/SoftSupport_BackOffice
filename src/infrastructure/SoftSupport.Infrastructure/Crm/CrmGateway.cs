@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain.Entities;
 
 namespace SoftSupport.Infrastructure.Crm;

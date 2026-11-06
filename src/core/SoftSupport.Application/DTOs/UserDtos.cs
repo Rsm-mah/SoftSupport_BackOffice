@@ -1,6 +1,15 @@
+using SoftSupport.Application.Common;
+
 namespace SoftSupport.Application.DTOs.Users;
 
 public sealed record LookupDto(int Id, string Name);
+
+public sealed class UsersQuery : PagedQuery
+{
+    public int? RoleId { get; init; }
+
+    public string? Search { get; init; }
+}
 
 public sealed record UserListItemDto(
     string UserId,

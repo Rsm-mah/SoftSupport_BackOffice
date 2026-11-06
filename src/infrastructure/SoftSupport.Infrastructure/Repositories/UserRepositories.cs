@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Users;
-using SoftSupport.Application.Interfaces;
+ using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain.Entities;
 using SoftSupport.Domain.Rules;
 using SoftSupport.Infrastructure.Persistence;
@@ -56,11 +57,30 @@ public sealed class UserRepository(SoftSupportDbContext db) : IUserRepository
         return new UserProfileDto(row.Id, row.FirstName, row.LastName, row.Email, row.CreatedAt, row.Role, row.Departement, validated);
     }
 
-    public async Task<IReadOnlyList<UserListItemDto>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<PagedResult<UserListItemDto>> GetAllAsync(UsersQuery query, CancellationToken cancellationToken)
     {
-        var rows = await db.Users.AsNoTracking()
-            .OrderBy(user => user.FirstName)
-            .ThenBy(user => user.LastName)
+        var users = db.Users.AsNoTracking();
+        if (query.RoleId.HasValue)
+        {
+            users = users.Where(user => user.RoleId == query.RoleId.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(query.Search))
+        {
+            var term = query.Search.Trim();
+            users = users.Where(user =>
+                user.Email.Contains(term) ||
+                (user.FirstName != null && user.FirstName.Contains(term)) ||
+                (user.LastName != null && user.LastName.Contains(term)) ||
+                user.Departement!.Name.Contains(term));
+        }
+
+        var totalCount = await users.CountAsync(cancellationToken);
+        var rows = await users
+            .OrderByDescending(user => user.CreatedAt)
+            .ThenBy(user => user.Id)
+            .Skip(query.Skip)
+            .Take(query.SafePageSize)
             .Select(user => new
             {
                 user.Id,
@@ -76,19 +96,25 @@ public sealed class UserRepository(SoftSupportDbContext db) : IUserRepository
             })
             .ToListAsync(cancellationToken);
 
-        return rows
-            .Select(row => new UserListItemDto(
-                row.Id,
-                row.FirstName,
-                row.LastName,
-                row.Email,
-                row.CreatedAt,
-                row.RoleId,
-                row.Role,
-                row.DepartementId,
-                row.Departement,
-                ValidatorDepartements.Parse(row.Validator)))
-            .ToList();
+        return new PagedResult<UserListItemDto>
+        {
+            Items = rows
+                .Select(row => new UserListItemDto(
+                    row.Id,
+                    row.FirstName,
+                    row.LastName,
+                    row.Email,
+                    row.CreatedAt,
+                    row.RoleId,
+                    row.Role,
+                    row.DepartementId,
+                    row.Departement,
+                    ValidatorDepartements.Parse(row.Validator)))
+                .ToList(),
+            TotalCount = totalCount,
+            Page = query.SafePage,
+            PageSize = query.SafePageSize,
+        };
     }
 
     public Task<bool> HasArticlesAsync(string userId, CancellationToken cancellationToken) =>

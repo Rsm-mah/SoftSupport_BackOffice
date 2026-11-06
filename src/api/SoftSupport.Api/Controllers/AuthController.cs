@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Auth;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Api.Controllers;
 

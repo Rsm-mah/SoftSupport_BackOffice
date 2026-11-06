@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SoftSupport.Api.Security;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Users;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Api.Controllers;
 
@@ -12,9 +12,11 @@ namespace SoftSupport.Api.Controllers;
 public sealed class UsersController(IUserAdminService service) : SoftSupportControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<UserListItemDto>>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse<IReadOnlyList<UserListItemDto>>>> GetAll(CancellationToken cancellationToken) =>
-        Ok(ApiResponse<IReadOnlyList<UserListItemDto>>.Ok(await service.GetAllAsync(cancellationToken)));
+    [ProducesResponseType(typeof(ApiResponse<PagedResult<UserListItemDto>>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<ApiResponse<PagedResult<UserListItemDto>>>> GetAll(
+        [FromQuery] UsersQuery query,
+        CancellationToken cancellationToken) =>
+        Ok(ApiResponse<PagedResult<UserListItemDto>>.Ok(await service.GetAllAsync(query, cancellationToken)));
 
     [HttpGet("form-options")]
     [ProducesResponseType(typeof(ApiResponse<UserFormOptionsDto>), StatusCodes.Status200OK)]

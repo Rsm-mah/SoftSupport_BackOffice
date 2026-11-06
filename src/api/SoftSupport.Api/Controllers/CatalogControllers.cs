@@ -4,7 +4,7 @@ using SoftSupport.Api.Security;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Catalog;
 using SoftSupport.Application.DTOs.Users;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Api.Controllers;
 

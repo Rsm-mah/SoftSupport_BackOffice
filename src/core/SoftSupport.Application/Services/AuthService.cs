@@ -2,7 +2,8 @@ using Microsoft.Extensions.Logging;
 using SoftSupport.Application.Abstractions;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Auth;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
+using SoftSupport.Application.Interfaces.Services;
 
 namespace SoftSupport.Application.Services;
 

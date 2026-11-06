@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using SoftSupport.Application.Common;
 using SoftSupport.Application.DTOs.Customers;
-using SoftSupport.Application.Interfaces;
+using SoftSupport.Application.Interfaces.Repositories;
 using SoftSupport.Domain.Entities;
+using SoftSupport.Domain.Enums;
 using SoftSupport.Infrastructure.Persistence;
 
 namespace SoftSupport.Infrastructure.Repositories;
