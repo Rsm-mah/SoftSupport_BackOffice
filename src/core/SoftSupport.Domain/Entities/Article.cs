@@ -1,3 +1,4 @@
+using SoftSupport.Domain.Common;
 using SoftSupport.Domain.Rules;
 
 namespace SoftSupport.Domain.Entities;
@@ -13,7 +14,7 @@ public sealed record ArticleContent(
     string? TicketNumber,
     string? RequestNumber);
 
-public sealed class Article
+public sealed class Article : BaseEntity
 {
     public int Id { get; private set; }
 
@@ -29,7 +30,6 @@ public sealed class Article
 
     public int ViewNumber { get; private set; }
     public bool InCrm { get; private set; }
-    public DateTime CreatedAt { get; private set; }
     public bool IsAffected { get; private set; }
     public bool IsValidated { get; private set; }
 
@@ -63,17 +63,8 @@ public sealed class Article
         return article;
     }
 
-    public static Article ImportFromCrm(
-        string code,
-        int caseId,
-        string title,
-        string? problem,
-        string? solution,
-        string? authorId,
-        int? crmAssignedUser,
-        int? productId,
-        int? versionId,
-        DateTime now) =>
+    public static Article ImportFromCrm(string code, int caseId, string title, string? problem, string? solution, string? authorId, 
+        int? crmAssignedUser, int? productId, int? versionId, DateTime now) =>
         new()
         {
             Code = code,
@@ -161,25 +152,4 @@ public sealed class Article
         TicketNumber = content.TicketNumber;
         RequestNumber = content.RequestNumber;
     }
-}
-
-public sealed class ArticleVote
-{
-    public int Id { get; private set; }
-    public bool IsLike { get; private set; }
-    public int ArticleId { get; private set; }
-    public int CustomerId { get; private set; }
-}
-
-public sealed class ArticleUpdateLog
-{
-    public int Id { get; private set; }
-    public DateTime UpdateDate { get; private set; }
-    public int ArticleId { get; private set; }
-
-    public static ArticleUpdateLog For(Article article, DateTime now) =>
-        new() { ArticleId = article.Id, UpdateDate = now };
-
-    public static ArticleUpdateLog For(int articleId, DateTime now) =>
-        new() { ArticleId = articleId, UpdateDate = now };
 }

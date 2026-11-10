@@ -275,14 +275,6 @@ tbody tr.cursor-pointer {
   transition: background-color 0.2s var(--ease-css);
 }
 
-tbody tr.cursor-pointer > td:first-child {
-  transition: padding-left var(--duration-hover) var(--ease-css);
-}
-
-tbody tr.cursor-pointer:hover > td:first-child {
-  padding-left: 1.25rem;
-}
-
 td button[title] soft-icon {
   transition: transform 0.2s var(--ease-css);
 }
