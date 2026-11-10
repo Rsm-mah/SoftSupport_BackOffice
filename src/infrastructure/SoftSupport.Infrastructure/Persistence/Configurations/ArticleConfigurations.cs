@@ -34,6 +34,9 @@ public sealed class ArticleConfiguration : IEntityTypeConfiguration<Article>
         builder.Property(article => article.Code).HasColumnName("ArticleCode");
         builder.Property(article => article.TicketNumber).HasColumnName("NoTicket");
         builder.Property(article => article.RequestNumber).HasColumnName("NoDemande");
+        builder.Property(article => article.UpdatedAt).HasColumnName("updated_at");
+        builder.Property(article => article.IsDeleted).HasColumnName("isDeleted");
+
 
         builder.HasOne(article => article.Author).WithMany().HasForeignKey(article => article.UserId);
     }
